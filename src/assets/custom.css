@@ -10,6 +10,45 @@
     background-color: #FF9E0D;
 }
 
+.colorquaternary{
+    background-color: #8400a5;
+}
+
+.colorbox{
+    background-color: #E5E5E5;
+}
+
 .searchbar{
     width: 400px;
 }
+
+.border{
+    border-radius: 10%;
+    border: 2px solid rgb(14, 14, 14);
+}
+.borderimg {
+    border: 3px solid #8400a5;
+    border-radius: 50%;
+    background-color: white;
+  }
+
+.scrollbar::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+    background-color: #FF3838;
+}
+
+.thin::-webkit-scrollbar {
+    width: 8px;
+}
+
+.box {
+    position: static;
+    overflow-y: scroll;
+    height: 100%;
+}
+
+.nav-icon:hover {
+    fill: #8400a5
+}
+
