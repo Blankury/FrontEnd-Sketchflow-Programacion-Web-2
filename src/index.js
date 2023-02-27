@@ -2,10 +2,12 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "bootstrap/dist/css/bootstrap.css";
 import { Navbar } from "./components/Navbar";
+import { Footer } from "./components/Footer";
 import { Home } from "./views/Home";
 import { Login } from "./views/Login";
 import { Signin } from "./views/Signin";
 import { Profile } from "./views/Profile";
+import { Chat } from "./views/Chat";
 import { UploadImage } from "./views/UploadImage";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./assets/custom.css";
@@ -20,9 +22,9 @@ root.render(
                     <Navbar></Navbar>
                     <br />
                     <Home> </Home>
+                    <Footer></Footer>
                 </Route>
                 <Route path="/Login">
-                
                     <Login></Login>
                 </Route>
                 <Route path="/Signin">
@@ -32,11 +34,18 @@ root.render(
                     <Navbar></Navbar>
                     <br />
                     <Profile></Profile>
+                    <Footer></Footer>
                 </Route>
                 <Route path="/UploadImage">
                     <Navbar></Navbar>
                     <br />
                     <UploadImage></UploadImage>
+                    <Footer></Footer>
+                </Route>
+                <Route path="/Chat">
+                    <Navbar></Navbar>
+                    <br />
+                    <Chat></Chat>
                 </Route>
             </Switch>
         </Router>

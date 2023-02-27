@@ -4,17 +4,9 @@ import sketchflow from "../assets/images/sketchflow.png";
 
 export function Profile() {
     return (
-        <section className="bg-light py-5">
-            <div>
-                <div className="container-fluid">
-                    <img src={logo} width="200" height="200" className="float-left borderimg" alt="..." />
-                </div>
-            </div>
-            <p> Nombre de usuario</p>
-
-
-            <div className="h-100 gradient-custom-2">
-                <div className="container-fluid py-5 h-100">
+        <section className="bg-danger">
+            <div className="gradient-custom-2">
+                <div className="container py-5 h-100">
                     <div className="row d-flex justify-content-center align-items-center h-100">
                         <div className="col col-lg-9 col-xl-7">
                             <div className="card">
@@ -60,45 +52,45 @@ export function Profile() {
                                         <p className="mb-0"><a href="#!" className="text-muted">Show all</a></p>
                                     </div>
                                     <ul className="nav nav-tabs" id="myTab" role="tablist">
-                                            <li className="nav-item" role="presentation">
-                                                <button className="nav-link active text-black" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Ilustraciones</button>
-                                            </li>
-                                            <li className="nav-item" role="presentation">
-                                                <button className="nav-link text-black" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Bookmarks</button>
-                                            </li>
-                                            <li className="nav-item" role="presentation">
-                                                <button className="nav-link text-black" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Contacto</button>
-                                            </li>
-                                        </ul>
-                                        <div className="tab-content" id="myTabContent">
-                                            <div className="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab"><div className="row g-2">
-                                        
-                                        <div className="col mb-2">
-                                            <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(112).webp"
-                                                alt="image 1" className="w-100 rounded-3" />
+                                        <li className="nav-item" role="presentation">
+                                            <button className="nav-link active text-black" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Ilustraciones</button>
+                                        </li>
+                                        <li className="nav-item" role="presentation">
+                                            <button className="nav-link text-black" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Bookmarks</button>
+                                        </li>
+                                        <li className="nav-item" role="presentation">
+                                            <button className="nav-link text-black" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Contacto</button>
+                                        </li>
+                                    </ul>
+                                    <div className="tab-content" id="myTabContent">
+                                        <div className="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab"><div className="row g-2">
+
+                                            <div className="col mb-2">
+                                                <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(112).webp"
+                                                    alt="image 1" className="w-100 rounded-3" />
+                                            </div>
+                                            <div className="col mb-2">
+                                                <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(107).webp"
+                                                    alt="image 1" className="w-100 rounded-3" />
+                                            </div>
                                         </div>
-                                        <div className="col mb-2">
-                                            <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(107).webp"
-                                                alt="image 1" className="w-100 rounded-3" />
-                                        </div>
+                                            <div className="row g-2">
+                                                <div className="col">
+                                                    <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(108).webp"
+                                                        alt="image 1" className="w-100 rounded-3" />
+                                                </div>
+                                                <div className="col">
+                                                    <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(114).webp"
+                                                        alt="image 1" className="w-100 rounded-3" />
+                                                </div>
+                                            </div></div>
+                                        <div className="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
+                                        <div className="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
                                     </div>
-                                    <div className="row g-2">
-                                        <div className="col">
-                                            <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(108).webp"
-                                                alt="image 1" className="w-100 rounded-3" />
-                                        </div>
-                                        <div className="col">
-                                            <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(114).webp"
-                                                alt="image 1" className="w-100 rounded-3" />
-                                        </div>
-                                    </div></div>
-                                            <div className="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
-                                            <div className="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
-                                        </div>
 
 
 
-                                    
+
                                 </div>
                             </div>
                         </div>
