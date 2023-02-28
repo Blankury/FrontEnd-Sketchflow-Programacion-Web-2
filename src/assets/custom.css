@@ -9,6 +9,9 @@ body {
   background-color: #1c1c1c;
 }
 
+.colorPrimaryvariant {
+  background-color: #424242;
+}
 .colorSecondary {
   background-color: #ff3838;
 }
@@ -159,7 +162,7 @@ a:focus {
   color: #fff;
 }
 
-.form-login-control {
+.form-custom-control {
   width: 100%;
   height: 48px;
   background: rgba(0, 0, 0, 0.05);
@@ -175,19 +178,19 @@ a:focus {
   transition: all 0.2s ease-in-out;
 }
 @media (prefers-reduced-motion: reduce) {
-  .form-login-control {
+  .form-custom-control {
     -webkit-transition: none;
     -o-transition: none;
     transition: none;
   }
 }
-.form-login-control::-webkit-input-placeholder {
+.form-custom-control::-webkit-input-placeholder {
   /* Chrome/Opera/Safari */
   color: rgba(255, 255, 255, 0.8);
 }
 
-.form-login-control:focus,
-.form-login-control:active {
+.form-custom-control:focus,
+.form-custom-control:active {
   outline: none;
   -webkit-box-shadow: none;
   box-shadow: none;

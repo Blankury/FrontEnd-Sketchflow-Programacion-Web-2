@@ -42,7 +42,6 @@ root.render(
                 </Route>
                 <Route path="/EditProfile">
                     <Navbar></Navbar>
-
                     <br/>
                     <EditProfile></EditProfile>
                     <Footer></Footer>

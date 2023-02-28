@@ -25,7 +25,7 @@ export function EditProfile() {
                                 <div className="p-4 text-black">
                                     <div className="d-flex justify-content-end text-center py-1">
                                         <Link to="/UploadImage" className="px-3 ">
-                                            <button type="submit" className="redbutton form-login-control px-3">GUARDAR</button>
+                                            <button type="submit" className="redbutton form-custom-control px-3">GUARDAR</button>
                                         </Link>
                                     </div>
                                 </div>
@@ -39,59 +39,61 @@ export function EditProfile() {
                                     <p className="text-white text-center">
                                         Se unió el 2023/02/27
                                     </p>
-                                    <label for="nombre" className="formulario__label">Links</label>
-                                    <input type="text" className="h-5 form-login-control" placeholder="Link1" required />
-                                    <input type="text" className="h-5 form-login-control" placeholder="Link2" required />
-                                    <input type="text " className="h-5 form-login-control" placeholder="Link3" required />
+                                    <form><label for="nombre" className="formulario__label">Links</label>
+                                        <input type="text" className="h-5 form-custom-control" placeholder="Link1" required />
 
-                                    <br />
-                                    <label for="nombre" className="formulario__label">Nombre</label>
-                                    <div className="form-group-input">
-                                        <input type="text" className="form-login-control" name="nombre" id="nombre" placeholder="John Doe" />
-                                    </div>
+                                        <input type="text" className="h-5 form-custom-control" placeholder="Link2" required />
+                                        <input type="text " className="h-5 form-custom-control" placeholder="Link3" required />
 
-                                    {/* <!-- Grupo: Contraseña --> */}
-                                    <div className="form-group" id="grupo__password">
-                                        <label for="password" className="formulario__label">Contraseña</label>
+                                        <br />
+                                        <label for="nombre" className="formulario__label">Nombre</label>
                                         <div className="form-group-input">
-                                            <input type="password" className="form-login-control" name="password" id="password" />
+                                            <input type="text" className="form-custom-control" name="nombre" id="nombre" placeholder="John Doe" />
                                         </div>
-                                    </div>
-                                    <div className="form-group" id="grupo__correo">
-                                        <label for="correo" className="formulario__label">Correo Electrónico</label>
-                                        <div className="form-group-input">
-                                            <input type="email" className="form-login-control" name="correo" id="correo" placeholder="correo@correo.com" />
-                                        </div>
-                                    </div>
-                                    <div className="form-group" id="grupo__genero">
-                                        <label for="genero" className="formulario__label">Genero</label>
-                                        <div className="input-block">
-                                            <label className="rad-label">
-                                                <input type="radio" className="rad-input gender" onclick="validarGenero()" name="rad" id="Hombre" value="Hombre" />
-                                                <div className="rad-design rad-man"></div>
-                                                <div className="rad-text">Hombre</div>
-                                            </label>
-                                            <label className="rad-label">
-                                                <input type="radio" className="rad-input rad-woman gender" onclick="validarGenero()" name="rad" id="Mujer" value="Mujer" />
-                                                <div className="rad-design rad-woman"></div>
-                                                <div className="rad-text">Mujer</div>
-                                            </label>
-                                            <label className="rad-label">
-                                                <input type="radio" className="rad-input rad-woman gender" onclick="validarGenero()" name="rad" id="Otro" value="Otro" />
-                                                <div className="rad-design rad-other"></div>
-                                                <div className="rad-text">Otro</div>
-                                            </label>
 
+                                        <div className="form-group" id="grupo__password">
+                                            <label for="password" className="formulario__label">Contraseña</label>
+                                            <div className="form-group-input">
+                                                <input type="password" className="form-custom-control" name="password" id="password" />
+                                            </div>
                                         </div>
-                                        <Link to="/UploadImage" className="px-3 ">
-                                            <div className="form-group">
-                                                <button type="submit" className="redbutton form-login-control submit px-3">GUARDAR</button>
-                                            </div> </Link>
-                                        <Link to="/UploadImage" className="px-3 ">
-                                            <div className="form-group">
-                                                <button type="submit" className="blackbutton form-login-control submit px-3">ELIMINAR PERFIL</button>
-                                            </div></Link>
-                                    </div>
+                                        <div className="form-group" id="grupo__correo">
+                                            <label for="correo" className="formulario__label">Correo Electrónico</label>
+                                            <div className="form-group-input">
+                                                <input type="email" className="form-custom-control" name="correo" id="correo" placeholder="correo@correo.com" />
+                                            </div>
+                                        </div>
+                                        <div className="form-group" id="grupo__genero">
+                                            <label for="genero" className="formulario__label">Genero</label>
+                                            <div className="input-block">
+                                                <label className="rad-label">
+                                                    <input type="radio" className="rad-input gender" onclick="validarGenero()" name="rad" id="Hombre" value="Hombre" />
+                                                    <div className="rad-design rad-man"></div>
+                                                    <div className="rad-text">Hombre</div>
+                                                </label>
+                                                <label className="rad-label">
+                                                    <input type="radio" className="rad-input rad-woman gender" onclick="validarGenero()" name="rad" id="Mujer" value="Mujer" />
+                                                    <div className="rad-design rad-woman"></div>
+                                                    <div className="rad-text">Mujer</div>
+                                                </label>
+                                                <label className="rad-label">
+                                                    <input type="radio" className="rad-input rad-woman gender" onclick="validarGenero()" name="rad" id="Otro" value="Otro" />
+                                                    <div className="rad-design rad-other"></div>
+                                                    <div className="rad-text">Otro</div>
+                                                </label>
+
+                                            </div>
+                                            <Link to="/UploadImage" className="px-3 ">
+                                                <div className="form-group">
+                                                    <button type="submit" className="redbutton form-custom-control submit px-3">GUARDAR</button>
+                                                </div> </Link>
+                                            <Link to="/UploadImage" className="px-3 ">
+                                                <div className="form-group">
+                                                    <button type="submit" className="blackbutton form-custom-control submit px-3">ELIMINAR PERFIL</button>
+                                                </div>
+                                            </Link>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>

@@ -21,11 +21,11 @@ export function Login() {
                             <form action="#" className="login-form">
                                 <div className="form-group">
                                     <div className="icon d-flex align-items-center justify-content-center"><span className="fa fa-user"></span></div>
-                                    <input type="text" className="form-login-control" placeholder="Username" required />
+                                    <input type="text" className="form-custom-control" placeholder="Username" required />
                                 </div>
                                 <div className="form-group">
                                     <div className="icon d-flex align-items-center justify-content-center"><span className="fa fa-lock"></span></div>
-                                    <input type="password" className="form-login-control" placeholder="Password" required />
+                                    <input type="password" className="form-custom-control" placeholder="Password" required />
                                 </div>
                                 <div className="form-group d-md-flex">
                                     <div className="w-100 text-md-right">
@@ -33,7 +33,7 @@ export function Login() {
                                     </div>
                                 </div>
                                 <div className="form-group">
-                                    <button type="submit" className="redbutton form-login-control submit px-3">INICIA SESIÓN</button>
+                                    <button type="submit" className="redbutton form-custom-control submit px-3">INICIA SESIÓN</button>
                                 </div>
                             </form>
                             <div className="w-100 text-center mt-4 text">

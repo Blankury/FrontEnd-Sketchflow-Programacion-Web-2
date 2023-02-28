@@ -16,12 +16,8 @@ export function Profile() {
                                         <img src={logo}
                                             alt="Generic placeholder image" className="borderprofile img-fluid img-thumbnail mt-4 mb-2"
                                             style={{ width: '200px' }} />
-
                                         <h2>Tu nombre</h2>
-
                                     </div>
-
-
                                 </div>
                                 <div className="p-4 text-black">
                                     <div className="d-flex justify-content-end  py-1">
