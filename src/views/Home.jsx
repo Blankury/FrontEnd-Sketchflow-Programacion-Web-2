@@ -4,37 +4,37 @@ import sketchflow from "../assets/images/sketchflow.png";
 
 export function Home() {
     return (
-        <section className="bg-light py-5">
+        <section className="colorbox py-5">
             <div>
                 <div className="container-fluid">
                     <div className="row py-4 pe-2">
                         <div className="col-md-2 text-center ">
-                            <div className="vh-100 py-5  px-2 pe-2 box colorbox scrollbar thin ">                            
-                                <p className="colorPrimary text-white  rounded-1"> #tagName </p>
-                                <p className="colorPrimary text-white  rounded-1"> #tagName </p>
-                                <p className="colorPrimary text-white  rounded-1"> #tagName </p>
-                                <p className="colorPrimary text-white  rounded-1"> #tagName </p>
-                                <p className="colorPrimary text-white  rounded-1"> #tagName </p>
-                                <p className="colorPrimary text-white  rounded-1"> #tagName </p>
-                                <p className="colorPrimary text-white  rounded-1"> #tagName </p>
-                                <p className="colorPrimary text-white  rounded-1"> #tagName </p>
-                                <p className="colorPrimary text-white  rounded-1"> #tagName </p>
-                                <p className="colorPrimary text-white  rounded-1"> #tagName </p>
-                                <p className="colorPrimary text-white  rounded-1"> #tagName </p>
-                                <p className="colorPrimary text-white  rounded-1"> #tagName </p>
-                                <p className="colorPrimary text-white  rounded-1"> #tagName </p>
-                                <p className="colorPrimary text-white  rounded-1"> #tagName </p>
-                                <p className="colorPrimary text-white  rounded-1"> #tagName </p>
-                                <p className="colorPrimary text-white  rounded-1"> #tagName </p>
-                                <p className="colorPrimary text-white  rounded-1"> #tagName </p>
-                                <p className="colorPrimary text-white  rounded-1"> #tagName </p>
-                                <p className="colorPrimary text-white  rounded-1"> #tagName </p>
-
+                            <div className="vh-100 py-5  px-2 pe-2 box bg-light scrollbar thin ">                            
+                                <p className="colorquaternary text-white  rounded-1"> #tagName </p>
+                                <p className="colorquaternary text-white  rounded-1"> #tagName </p>
+                                <p className="colorquaternary text-white  rounded-1"> #tagName </p>
+                                <p className="colorquaternary text-white  rounded-1"> #tagName </p>
+                                <p className="colorquaternary text-white  rounded-1"> #tagName </p>
+                                <p className="colorquaternary text-white  rounded-1"> #tagName </p>
+                                <p className="colorquaternary text-white  rounded-1"> #tagName </p>
+                                <p className="colorquaternary text-white  rounded-1"> #tagName </p>
+                                <p className="colorquaternary text-white  rounded-1"> #tagName </p>
+                                <p className="colorquaternary text-white  rounded-1"> #tagName </p>
+                                <p className="colorquaternary text-white  rounded-1"> #tagName </p>
+                                <p className="colorquaternary text-white  rounded-1"> #tagName </p>
+                                <p className="colorquaternary text-white  rounded-1"> #tagName </p>
+                                <p className="colorquaternary text-white  rounded-1"> #tagName </p>
+                                <p className="colorquaternary text-white  rounded-1"> #tagName </p>
+                                <p className="colorquaternary text-white  rounded-1"> #tagName </p>
+                                <p className="colorquaternary text-white  rounded-1"> #tagName </p>
+                                <p className="colorquaternary text-white  rounded-1"> #tagName </p>
                             </div>
                                 
                         </div>
-                        <div className="col-md-10 colorbox text-center ">
-                            <h3 className="py-3"> Ilustrations</h3>
+                        <div className="col-md-10 bg-light text-center ">
+                            <h3 className="py-3"> ILUSTRACIONES</h3>
+                            <h6> Lo más reciente</h6>
+
                             <div className="row py-2 px-4" id="premium-container">
                                 <div className="col-md-3 ">
                                     <a href="" style={{ textDecoration: 'none' }}>

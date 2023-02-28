@@ -6,13 +6,15 @@ import { Footer } from "./components/Footer";
 import { Home } from "./views/Home";
 import { Login } from "./views/Login";
 import { Signin } from "./views/Signin";
-import { Profile } from "./views/Profile";
+import { Profile } from "./views/profile";
 import { Chat } from "./views/Chat";
 import { UploadImage } from "./views/UploadImage";
 import { EditProfile } from "./views/EditProfile";
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./assets/custom.css";
+import "./assets/msger.css";
+import "./assets/radios.css";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
@@ -53,7 +55,7 @@ root.render(
                 </Route>
                 <Route path="/Chat">
                     <Navbar></Navbar>
-                    <br />
+                    <br /> 
                     <Chat></Chat>
                 </Route>
             </Switch>

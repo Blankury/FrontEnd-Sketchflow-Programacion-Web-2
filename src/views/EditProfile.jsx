@@ -1,132 +1,107 @@
 import isotipo from "../assets/images/isotipo.png";
 import logo from "../assets/images/sketchflow_logo.png";
 import sketchflow from "../assets/images/sketchflow.png";
+import { Link } from "react-router-dom";
 
 export function EditProfile() {
     return (
-        <section  style={{ backgroundImage: 'url("https://cdnb.artstation.com/p/assets/images/images/040/976/007/large/geoffroy-thoorens-seqb-sh060-matte2d-v005.jpg?1630419673")' }}>
-                <h2 class="h3 mb-4 page-title text-white">Configuración<nav></nav></h2>
-                
-                <div className="container justify-content-md-center">
-                    <div class="row mt-5 align-items-center justify-content-center">
-                        
-                        <div class="col-md-3 text-center mb-5">
-                            <div class="avatar avatar-xl">
-                                <img src={logo} id="photoOriginal"/>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="row align-items-center">
-                                <div class="col-md-7 ">
-                                    <p class="mb-9 text-white">Usuario</p>
-                                    <p class="small mb-9 text-white">Nombre</p>
+        <section className="colorbox h-100">
+            <div className="gradient-custom-2 vw-100 container bg-light">
+                <div className="py-3 h-100">
+                    <div className="row h-100">
+                        <div className="">
+                            <div className="py-5">
+                                <h2 className="h3 mb-4 page-title text-center">Configuración de perfil</h2>
+                                <div className="d-flex flex-row bg-dark banner" style={{ height: '200px' }} >
+                                    <div className="ms-4 mt-5 d-flex flex-column" style={{ width: '250px' }} >
+                                        <img src={logo}
+                                            alt="Generic placeholder image" className="borderprofile img-fluid img-thumbnail mt-4 mb-2"
+                                            style={{ width: '200px' }} />
+                                        <p className="lead fw-normal mb-1">Usuario</p>
+
+                                        <input type="text" className="h-5 " placeholder="Username" required />
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="row mb-4">
-                                <div class="col-md-7">
-                                    <p class="text-white">
-                                        Usuario desde 2023/02/27                                          
+                                <div className="p-4 text-black">
+                                    <div className="d-flex justify-content-end text-center py-1">
+                                        <Link to="/UploadImage" className="px-3 ">
+                                            <button type="submit" className="redbutton form-login-control px-3">GUARDAR</button>
+                                        </Link>
+                                    </div>
+                                </div>
+                                <div className="card-body p-4 text-black  py-5">
+                                    <p className="lead fw-normal mb-1">Sobre</p>
+                                    <input type="text" className=" w-100 " placeholder="Biografia" required />
+                                </div>
+                                <hr />
+                                <div className="container colorPrimary py-3">
+                                    <h2 className="h3 mb-4 page-title text-center text-white">Configuración de la cuenta</h2>
+                                    <p className="text-white text-center">
+                                        Se unió el 2023/02/27
                                     </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                                    <label for="nombre" className="formulario__label">Links</label>
+                                    <input type="text" className="h-5 form-login-control" placeholder="Link1" required />
+                                    <input type="text" className="h-5 form-login-control" placeholder="Link2" required />
+                                    <input type="text " className="h-5 form-login-control" placeholder="Link3" required />
 
-                    <div class="row justify-content-center">
-                        <div className="col-md-6 col-lg-4">
-                        <div class="login-wrap py-5" id="home2" role="tabpanel" aria-labelledby="home-tab">
-                            <form action="" class="formulario" id="formulario">
+                                    <br />
+                                    <label for="nombre" className="formulario__label">Nombre</label>
+                                    <div className="form-group-input">
+                                        <input type="text" className="form-login-control" name="nombre" id="nombre" placeholder="John Doe" />
+                                    </div>
 
-                                <div className="form-group align-content-center" name="profile-pic">
-                                    <p id="text-r" className="text-center mb-0">Introduce una foto de perfil y portada</p>
-
-                                    <div className="photoPic">
-                                        <div className="justify-content-center ">
-                                            <div className="card"> <img className="card-img-top" src={sketchflow} alt="Card image cap" />
-                                                <div className="card-body little-profile text-center">
-                                                    <div className="pro-img" id="pfp" ><img className="img-thumbnail" width="40%" src={isotipo} alt="user" /></div>
-                                                </div>
-                                            </div>
+                                    {/* <!-- Grupo: Contraseña --> */}
+                                    <div className="form-group" id="grupo__password">
+                                        <label for="password" className="formulario__label">Contraseña</label>
+                                        <div className="form-group-input">
+                                            <input type="password" className="form-login-control" name="password" id="password" />
                                         </div>
                                     </div>
+                                    <div className="form-group" id="grupo__correo">
+                                        <label for="correo" className="formulario__label">Correo Electrónico</label>
+                                        <div className="form-group-input">
+                                            <input type="email" className="form-login-control" name="correo" id="correo" placeholder="correo@correo.com" />
+                                        </div>
+                                    </div>
+                                    <div className="form-group" id="grupo__genero">
+                                        <label for="genero" className="formulario__label">Genero</label>
+                                        <div className="input-block">
+                                            <label className="rad-label">
+                                                <input type="radio" className="rad-input gender" onclick="validarGenero()" name="rad" id="Hombre" value="Hombre" />
+                                                <div className="rad-design rad-man"></div>
+                                                <div className="rad-text">Hombre</div>
+                                            </label>
+                                            <label className="rad-label">
+                                                <input type="radio" className="rad-input rad-woman gender" onclick="validarGenero()" name="rad" id="Mujer" value="Mujer" />
+                                                <div className="rad-design rad-woman"></div>
+                                                <div className="rad-text">Mujer</div>
+                                            </label>
+                                            <label className="rad-label">
+                                                <input type="radio" className="rad-input rad-woman gender" onclick="validarGenero()" name="rad" id="Otro" value="Otro" />
+                                                <div className="rad-design rad-other"></div>
+                                                <div className="rad-text">Otro</div>
+                                            </label>
 
-                                </div>
-
-                                <div class="form-group" id="grupo__usuario">
-                                    <label for="usuario" class="formulario__label">Usuario</label>
-                                    <div class="form-group-input">
-
-                                        <input type="text" class="form-login-control" name="usuario" id="usuario" placeholder="john123" />
+                                        </div>
+                                        <Link to="/UploadImage" className="px-3 ">
+                                            <div className="form-group">
+                                                <button type="submit" className="redbutton form-login-control submit px-3">GUARDAR</button>
+                                            </div> </Link>
+                                        <Link to="/UploadImage" className="px-3 ">
+                                            <div className="form-group">
+                                                <button type="submit" className="blackbutton form-login-control submit px-3">ELIMINAR PERFIL</button>
+                                            </div></Link>
                                     </div>
                                 </div>
-                                <div class="form-group" id="grupo__nombre">
-                                    <label for="nombre" class="formulario__label">Nombre</label>
-                                    <div class="form-group-input">
-                                        <input type="text" class="form-login-control" name="nombre" id="nombre" placeholder="John Doe" />
-                                    </div>
-                                </div>
-                                {/* <!-- Grupo: Contraseña --> */}
-                                <div class="form-group" id="grupo__password">
-                                    <label for="password" class="formulario__label">Contraseña</label>
-                                    <div class="form-group-input">
-                                        <input type="password" class="form-login-control" name="password" id="password" />
-                                    </div>
-                                </div>
-
-                                <div class="form-group" id="grupo__correo">
-                                    <label for="correo" class="formulario__label">Correo Electrónico</label>
-                                    <div class="form-group-input">
-                                        <input type="email" class="form-login-control" name="correo" id="correo" placeholder="correo@correo.com" />
-                                    </div>
-                                </div>
-
-                                <div class="form-group" id="grupo__genero">
-
-                                    <label for="genero" class="formulario__label">Genero</label>
-                                    <div class="input-block">
-                                        <label class="rad-label">
-                                            <input type="radio" class="rad-input gender" onclick="validarGenero()" name="rad" id="Hombre" value="Hombre"/>
-                                            <div class="rad-design rad-man"></div>
-                                            <div class="rad-text">Hombre</div>
-                                        </label>
-                                        <label class="rad-label">
-                                            <input type="radio" class="rad-input rad-woman gender" onclick="validarGenero()" name="rad" id="Mujer" value="Mujer"/>
-                                            <div class="rad-design rad-woman"></div>
-                                            <div class="rad-text">Mujer</div>
-                                        </label>
-                                        <label class="rad-label">
-                                            <input type="radio" class="rad-input rad-woman gender" onclick="validarGenero()" name="rad" id="Otro" value="Otro"/>
-                                            <div class="rad-design rad-other"></div>
-                                            <div class="rad-text">Otro</div>
-                                        </label>
-
-                                    </div>
-                                </div>
-
-                                <div id="fb-root"></div>
-<script async defer crossorigin="anonymous" src="https://connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v16.0&appId=692164095862938&autoLogAppEvents=1" nonce="bUQv6WPv"></script>
-
-<div class="fb-login-button" data-width="" data-size="" data-button-type="" data-layout="" data-auto-logout-link="false" data-use-continue-as="true"></div>
-
-
-                                <div className="form-group">
-                                <button type="submit" className="redbutton form-login-control submit px-3">REGISTRARTE</button>
-                                </div>
-
-                                <div class="form-group">
-                                    <button type="submit" className="blackbutton form-login-control submit px-3">ELIMINAR</button>
-                                </div>
-                            </form>
+                            </div>
                         </div>
-                        </div>
-
-
-
                     </div>
                 </div>
+            </div>
+
 
         </section>
 
-        
+
     );
 };

@@ -21,10 +21,10 @@ export function Navbar() {
 
                     <form className="d-flex mx-auto px-5">
                         <input className="form-control me-2 searchbar" type="search" placeholder="Search" aria-label="Search" />
-                        <button className="btn btn-outline colortertiary rounded-3" type="submit">Buscar</button>
+                        <button className="yellowbutton " type="submit">Buscar</button>
                     </form>
 
-                    <Link to="/UploadImage"> <button className="btn btn-outline redbutton rounded-3 px-5 text-white" type="button">Publicar</button> </Link>
+                    <Link to="/UploadImage"> <button className="redbutton px-5" type="button">Publicar</button> </Link>
 
                     <ul className="navbar-nav px-2 pe-2 mb-2 mb-lg-0">
                         <li className="nav-item">
@@ -41,7 +41,7 @@ export function Navbar() {
 
                     <div className="nav-item dropdown ">
                         <a className="nav-link dropdown-toggle text-white pe-2" href="#" id="navbarDropdown" role="button" data-bs-toggle='dropdown' aria-expanded="false">
-                            <label className="pe-3">Usuario 4545</label>
+                            <label className="pe-3 ">Usuario 4545</label>
 
                             <img src={isotipo} alt="" width="35" height="35" className="borderimg d-inline-block align-text-top " />
                         </a>

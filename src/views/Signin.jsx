@@ -8,11 +8,11 @@ export function Signin() {
     return (
 
 
-        <section  style={{ backgroundImage: 'url("https://cdnb.artstation.com/p/assets/images/images/053/358/745/large/jake-1080-pixel-art-8-bit-atmospheric-city-night-5g-tower-videogame-wallpaper-background4k.jpg?1662021333")' }}>
+        <section style={{ backgroundImage: 'url("https://images.chesscomfiles.com/uploads/v1/images_users/tiny_mce/Anindo_The_PRO/phpl6wYbs.gif")', backgroundSize: 'cover ' }}>
             <div className="container justify-content-md-center">
                 <div className="row justify-content-center">
                     <div className="col-md-6 text-center ">
-                        <img src={sketchflow} alt="" className="justify-content-center" style={{width:'40%'}}  />
+                        <img src={sketchflow} alt="" className="justify-content-center " style={{ width: '40%' }} />
                     </div>
 
                 </div>
@@ -22,6 +22,7 @@ export function Signin() {
                             <h3 className="text-center mb-0">Crea tu cuenta</h3>
                             <p className="text-center">Introduce tus datos abajo</p>
                             <form action="#" className="login-form">
+                                <p id="text-r" className="text-center mb-0">Introduce una foto de perfil y portada</p>
 
                                 <div className="form-group" name="profile-pic">
                                     <p id="text-r" className="text-center mb-0">Introduce una foto de perfil y portada</p>
@@ -35,7 +36,11 @@ export function Signin() {
                                             </div>
                                         </div>
                                     </div>
+                                </div>
+                                <div className="form-group" name="profile-pic">
+                                    <p id="text-r" className="text-center mb-0">Introduce una foto de perfil y portada</p>
 
+                                   
                                 </div>
 
                                 <div className="form-group">
@@ -93,7 +98,7 @@ export function Signin() {
                                 </div>
 
                                 <div className="form-group">
-                                <button type="submit" className="redbutton form-login-control submit px-3">REGISTRARTE</button>
+                                    <button type="submit" className="redbutton form-login-control submit px-3">REGISTRARTE</button>
                                 </div>
 
                                 <div className="w-100 text-center mt-4 text">
