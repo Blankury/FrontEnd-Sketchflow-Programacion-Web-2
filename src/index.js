@@ -19,7 +19,7 @@ root.render(
         <Router>
             <Switch>
                 <Route path="/home">
-                    <Navbar></Navbar>
+                    <Navbar ></Navbar>
                     <br />
                     <Home> </Home>
                     <Footer></Footer>

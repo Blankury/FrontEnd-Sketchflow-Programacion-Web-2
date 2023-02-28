@@ -8,11 +8,11 @@ export function Signin() {
     return (
 
 
-        <section className="m-lg-1">
+        <section  style={{ backgroundImage: 'url("https://cdnb.artstation.com/p/assets/images/images/053/358/745/large/jake-1080-pixel-art-8-bit-atmospheric-city-night-5g-tower-videogame-wallpaper-background4k.jpg?1662021333")' }}>
             <div className="container justify-content-md-center">
                 <div className="row justify-content-center">
-                    <div className="col-md-6 text-center mb-3">
-                        <img src={logo} alt="" className="justify-content-center" style={{width:'40%'}}  />
+                    <div className="col-md-6 text-center ">
+                        <img src={sketchflow} alt="" className="justify-content-center" style={{width:'40%'}}  />
                     </div>
 
                 </div>
@@ -40,25 +40,25 @@ export function Signin() {
 
                                 <div className="form-group">
                                     <div className="icon d-flex align-items-center justify-content-center"><span className="fa fa-lock"></span></div>
-                                    <input type="text" className="form-control" placeholder="Nombre" required />
+                                    <input type="text" className="form-login-control" placeholder="Nombre" required />
                                 </div>
                                 <div className="form-group">
                                     <div className="icon d-flex align-items-center justify-content-center"><span className="fa fa-user"></span></div>
-                                    <input type="email" className="form-control" placeholder="Email" required />
+                                    <input type="email" className="form-login-control" placeholder="Email" required />
                                 </div>
 
                                 <div className="form-group">
                                     <div className="icon d-flex align-items-center justify-content-center"><span className="fa fa-mail-forward"></span></div>
-                                    <input type="text" className="form-control" placeholder="Username" required />
+                                    <input type="text" className="form-login-control" placeholder="Username" required />
                                 </div>
 
                                 <div className="form-group">
                                     <div className="icon d-flex align-items-center justify-content-center"><span className="fa fa-lock"></span></div>
-                                    <input type="password" className="form-control" placeholder="Contraseña" required />
+                                    <input type="password" className="form-login-control" placeholder="Contraseña" required />
                                 </div>
 
                                 <div className="form-group">
-                                    <textarea className="form-control" name="" placeholder="Descripción" id="" cols="3" rows="3"></textarea>
+                                    <textarea className="form-login-control" name="" placeholder="Descripción" id="" cols="3" rows="3"></textarea>
                                 </div>
 
                                 <div className="form-group" id="grupo__genero">
@@ -85,15 +85,15 @@ export function Signin() {
 
                                 <div className="form-group" id="grupo__fecha">
                                     <label for="birthDate" className="formulario__label">Fecha Nacimiento:</label>
-                                    <div className="formulario__grupo-input">
-                                        <input type="date" name="FechaNacimiento" id="FechaNacimiento" />
+                                    <div className="formulario__grupo-input pb-2">
+                                        <input type="date" className="bg-light w-100" name="FechaNacimiento" id="FechaNacimiento" />
                                         <br />
                                         <i className="formulario__validacion-estado fas fa-times-circle" />
                                     </div>
                                 </div>
 
                                 <div className="form-group">
-                                    <button type="submit" className="btn form-control btn-primary rounded submit px-3">Registrarte</button>
+                                <button type="submit" className="redbutton form-login-control submit px-3">REGISTRARTE</button>
                                 </div>
 
                                 <div className="w-100 text-center mt-4 text">
