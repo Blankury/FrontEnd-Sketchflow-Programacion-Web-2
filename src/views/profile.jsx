@@ -23,7 +23,7 @@ export function Profile() {
                                     <div className="d-flex justify-content-end  py-1">
                                         <Link>
                                             <button type="button" className="redbutton px-5" >Seguir</button> </Link>
-                                        <Link to="/Editbookmarks" className="px-3 ">
+                                        <Link to="/Editprofile" className="px-3 ">
                                             <button type="button" className="redbutton px-5" >Editar</button>
                                         </Link>
                                     </div>
