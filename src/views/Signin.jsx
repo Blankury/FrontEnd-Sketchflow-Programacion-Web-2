@@ -24,15 +24,11 @@ export function Signin() {
                             <form action="#" className="login-form">
                                 <p id="text-r" className="text-center mb-0">Introduce una foto de perfil y portada</p>
 
-                                <div className="form-group" name="profile-pic">
-                                    <p id="text-r" className="text-center mb-0">Introduce una foto de perfil y portada</p>
-
-                                    <div className="photoPic">
-                                        <div className="justify-content-center ">
-                                            <div className="card"> <img className="card-img-top" src={sketchflow} alt="Card image cap" />
-                                                <div className="card-body little-profile text-center">
-                                                    <div className="pro-img" id="pfp" ><img className="img-thumbnail" width="40%" src={isotipo} alt="user" /></div>
-                                                </div>
+                                <div className="padding" >
+                                    <div className="justify-content-center">
+                                        <div className="card"> <img className="card-img-top" src={sketchflow} alt="Card image cap" />
+                                            <div className="card-body little-profile text-center">
+                                                <div className="pro-img" id="pfp" ><img className="img-thumbnail" width="40%" src={isotipo} alt="user" /></div>
                                             </div>
                                         </div>
                                     </div>
@@ -45,25 +41,25 @@ export function Signin() {
 
                                 <div className="form-group">
                                     <div className="icon d-flex align-items-center justify-content-center"><span className="fa fa-lock"></span></div>
-                                    <input type="text" className="form-login-control" placeholder="Nombre" required />
+                                    <input type="text" className="form-custom-control" placeholder="Nombre" required />
                                 </div>
                                 <div className="form-group">
                                     <div className="icon d-flex align-items-center justify-content-center"><span className="fa fa-user"></span></div>
-                                    <input type="email" className="form-login-control" placeholder="Email" required />
+                                    <input type="email" className="form-custom-control" placeholder="Email" required />
                                 </div>
 
                                 <div className="form-group">
                                     <div className="icon d-flex align-items-center justify-content-center"><span className="fa fa-mail-forward"></span></div>
-                                    <input type="text" className="form-login-control" placeholder="Username" required />
+                                    <input type="text" className="form-custom-control" placeholder="Username" required />
                                 </div>
 
                                 <div className="form-group">
                                     <div className="icon d-flex align-items-center justify-content-center"><span className="fa fa-lock"></span></div>
-                                    <input type="password" className="form-login-control" placeholder="Contraseña" required />
+                                    <input type="password" className="form-custom-control" placeholder="Contraseña" required />
                                 </div>
 
                                 <div className="form-group">
-                                    <textarea className="form-login-control" name="" placeholder="Descripción" id="" cols="3" rows="3"></textarea>
+                                    <textarea className="form-custom-control" name="" placeholder="Descripción" id="" cols="3" rows="3"></textarea>
                                 </div>
 
                                 <div className="form-group" id="grupo__genero">
@@ -98,7 +94,7 @@ export function Signin() {
                                 </div>
 
                                 <div className="form-group">
-                                    <button type="submit" className="redbutton form-login-control submit px-3">REGISTRARTE</button>
+                                    <button type="submit" className="redbutton form-custom-control submit px-3">REGISTRARTE</button>
                                 </div>
 
                                 <div className="w-100 text-center mt-4 text">
