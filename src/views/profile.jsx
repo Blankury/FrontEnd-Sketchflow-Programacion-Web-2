@@ -13,14 +13,25 @@ export function Profile() {
                             <div className="">
                                 <div className="rounded-top d-flex flex-row bg-dark" style={{ height: '200px' }} >
                                     <div className="ms-4 mt-5 d-flex flex-column" style={{ width: '150px' }} >
+                                        
                                         <img src={logo}
                                             alt="Generic placeholder image" className="borderimg img-fluid img-thumbnail mt-4 mb-2"
                                             style={{ width: '150px', zIndex: '1' }} />
 
-                                        <button type="button" className="btn colortertiary" data-mdb-ripple-color="dark"
-                                            style={{ zIndex: '1' }}>
-                                            Editar perfil
-                        </button><Link to="/UploadImage"> <button className="btn btn-outline redbutton rounded-3 px-5 text-white" type="button">Seguir</button> </Link>
+                                        <h5>Tu nombre</h5>
+           
+                                        <div className="d-flex pt-1">
+                                            <button type="button" className="btn colortertiary rounded-3 px-5 me-3 flex-grow-1 " data-mdb-ripple-color="blue"
+                                                style={{ zIndex: '1' }}>
+                                                Editar perfil
+                                            </button>
+
+                                            <Link to="/UploadImage"> 
+                                            <button className="btn btn-outline redbutton rounded-3 px-5 text-white flex-grow-1" type="button">Seguir</button> 
+                                            </Link>
+                                        </div>
+
+
 
                                     </div>
 

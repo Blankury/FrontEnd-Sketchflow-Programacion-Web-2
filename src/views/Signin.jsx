@@ -26,8 +26,8 @@ export function Signin() {
                                 <div className="form-group" name="profile-pic">
                                     <p id="text-r" className="text-center mb-0">Introduce una foto de perfil y portada</p>
 
-                                    <div className="padding">
-                                        <div className="justify-content-center">
+                                    <div className="photoPic">
+                                        <div className="justify-content-center ">
                                             <div className="card"> <img className="card-img-top" src={sketchflow} alt="Card image cap" />
                                                 <div className="card-body little-profile text-center">
                                                     <div className="pro-img" id="pfp" ><img className="img-thumbnail" width="40%" src={isotipo} alt="user" /></div>

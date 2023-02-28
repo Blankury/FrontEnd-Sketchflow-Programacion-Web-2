@@ -9,6 +9,8 @@ import { Signin } from "./views/Signin";
 import { Profile } from "./views/Profile";
 import { Chat } from "./views/Chat";
 import { UploadImage } from "./views/UploadImage";
+import { EditProfile } from "./views/EditProfile";
+
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./assets/custom.css";
 
@@ -34,6 +36,13 @@ root.render(
                     <Navbar></Navbar>
                     <br />
                     <Profile></Profile>
+                    <Footer></Footer>
+                </Route>
+                <Route path="/EditProfile">
+                    <Navbar></Navbar>
+
+                    <br/>
+                    <EditProfile></EditProfile>
                     <Footer></Footer>
                 </Route>
                 <Route path="/UploadImage">

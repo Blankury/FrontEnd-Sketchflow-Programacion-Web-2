@@ -4,11 +4,69 @@ import sketchflow from "../assets/images/sketchflow.png";
 
 export function Chat() {
     return (
+     
         <section className="chatcont">
+
+<div class="inbox_chat">
+<div class="recent_heading">
+              <h4>Recientes</h4>
+            </div>
+            <div class="srch_bar">
+              <div class="stylish-input-group">
+                <input type="text" class="search-bar"  placeholder="Search" />
+                <span class="input-group-addon">
+                <button type="button"> <i class="fa fa-search" aria-hidden="true"></i> </button>
+                </span> </div>
+            </div>
+            <div class="chat_list active_chat">
+              <div class="chat_people">
+                <div class="chat_img"> <img src={logo} class="pfp" alt="User"/> </div>
+                <div class="chat_ib">
+                  <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
+                  <p>Test, which is a new approach to have all solutions 
+                    astrology under one roof.</p>
+                </div>
+              </div>
+            </div>
+            <div class="chat_list">
+              <div class="chat_people">
+                <div class="chat_img"> <img src={logo} class="pfp" alt="User"/> </div>
+                <div class="chat_ib">
+                  <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
+                  <p>Test, which is a new approach to have all solutions 
+                    astrology under one roof.</p>
+                </div>
+              </div>
+            </div>
+            <div class="chat_list">
+              <div class="chat_people">
+                <div class="chat_img"> <img src={logo} class="pfp" alt="User"/> </div>
+                <div class="chat_ib">
+                  <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
+                  <p>Test, which is a new approach to have all solutions 
+                    astrology under one roof.</p>
+                </div>
+              </div>
+            </div>
+            <div class="chat_list">
+              <div class="chat_people">
+                <div class="chat_img"> <img src={logo} class="pfp" alt="User"/> </div>
+                <div class="chat_ib">
+                  <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
+                  <p>Test, which is a new approach to have all solutions 
+                    astrology under one roof.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
             <div className="msger">
                 <header className="msger-header">
                     <div className="msger-header-title">
-                        <i className="fas fa-comment-alt" />Nombre del vendedor
+                        <div className="userName">
+                            <p></p>
+                            Nombre del usuario
+                        </div>
           </div>
                     <div className="msger-header-options">
                         <span><i className="fas fa-cog"/></span>
@@ -59,5 +117,9 @@ export function Chat() {
                 </form>
             </div>
 
-        </section>);
+        </section>
+
+        
+        
+        );
 }
