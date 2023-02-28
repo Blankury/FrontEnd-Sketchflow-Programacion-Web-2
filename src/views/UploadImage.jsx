@@ -19,7 +19,6 @@ export function UploadImage() {
       <br />
 
       <div className="gradient-custom-2 container colorPrimaryvariant  ">
-
         <form>
           <label for="artwork_name" className="formulario__label">artwork_name de la ilustración</label>
           <input type="text" className="form-custom-control" name="artwork_name" id="artwork_name" placeholder="artwork_name de la ilustración" />

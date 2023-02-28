@@ -8,6 +8,7 @@ import { Login } from "./views/Login";
 import { Signin } from "./views/Signin";
 import { Profile } from "./views/profile";
 import { Chat } from "./views/Chat";
+import { Artwork } from "./views/Artwork";
 import { UploadImage } from "./views/UploadImage";
 import { EditProfile } from "./views/EditProfile";
 
@@ -50,6 +51,12 @@ root.render(
                     <Navbar></Navbar>
                     <br />
                     <UploadImage></UploadImage>
+                    <Footer></Footer>
+                </Route>
+                <Route path="/Artwork">
+                    <Navbar></Navbar>
+                    <br />
+                    <Artwork></Artwork>
                     <Footer></Footer>
                 </Route>
                 <Route path="/Chat">
