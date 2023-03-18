@@ -33,7 +33,7 @@ export function Login() {
                                     </div>
                                 </div>
                                 <div className="form-group">
-                                    <button type="submit" className="redbutton form-custom-control submit px-3">INICIA SESIÓN</button>
+                                    <button type="submit" onClick={loginget} className="redbutton form-custom-control submit px-3">INICIA SESIÓN</button>
                                 </div>
                             </form>
                             <div className="w-100 text-center mt-4 text">
@@ -47,4 +47,32 @@ export function Login() {
         </section>
 
     );
+    
+    /*const handleSubmit = async (e) => {
+        e.preventDefault();
+
+    }*/
+
+    async function loginget() {
+        const options = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                userName: 'maxter',
+                password: 'asdf'
+            })
+        };
+
+        const response = await fetch( 'http://localhost:8080/login', options );
+        const data = await response.json();
+
+        
+        //console.log(response.status);
+        if(response.status == 200){
+            console.log(data.userLog);
+        }else{
+            console.log('nombre o usuario incorrectos');
+        }
+
+    }
 }
