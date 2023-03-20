@@ -120,9 +120,6 @@ export function Profile() {
                                             </div>
                                         </div>
                                         <div className="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-
-
-
                                         </div>
                                     </div>
                                 </div>
