@@ -113,7 +113,7 @@ export function Login() {
         };
 
 
-        console.log(body);
+        console.log(options);
         const response = await fetch('http://localhost:8080/login', options);
         const data = await response.json();
 
@@ -122,7 +122,10 @@ export function Login() {
         if (response.status == 200) {
             console.log(data.userLog);
         } else {
-            console.log('nombre o usuario incorrectos');
+            //console.log('nombre o usuario incorrectos');
+            console.log(data.result);
+            console.log(response.status);
+            alert(data.result);
         }
 
     }
