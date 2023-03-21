@@ -46,7 +46,31 @@ export function Login() {
                                 </div>
                                 <div className="form-group">
                                     { /*onClick={loginget}*/}
-                                    <button type="submit" className="redbutton form-custom-control submit px-3" onClick={() => {
+                                    <button type="submit" className="redbutton form-custom-control submit px-3" onClick={loginget}
+
+                                    >INICIA SESIÓN</button>
+                                </div>
+                            </form>
+                            <div className="w-100 text-center mt-4 text">
+                                <p className="mb-0">¿No tienes una cuenta?</p>
+                                <a href="#">Registrate</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    );
+
+    /*const handleSubmit = async (e) => {
+        e.preventDefault();
+
+    }
+    
+    
+    
+    {() => {
                                         const body = {
                                             "userName": userName,
                                             "password": password
@@ -74,37 +98,22 @@ export function Login() {
                                         //    console.log('nombre o usuario incorrectos');
                                         //}
 
-                                    }}
-                                    >INICIA SESIÓN</button>
-                                </div>
-                            </form>
-                            <div className="w-100 text-center mt-4 text">
-                                <p className="mb-0">¿No tienes una cuenta?</p>
-                                <a href="#">Registrate</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-    );
-
-    /*const handleSubmit = async (e) => {
-        e.preventDefault();
-
-    }*/
+                                    }}*/
 
     async function loginget() {
+        
+
         const options = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                userName: 'maxter',
-                password: 'asdf'
+                userName: userName,
+                password: password
             })
         };
 
+
+        console.log(body);
         const response = await fetch('http://localhost:8080/login', options);
         const data = await response.json();
 
