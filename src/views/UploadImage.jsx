@@ -7,6 +7,8 @@ import { useState } from "react";
 export function UploadImage() {
   const [nameArtwork, setName] = useState("");
   const [descArtwork, setDesc] = useState("");
+  const [priceArtwork, setPrice] = useState("");
+
 
   return (
     <section className="colorbox  py-5" >
@@ -40,12 +42,20 @@ export function UploadImage() {
             <label >Restricción de edad</label>
             <div className="input-block">
               <label className="rad-label">
-                <input type="radio" className="rad-input " name="rad" id="Todos" value="Todos" />
+                <input type="radio" className="rad-input " name="rad" id="Todos" value="Todos"
+                              checked={this.state.selectedOption === "Todos"}
+
+                              onChange={this.onValueChange}
+                               />
                 <div className="rad-design "></div>
                 <div className="rad-text"> Todos </div>
               </label>
               <label className="rad-label">
-                <input type="radio" className="rad-input gender" name="rad" id="R-18" value="R-18" />
+                <input type="radio" className="rad-input gender" name="rad" id="R-18" value="R-18"
+                                              checked={this.state.selectedOption === "R-18"}
+
+                                              onChange={this.onValueChange}
+                                               />
                 <div className="rad-design"></div>
                 <div className="rad-text">R-18</div>
               </label>
@@ -53,18 +63,29 @@ export function UploadImage() {
               <label >Visibilidad</label>
               <div className="input-block">
                 <label className="rad-label">
-                  <input type="radio" className="rad-input " name="rad" id="Todos" value="Todos" />
+                  <input type="radio" className="rad-input " name="rad" id="Publico" value="Publico"
+                                                                checked={this.state.selectedOption === "Publico"}
+
+                                                                onChange={this.onValueChange} />
                   <div className="rad-design "></div>
-                  <div className="rad-text"> Todos </div>
+                  <div className="rad-text"> Publico </div>
                 </label>
                 <label className="rad-label">
-                  <input type="radio" className="rad-input gender" name="rad" id="R-18" value="R-18" />
+                  <input type="radio" className="rad-input " name="rad" id="Privado" value="Privado" />
+                  <div className="rad-design "></div>
+                  <div className="rad-text"> Privado </div>
+                </label>
+                <label className="rad-label">
+                  <input type="radio" className="rad-input gender" name="rad" id="Pago" value="Pago" />
                   <div className="rad-design"></div>
                   <div className="rad-text">De pago </div>
                 </label>
               </div>
               <label for="artwork_price" className="formulario__label">Precio</label>
-              <input type="text" className="form-custom-control" name="artwork_price" id="artwork_price" placeholder="Precio de la ilustración" />
+              <input type="text" className="form-custom-control" name="artwork_price" id="artwork_price" placeholder="Precio de la ilustración" 
+                                          required value={priceArtwork} onChange={(e) => {
+                                            setPrice(e.target.value); (priceArtwork); }}         
+                                            />
 
             </div>
             <Link to="/Artwork" className="px-3 ">
@@ -79,3 +100,4 @@ export function UploadImage() {
 
   );
 }
+
