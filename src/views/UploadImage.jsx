@@ -29,13 +29,14 @@ export function UploadImage() {
           <label for="artwork_name" className="formulario__label">artwork_name de la ilustración</label>
           <input type="text" className="form-custom-control" name="artwork_name" id="artwork_name" placeholder="artwork_name de la ilustración" 
           required value={nameArtwork} onChange={(e) => {
-            setName(e.target.value); (nameArtwork); }}        
+            setName(e.target.value);
+          }}        
           />
           <label for="artwork_caption" className="formulario__label">Descripción</label>
           <div className="form-group-input">
             <input type="email" className="form-custom-control" name="artwork_caption" id="artwork_caption" placeholder="artwork_caption" 
                             required value={descArtwork} onChange={(e) => {
-                              setDesc(e.target.value); (descArtwork); }}         
+                              setDesc(e.target.value);  }}         
             />
           </div>
           <div className="form-group" id="restricciones">
@@ -84,7 +85,7 @@ export function UploadImage() {
               <label for="artwork_price" className="formulario__label">Precio</label>
               <input type="text" className="form-custom-control" name="artwork_price" id="artwork_price" placeholder="Precio de la ilustración" 
                                           required value={priceArtwork} onChange={(e) => {
-                                            setPrice(e.target.value); (priceArtwork); }}         
+                                            setPrice(e.target.value); }}         
                                             />
 
             </div>

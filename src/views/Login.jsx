@@ -28,7 +28,7 @@ export function Login() {
                                 <div className="form-group">
                                     <div className="icon d-flex align-items-center justify-content-center"><span className="fa fa-user"></span></div>
                                     <input type="text" className="form-custom-control" placeholder="Username" required value={userName} onChange={(e) => {
-                                        setUser(e.target.value); (userName); }}></input>
+                                        setUser(e.target.value);}}></input>
                                 </div>
                                 <div className="form-group">
                                     <div className="icon d-flex align-items-center justify-content-center"><span className="fa fa-lock"></span></div>
