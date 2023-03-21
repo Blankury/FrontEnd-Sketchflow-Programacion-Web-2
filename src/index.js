@@ -5,7 +5,7 @@ import { Navbar } from "./components/Navbar";
 import { Footer } from "./components/Footer";
 import { Home } from "./views/Home";
 import { Login } from "./views/Login";
-import { Signin } from "./views/Signin";
+import { Signup } from "./views/Signup";
 import { Profile } from "./views/profile";
 import { Chat } from "./views/Chat";
 import { Artwork } from "./views/Artwork";
@@ -32,8 +32,8 @@ root.render(
                 <Route path="/Login">
                     <Login></Login>
                 </Route>
-                <Route path="/Signin">
-                    <Signin></Signin>
+                <Route path="/Signup">
+                    <Signup></Signup>
                 </Route>
                 <Route path="/Profile">
                     <Navbar></Navbar>

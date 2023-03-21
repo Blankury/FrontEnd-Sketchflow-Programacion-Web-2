@@ -1,13 +1,21 @@
 import isotipo from "../assets/images/isotipo.png";
-import logo from "../assets/images/sketchflow_logo.png";
 import sketchflow from "../assets/images/sketchflow.png";
+import { useState } from "react";
 
 
-export function Signin() {
+export function Signup() {
+
+    const [userName, setUser] = useState("");
+    const [password, setPass] = useState("");
+    const [email, setEmail] = useState("");
+    const [profilePhoto, setProfilePhoto] = useState("");
+    const [coverPhoto, setCoverPhoto] = useState("");
+    const [name, setName] = useState("");
+    const [description, setDescription] = useState("");
+    const [birthDate, setBirthDate] = useState("");
+    const [gender, setGender] = useState("");
 
     return (
-
-
         <section style={{ backgroundImage: 'url("https://images.chesscomfiles.com/uploads/v1/images_users/tiny_mce/Anindo_The_PRO/phpl6wYbs.gif")', backgroundSize: 'cover ' }}>
             <div className="container justify-content-md-center">
                 <div className="row justify-content-center">
@@ -28,55 +36,79 @@ export function Signin() {
                                     <div className="justify-content-center">
                                         <div className="card"> <img className="card-img-top" src={sketchflow} alt="Card image cap" />
                                             <div className="card-body little-profile text-center">
-                                                <div className="pro-img" id="pfp" ><img className="img-thumbnail" width="40%" src={isotipo} alt="user" /></div>
+                                                <div className="pro-img" id="pfp" >
+                                                    <img className="img-thumbnail" width="40%" src={isotipo} alt="user" />
+
+
+
+                                                    <input type="file" accept="image/png, image/gif, image/jpeg, image/jpg"
+                                                        class="form-control position-absolute"
+                                                        name="profile-picture" id="profile-picture"
+                                                        autocomplete="off" />
+
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div className="form-group" name="profile-pic">
                                     <p id="text-r" className="text-center mb-0">Introduce una foto de perfil y portada</p>
-
-                                   
                                 </div>
 
                                 <div className="form-group">
                                     <div className="icon d-flex align-items-center justify-content-center"><span className="fa fa-lock"></span></div>
-                                    <input type="text" className="form-custom-control" placeholder="Nombre" required />
+                                    <input type="text" className="form-custom-control" placeholder="Nombre" required value={name} onChange={(e) => {
+                                        setName(e.target.value);
+                                    }} />
                                 </div>
                                 <div className="form-group">
                                     <div className="icon d-flex align-items-center justify-content-center"><span className="fa fa-user"></span></div>
-                                    <input type="email" className="form-custom-control" placeholder="Email" required />
+                                    <input type="email" className="form-custom-control" placeholder="Email" required value={email} onChange={(e) => {
+                                        setEmail(e.target.value);
+                                    }} />
                                 </div>
 
                                 <div className="form-group">
                                     <div className="icon d-flex align-items-center justify-content-center"><span className="fa fa-mail-forward"></span></div>
-                                    <input type="text" className="form-custom-control" placeholder="Username" required />
+                                    <input type="text" className="form-custom-control" placeholder="Username" required value={userName} onChange={(e) => {
+                                        setUser(e.target.value);
+                                    }} />
                                 </div>
 
                                 <div className="form-group">
                                     <div className="icon d-flex align-items-center justify-content-center"><span className="fa fa-lock"></span></div>
-                                    <input type="password" className="form-custom-control" placeholder="Contraseña" required />
+                                    <input type="password" className="form-custom-control" placeholder="Contraseña" required value={password} onChange={(e) => {
+                                        setPass(e.target.value);
+                                    }} />
                                 </div>
 
                                 <div className="form-group">
-                                    <textarea className="form-custom-control" name="" placeholder="Descripción" id="" cols="3" rows="3"></textarea>
+                                    <textarea className="form-custom-control" placeholder="Descripción" cols="3" rows="3" value={description} onChange={(e) => {
+                                        setDescription(e.target.value);
+                                    }}></textarea>
                                 </div>
 
                                 <div className="form-group" id="grupo__genero">
                                     <label for="genero" className="formulario__label">Genero</label>
                                     <div className="input-block">
                                         <label className="rad-label">
-                                            <input type="radio" className="rad-input gender" onclick="validarGenero()" name="rad" id="Hombre" value="Hombre" />
+                                            <input type="radio" className="rad-input gender" name="rad" id="Hombre" value="Hombre" onClick={(e) => {
+                                                setGender(e.target.value);
+                                            }} />
                                             <div className="rad-design rad-man"></div>
                                             <div className="rad-text">Hombre</div>
                                         </label>
                                         <label className="rad-label">
-                                            <input type="radio" className="rad-input rad-woman gender" onclick="validarGenero()" name="rad" id="Mujer" value="Mujer" />
+                                            <input type="radio" className="rad-input rad-woman gender" name="rad" id="Mujer" value="Mujer" onClick={(e) => {
+                                                setGender(e.target.value);
+                                            }} />
                                             <div className="rad-design rad-woman"></div>
                                             <div className="rad-text">Mujer</div>
                                         </label>
                                         <label className="rad-label">
-                                            <input type="radio" className="rad-input rad-woman gender" onclick="validarGenero()" name="rad" id="Otro" value="Otro" />
+                                            <input type="radio" className="rad-input rad-woman gender" name="rad" id="Otro" value="Otro" onClick={(e) => {
+                                                setGender(e.target.value);
+                                            }} />
                                             <div className="rad-design rad-other"></div>
                                             <div className="rad-text">Otro</div>
                                         </label>
@@ -87,14 +119,15 @@ export function Signin() {
                                 <div className="form-group" id="grupo__fecha">
                                     <label for="birthDate" className="formulario__label">Fecha Nacimiento:</label>
                                     <div className="formulario__grupo-input pb-2">
-                                        <input type="date" className="bg-light w-100" name="FechaNacimiento" id="FechaNacimiento" />
+                                        <input type="date" className="bg-light w-100"
+                                            value={birthDate} onChange={(e) => { setBirthDate(e.target.value); console.log(birthDate); }} />
                                         <br />
                                         <i className="formulario__validacion-estado fas fa-times-circle" />
                                     </div>
                                 </div>
 
                                 <div className="form-group">
-                                    <button type="submit" className="redbutton form-custom-control submit px-3">REGISTRARTE</button>
+                                    <button type="submit" className="redbutton form-custom-control submit px-3" onClick={SignUpget}>REGISTRARTE</button>
                                 </div>
 
                                 <div className="w-100 text-center mt-4 text">
@@ -109,4 +142,33 @@ export function Signin() {
         </section>
 
     );
+
+
+
+    async function SignUpget() {
+
+
+        const options = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                userName: userName,
+                password: password,
+                description: description,
+                name: name,
+                email: email,
+                gender: gender,
+                birthDate: birthDate,
+                coverPhoto: coverPhoto,
+                profilePhoto: profilePhoto
+            })
+        };
+
+
+        console.log(options);
+        //const response = await fetch('http://localhost:8080/login', options);
+        //const data = await response.json();
+
+    }
 }
+

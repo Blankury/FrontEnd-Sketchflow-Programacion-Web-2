@@ -28,16 +28,12 @@ export function Login() {
                                 <div className="form-group">
                                     <div className="icon d-flex align-items-center justify-content-center"><span className="fa fa-user"></span></div>
                                     <input type="text" className="form-custom-control" placeholder="Username" required value={userName} onChange={(e) => {
-                                        setUser(e.target.value);
-                                        console.log(userName);
-                                    }}></input>
+                                        setUser(e.target.value); (userName); }}></input>
                                 </div>
                                 <div className="form-group">
                                     <div className="icon d-flex align-items-center justify-content-center"><span className="fa fa-lock"></span></div>
                                     <input type="password" className="form-custom-control" placeholder="Password" required value={password} onChange={(e) => {
-                                        setPass(e.target.value);
-                                        console.log(password);
-                                    }} />
+                                        setPass(e.target.value);}} />
                                 </div>
                                 <div className="form-group d-md-flex">
                                     <div className="w-100 text-md-right">
@@ -45,10 +41,7 @@ export function Login() {
                                     </div>
                                 </div>
                                 <div className="form-group">
-                                    { /*onClick={loginget}*/}
-                                    <button type="submit" className="redbutton form-custom-control submit px-3" onClick={loginget}
-
-                                    >INICIA SESIÓN</button>
+                                    <button type="submit" className="redbutton form-custom-control submit px-3" onClick={loginget}>INICIA SESIÓN</button>
                                 </div>
                             </form>
                             <div className="w-100 text-center mt-4 text">
@@ -68,37 +61,7 @@ export function Login() {
 
     }
     
-    
-    
-    {() => {
-                                        const body = {
-                                            "userName": userName,
-                                            "password": password
-                                        }
-
-                                        console.log(body);
-
-                                        fetch("http://localhost:8080/login", {
-                                            method: "POST", body: JSON.stringify(body),
-                                        })
-                                            .then((response) => response.json())
-                                            .then((data) => {
-                                                console.log("Success:", data);
-                                            })
-                                            .catch((error) => {
-                                                console.error("Error:", error);
-                                            });
-
-
-
-                                        //console.log(response.status);
-                                        //if (response.status == 200) {
-                                        //    console.log(data.userLog);
-                                        //} else {
-                                        //    console.log('nombre o usuario incorrectos');
-                                        //}
-
-                                    }}*/
+    */
 
     async function loginget() {
         
