@@ -2,8 +2,12 @@ import isotipo from "../assets/images/isotipo.png";
 import logo from "../assets/images/sketchflow_logo.png";
 import sketchflow from "../assets/images/sketchflow.png";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 export function UploadImage() {
+  const [nameArtwork, setName] = useState("");
+  const [descArtwork, setDesc] = useState("");
+
   return (
     <section className="colorbox  py-5" >
       <div className=" px-5 bg-dark h-50 text-white row d-flex align-items-center justify-content-center">
@@ -21,10 +25,16 @@ export function UploadImage() {
       <div className="gradient-custom-2 container colorPrimaryvariant  ">
         <form>
           <label for="artwork_name" className="formulario__label">artwork_name de la ilustración</label>
-          <input type="text" className="form-custom-control" name="artwork_name" id="artwork_name" placeholder="artwork_name de la ilustración" />
+          <input type="text" className="form-custom-control" name="artwork_name" id="artwork_name" placeholder="artwork_name de la ilustración" 
+          required value={nameArtwork} onChange={(e) => {
+            setName(e.target.value); (nameArtwork); }}        
+          />
           <label for="artwork_caption" className="formulario__label">Descripción</label>
           <div className="form-group-input">
-            <input type="email" className="form-custom-control" name="artwork_caption" id="artwork_caption" placeholder="artwork_caption" />
+            <input type="email" className="form-custom-control" name="artwork_caption" id="artwork_caption" placeholder="artwork_caption" 
+                            required value={descArtwork} onChange={(e) => {
+                              setDesc(e.target.value); (descArtwork); }}         
+            />
           </div>
           <div className="form-group" id="restricciones">
             <label >Restricción de edad</label>
