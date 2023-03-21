@@ -44,18 +44,14 @@ export function UploadImage() {
             <div className="input-block">
               <label className="rad-label">
                 <input type="radio" className="rad-input " name="rad" id="Todos" value="Todos"
-                              checked={this.state.selectedOption === "Todos"}
 
-                              onChange={this.onValueChange}
                                />
                 <div className="rad-design "></div>
                 <div className="rad-text"> Todos </div>
               </label>
               <label className="rad-label">
                 <input type="radio" className="rad-input gender" name="rad" id="R-18" value="R-18"
-                                              checked={this.state.selectedOption === "R-18"}
 
-                                              onChange={this.onValueChange}
                                                />
                 <div className="rad-design"></div>
                 <div className="rad-text">R-18</div>
@@ -65,9 +61,7 @@ export function UploadImage() {
               <div className="input-block">
                 <label className="rad-label">
                   <input type="radio" className="rad-input " name="rad" id="Publico" value="Publico"
-                                                                checked={this.state.selectedOption === "Publico"}
-
-                                                                onChange={this.onValueChange} />
+ />
                   <div className="rad-design "></div>
                   <div className="rad-text"> Publico </div>
                 </label>
