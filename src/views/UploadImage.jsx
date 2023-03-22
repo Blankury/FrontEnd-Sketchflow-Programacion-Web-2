@@ -18,13 +18,18 @@ const [nameArtwork, setName] = useState("");
 const [descArtwork, setDesc] = useState("");
 const [priceArtwork, setPrice] = useState("");
 
+const [files, setFiles] = useState([]);
+
 return (  
     <section className="colorbox  py-5" >
       <div className=" px-5 bg-dark h-50 text-white row d-flex align-items-center justify-content-center">
         <div className=" py-5 text-white text-center">
-          <input className=" redbutton" type="file" id="formFile" onChange={(e)=>this.handleFile(e)}/>
+          <input className=" redbutton" type="file" id="formFile"        
+        multiple
+        onChange={(event) => setFiles(event.target.files)}
+        />
           <hr />
-
+          Archivos importados: {files.length}
           <p>JPEG / GIF / PNG</p>
           <p>
             You can upload up to 32 MB per file and a maximum of 200 files (the total file size must be less than 200 MB)</p>
@@ -123,6 +128,13 @@ return (
     }else{
       campos['visibilidad']=true;
       console.log('TRUE V');
+
+    }
+  }
+
+  async function validarTodo(){
+    if(campos['visibilidad']&&campos['restriccion'])
+    {
 
     }
   }
