@@ -141,11 +141,12 @@ return (
 
   async function validarTodo(){
 
-    if(campos['visibilidad']===true&&campos['restriccion']===true&&files.length!=0)
+    if(campos['visibilidad']===true&&campos['restriccion']===true&&files.length>0)
     {
-        alert('Imagen subida con exito');
+      console.log(files.length + 'Una o ms')
+
     }else{
-      alert('Importe una imagen');
+      console.log(files.length + 'Falta')
     }
   }
 

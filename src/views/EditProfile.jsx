@@ -2,7 +2,9 @@ import isotipo from "../assets/images/isotipo.png";
 import logo from "../assets/images/sketchflow_logo.png";
 import sketchflow from "../assets/images/sketchflow.png";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState,useRef } from "react";
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
 
 
 
@@ -19,14 +21,36 @@ export function EditProfile() {
       const [password, setPassword] = useState("");
       const [email, setEmail] = useState("");
       const [image, setImage] = useState(logo);
-      
-      const onImageChange = (event) => {
+      const [cover, setCover] = useState("");
+
+
+      const fileInputRef = useRef();
+      const fileInputRef2 = useRef();
+
+      const onCoverChange = (event) => {
         if (event.target.files && event.target.files[0]) {
             let img = event.target.files[0];
-            setImage(URL.createObjectURL(img));
+            setCover(URL.createObjectURL(img));
             }
        }
 
+      const onImageChange = (event) => {
+        if (event.target.files && event.target.files[0]) {
+            let img = new Image();
+            img.src = URL.createObjectURL(event.target.files[0]);
+            img.onload = () => {
+                setImage(img.src);
+            };
+            }
+       }
+
+    const onButtonClick = () => {
+        fileInputRef.current.click();
+    };
+
+    const onCoverClick = () => {
+        fileInputRef2.current.click();
+    };
 
     return (
         <section className="colorbox h-100">
@@ -36,15 +60,17 @@ export function EditProfile() {
                         <div className="">
                             <div className="py-5">
                                 <h2 className="h3 mb-4 page-title text-center">Configuración de perfil</h2>
-                                <input type="file" onChange={onImageChange} className="filetype" />
-                                <div className="d-flex flex-row bg-dark banner" style={{ height: '200px' }} >
-                                    
-                                    <div className="ms-4 mt-5 d-flex flex-column" style={{ width: '250px' }} >
+                                <div className="d-flex flex-row bg-dark banner" onClick={onCoverClick}  src={cover} style={{ height: '200px' }}>
+
+
+                                    <div className="ms-4 mt-5 d-flex flex-column" style={{ width: '220px' }} >
                                         <img src={image}
                                              className="borderprofile img-fluid img-thumbnail mt-4 mb-2"
-                                            style={{ width: '200px' }}
-                                            
+                                             style={{ cursor: "pointer",  width: "200px", height: "200px"}}
+                                            onClick={onButtonClick} 
                                             />
+                                        <input type="file" accept="image/png, image/gif, image/jpeg, image/jpg" 
+                                        ref={fileInputRef}  onChange={onImageChange} className="filetype" style={{ display: "none" }} />
 
                                         <p className="lead fw-normal mb-1">Usuario</p>
 
@@ -62,10 +88,9 @@ export function EditProfile() {
                                 </div>
                                 <div className="p-4 text-black">
                                     <div className="d-flex justify-content-end text-center py-1">
-                                        <input type="file" onChange={onImageChange} className="filetype redbutton" />
                                         
 
-                                        <Link to="/UploadImage" className="px-3 ">
+                                        <Link to="/EditProfile" className="px-3 ">
                                             <button type="submit" className="redbutton form-custom-control px-3">GUARDAR</button>
                                         </Link>
                                     </div>
@@ -174,13 +199,13 @@ export function EditProfile() {
                                                 </label>
 
                                             </div>
-                                            <Link to="/UploadImage" className="px-3 ">
+                                            <Link to="/EditProfile" className="px-3 ">
                                                 <div className="form-group">
                                                     <button type="submit" onClick={validarTodo()} className="redbutton form-custom-control submit px-3">GUARDAR</button>
                                                 </div> </Link>
-                                            <Link to="/UploadImage" className="px-3 ">
+                                            <Link to="/EditProfile" className="px-3 ">
                                                 <div className="form-group">
-                                                    <button type="submit" className="blackbutton form-custom-control submit px-3">ELIMINAR PERFIL</button>
+                                                    <button type="submit" onClick={deleteUser} className="blackbutton form-custom-control submit px-3">ELIMINAR PERFIL</button>
                                                 </div>
                                             </Link>
                                         </div>
@@ -209,9 +234,37 @@ export function EditProfile() {
     async function validarTodo(){
         if(Final)
         {
-            alert('Editado con exito');
+            console.log('Up');
         }else{
-          alert('Error');
+            Swal.fire({
+            icon: 'error',
+            title: 'Verifica que hayas insertado datos correctos',
+            html: ''
+        })   
         }
+    }
+
+     function deleteUser(){
+        const MySwal = withReactContent(Swal)
+
+        MySwal.fire({
+            title: 'Estas Seguro?',
+            text: "No podras recuperar tu cuenta",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            cancelButtonText: 'Cancelar',
+            confirmButtonText: 'Confirmar',
+            dangerMode: true,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire(
+                    'Borrado',
+                    'El usuario se ha borrado',
+                    'success'
+                )
+            }
+        })
     }
 };
