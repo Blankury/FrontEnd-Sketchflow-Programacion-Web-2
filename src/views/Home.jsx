@@ -1,6 +1,7 @@
 import isotipo from "../assets/images/isotipo.png";
 import logo from "../assets/images/sketchflow_logo.png";
 import sketchflow from "../assets/images/sketchflow.png";
+import { Link } from "react-router-dom";
 
 export function Home() {
     return (
@@ -37,13 +38,15 @@ export function Home() {
 
                             <div className="row py-2 px-4" id="premium-container">
                                 <div className="col-md-3 ">
-                                    <a href="" style={{ textDecoration: 'none' }}>
+                                <Link to="/Artwork" className="dropdown-item Link">
+
+                                    
                                         <div className="mb-1 mt-1 border" >
                                             <img src={logo} width="200" height="200" className="rounded-3 float-left border bg-dark" alt="..." />
                                         </div>
                                         <h6 className="text-black"> Titulo </h6>
                                         <label className="text-black"> Premium </label>
-                                    </a>
+                                    </Link>
                                 </div>
                                 <div className="col-md-3 ">
                                     <a href="" style={{ textDecoration: 'none' }}>

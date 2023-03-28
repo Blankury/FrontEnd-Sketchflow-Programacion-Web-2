@@ -2,6 +2,7 @@ import isotipo from "../assets/images/isotipo.png";
 import logo from "../assets/images/sketchflow_logo.png";
 import sketchflow from "../assets/images/sketchflow.png";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 
 export function Login() {
@@ -28,12 +29,14 @@ export function Login() {
                                 <div className="form-group">
                                     <div className="icon d-flex align-items-center justify-content-center"><span className="fa fa-user"></span></div>
                                     <input type="text" className="form-custom-control" placeholder="Username" required value={userName} onChange={(e) => {
-                                        setUser(e.target.value);}}></input>
+                                        setUser(e.target.value);
+                                    }}></input>
                                 </div>
                                 <div className="form-group">
                                     <div className="icon d-flex align-items-center justify-content-center"><span className="fa fa-lock"></span></div>
                                     <input type="password" className="form-custom-control" placeholder="Password" required value={password} onChange={(e) => {
-                                        setPass(e.target.value);}} />
+                                        setPass(e.target.value);
+                                    }} />
                                 </div>
                                 <div className="form-group d-md-flex">
                                     <div className="w-100 text-md-right">
@@ -46,7 +49,7 @@ export function Login() {
                             </form>
                             <div className="w-100 text-center mt-4 text">
                                 <p className="mb-0">¿No tienes una cuenta?</p>
-                                <a href="#">Registrate</a>
+                                <Link to="/signup" className="dropdown-item Link">Registrate</Link>
                             </div>
                         </div>
                     </div>
@@ -56,16 +59,7 @@ export function Login() {
 
     );
 
-    /*const handleSubmit = async (e) => {
-        e.preventDefault();
-
-    }
-    
-    */
-
     async function loginget() {
-        
-
         const options = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -75,11 +69,9 @@ export function Login() {
             })
         };
 
-
         console.log(options);
         const response = await fetch('http://localhost:8080/login', options);
         const data = await response.json();
-
 
         //console.log(response.status);
         if (response.status == 200) {

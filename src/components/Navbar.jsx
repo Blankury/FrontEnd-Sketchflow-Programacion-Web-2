@@ -28,9 +28,11 @@ export function Navbar() {
 
                     <ul className="navbar-nav px-2 pe-2 mb-2 mb-lg-0">
                         <li className="nav-item">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="white" className="nav-link nav-icon bi bi-chat-square-dots-fill" viewBox="0 0 16 16">
-                                <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.5a1 1 0 0 0-.8.4l-1.9 2.533a1 1 0 0 1-1.6 0L5.3 12.4a1 1 0 0 0-.8-.4H2a2 2 0 0 1-2-2V2zm5 4a1 1 0 1 0-2 0 1 1 0 0 0 2 0zm4 0a1 1 0 1 0-2 0 1 1 0 0 0 2 0zm3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" />
-                            </svg>
+                            <Link to="/Chat" className="dropdown-item Link">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="white" className="nav-link nav-icon bi bi-chat-square-dots-fill" viewBox="0 0 16 16">
+                                    <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.5a1 1 0 0 0-.8.4l-1.9 2.533a1 1 0 0 1-1.6 0L5.3 12.4a1 1 0 0 0-.8-.4H2a2 2 0 0 1-2-2V2zm5 4a1 1 0 1 0-2 0 1 1 0 0 0 2 0zm4 0a1 1 0 1 0-2 0 1 1 0 0 0 2 0zm3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" />
+                                </svg>
+                            </Link>
                         </li>
                         <li className="nav-item ">
                             <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="white" className="nav-link  bi bi-bell-fill nav-icon" viewBox="0 0 16 16">
@@ -49,7 +51,7 @@ export function Navbar() {
                             <li><a className="dropdown-item" href="#"> Configuración </a></li>
                             <li><Link to="/Profile" className="dropdown-item"> Perfil</Link></li>
                             <li><hr className="dropdown-divider" /></li>
-                            <li><Link to="/Home" className="dropdown-item">Cerrar sesión</Link> </li>
+                            <li><Link to="/login" className="dropdown-item">Cerrar sesión</Link> </li>
                         </ul>
                     </div>
                 </div>
