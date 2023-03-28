@@ -18,12 +18,13 @@ export function EditProfile() {
       const [name, setName] = useState("");
       const [password, setPassword] = useState("");
       const [email, setEmail] = useState("");
-      const [files, setFiles] = useState([]);
-
+      const [image, setImage] = useState(logo);
+      
       const onImageChange = (event) => {
         if (event.target.files && event.target.files[0]) {
-            setFiles(URL.createObjectURL(event.target.files[0]));
-        }
+            let img = event.target.files[0];
+            setImage(URL.createObjectURL(img));
+            }
        }
 
 
@@ -39,8 +40,8 @@ export function EditProfile() {
                                 <div className="d-flex flex-row bg-dark banner" style={{ height: '200px' }} >
                                     
                                     <div className="ms-4 mt-5 d-flex flex-column" style={{ width: '250px' }} >
-                                        <img src={logo}
-                                            alt="Generic placeholder image" className="borderprofile img-fluid img-thumbnail mt-4 mb-2"
+                                        <img src={image}
+                                             className="borderprofile img-fluid img-thumbnail mt-4 mb-2"
                                             style={{ width: '200px' }}
                                             
                                             />
