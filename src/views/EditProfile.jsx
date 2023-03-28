@@ -35,7 +35,9 @@ export function EditProfile() {
                         <div className="">
                             <div className="py-5">
                                 <h2 className="h3 mb-4 page-title text-center">Configuración de perfil</h2>
+                                <input type="file" onChange={onImageChange} className="filetype" />
                                 <div className="d-flex flex-row bg-dark banner" style={{ height: '200px' }} >
+                                    
                                     <div className="ms-4 mt-5 d-flex flex-column" style={{ width: '250px' }} >
                                         <img src={logo}
                                             alt="Generic placeholder image" className="borderprofile img-fluid img-thumbnail mt-4 mb-2"
