@@ -2,9 +2,11 @@ import isotipo from "../assets/images/isotipo.png";
 import logo from "../assets/images/sketchflow_logo.png";
 import sketchflow from "../assets/images/sketchflow.png";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 
 export function Artwork() {
+    const [commentText, setComment] = useState("");
     return (
         <section className="colorbox  py-5" >
             <br />
@@ -35,7 +37,7 @@ export function Artwork() {
                                 alt="..." className="borderprofile img-fluid img-thumbnail"
                                 style={{ width: '100px' }} />
 
-                            <h4 className="py-4 px-3" > Usuario </h4>
+                            <h4 className="py-4 px-3" > <a href="profile">Usuario </a></h4>
                         </div>
                         <button type="button" className="redbutton px-5 " >Seguir</button>
                         <hr />
@@ -63,7 +65,9 @@ export function Artwork() {
                     <h3> Comentarios </h3>
                     <span>
                         <img src={logo} alt="" width='40px' /> <label> Nombre de usuario </label> <br />
-                        <textarea name="" id="" cols="20" rows="4" className="full_input" placeholder="Añade un comentario del producto." />
+                        <textarea name="" id="" cols="20" rows="4" className="full_input" placeholder="Añade un comentario del producto." 
+                                              required value={commentText} onChange={(e) => {
+                                                setComment(e.target.value);  }} />
                     </span>
                     <span>
                         <img src={logo} alt="" width='40px' />

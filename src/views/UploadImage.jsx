@@ -4,9 +4,6 @@ import sketchflow from "../assets/images/sketchflow.png";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 
-
-
-
 export function UploadImage() {
   
 const campos = {
@@ -90,16 +87,26 @@ return (
                   <div className="rad-text">De pago </div>
                 </label>
               </div>
-              <label for="artwork_price" className="formulario__label">Precio</label>
+              <label for="artwork_price" id="precio" className="formulario__label">Precio</label>
               <input type="text" className="form-custom-control" name="artwork_price" id="artwork_price" placeholder="Precio de la ilustración" 
-                                          required value={priceArtwork} onChange={(e) => {
-                                            setPrice(e.target.value); }}         
+                                          required value={priceArtwork} 
+                                                                                   
+                                          onChange={(e) => {
+                                            const re = /^\d*\.?\d*$/;
+
+                                            // if value is not blank, then test the regex                                       
+                                            if (e.target.value === "" || re.test(e.target.value)) {
+                                              setPrice(e.target.value);
+                                            }
+                                          
+                                          }}         
                                             />
 
             </div>
             <Link to="/Artwork" className="px-3 ">
               <div className="form-group">
-                <button type="submit"  className="redbutton form-custom-control submit px-3">Publicar</button>
+                <button type="submit" onClick={validarTodo()}
+                className="redbutton form-custom-control submit px-3">Publicar</button>
               </div> </Link>
           </div>
         </form>
@@ -133,9 +140,12 @@ return (
   }
 
   async function validarTodo(){
-    if(campos['visibilidad']&&campos['restriccion'])
-    {
 
+    if(campos['visibilidad']===true&&campos['restriccion']===true&&files.length!=0)
+    {
+        alert('Imagen subida con exito');
+    }else{
+      alert('Importe una imagen');
     }
   }
 

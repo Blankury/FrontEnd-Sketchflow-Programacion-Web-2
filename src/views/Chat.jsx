@@ -5,7 +5,7 @@ import ReactDOM from 'react-dom'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPaperPlane } from '@fortawesome/free-solid-svg-icons'
-
+import useLocalStorage from 'react';
 import { useState } from "react";
 
 export function Chat() {
@@ -99,9 +99,9 @@ export function Chat() {
                 <div className="msg-info-name">Sajad</div>
                 <div className="msg-info-time">12:46</div>
               </div>
-
-              <div className="msg-text">
-                You can change your name in JS section!
+                        
+              <div className="msg-text" id="Message">
+                Mensaje
               </div>
             </div>
           </div>
@@ -117,6 +117,8 @@ export function Chat() {
                     multiple
                     onChange={(event) => setFiles(event.target.files)}/>
         </div>
+
+        
           <input type="text" className="msger-input" placeholder="Escribe tu mensaje"                             
           required value={messageText} onChange={(e) => {
                               setMessage(e.target.value);  }}        />
@@ -129,4 +131,5 @@ export function Chat() {
 
 
   );
+
 }
