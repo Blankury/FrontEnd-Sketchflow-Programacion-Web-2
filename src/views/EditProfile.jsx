@@ -20,6 +20,13 @@ export function EditProfile() {
       const [email, setEmail] = useState("");
       const [files, setFiles] = useState([]);
 
+      const onImageChange = (event) => {
+        if (event.target.files && event.target.files[0]) {
+            setFiles(URL.createObjectURL(event.target.files[0]));
+        }
+       }
+
+
     return (
         <section className="colorbox h-100">
             <div className="gradient-custom-2 vw-100 container bg-light">
@@ -30,7 +37,6 @@ export function EditProfile() {
                                 <h2 className="h3 mb-4 page-title text-center">Configuración de perfil</h2>
                                 <div className="d-flex flex-row bg-dark banner" style={{ height: '200px' }} >
                                     <div className="ms-4 mt-5 d-flex flex-column" style={{ width: '250px' }} >
-                                        
                                         <img src={logo}
                                             alt="Generic placeholder image" className="borderprofile img-fluid img-thumbnail mt-4 mb-2"
                                             style={{ width: '200px' }}
@@ -53,6 +59,9 @@ export function EditProfile() {
                                 </div>
                                 <div className="p-4 text-black">
                                     <div className="d-flex justify-content-end text-center py-1">
+                                        <input type="file" onChange={onImageChange} className="filetype redbutton" />
+                                        
+
                                         <Link to="/UploadImage" className="px-3 ">
                                             <button type="submit" className="redbutton form-custom-control px-3">GUARDAR</button>
                                         </Link>
