@@ -1,6 +1,6 @@
 import isotipo from "../assets/images/isotipo.png";
 import sketchflow from "../assets/images/sketchflow.png";
-import { useState,useRef} from "react";
+import { useState, useRef } from "react";
 
 
 export function Signup() {
@@ -14,28 +14,28 @@ export function Signup() {
     const [description, setDescription] = useState("");
     const [birthDate, setBirthDate] = useState("");
     const [gender, setGender] = useState("");
-    
+
     const fileInputRef = useRef();
     const fileInputRef2 = useRef();
 
-    
+
     const [image, setImage] = useState(isotipo);
     const [cover, setCover] = useState(sketchflow);
 
 
     const onImageChange = (event) => {
-      if (event.target.files && event.target.files[0]) {
-          let img = event.target.files[0];
-          setImage(URL.createObjectURL(img));
-          }
-     }
+        if (event.target.files && event.target.files[0]) {
+            let img = event.target.files[0];
+            setImage(URL.createObjectURL(img));
+        }
+    }
 
-     const onCoverChange = (event) => {
+    const onCoverChange = (event) => {
         if (event.target.files && event.target.files[0]) {
             let img = event.target.files[0];
             setCover(URL.createObjectURL(img));
-            }
-       }
+        }
+    }
 
     const onButtonClick = () => {
         fileInputRef.current.click();
@@ -63,11 +63,11 @@ export function Signup() {
 
                                 <div className="padding" >
                                     <div className="justify-content-center">
-                                        <div className="card"> <img className="card-img-top" src={cover} alt="Card image cap"  onClick={onCoverClick} />
-                                        <input type="file" accept="image/png, image/gif, image/jpeg, image/jpg"
-                                        class="form-control position-absolute"
-                                        name="profile-picture" id="profile-picture"
-                                        autocomplete="off" ref={fileInputRef2}  onChange={onCoverChange} style={{ display: "none" }}/>
+                                        <div className="card"> <img className="card-img-top" src={cover} alt="Card image cap" onClick={onCoverClick} />
+                                            <input type="file" accept="image/png, image/gif, image/jpeg, image/jpg"
+                                                class="form-control position-absolute"
+                                                name="profile-picture" id="profile-picture"
+                                                autocomplete="off" ref={fileInputRef2} onChange={onCoverChange} style={{ display: "none" }} />
 
                                             <div className="card-body little-profile text-center">
                                                 <div className="pro-img" id="pfp" >
@@ -75,20 +75,20 @@ export function Signup() {
                                                     <input type="file" accept="image/png, image/gif, image/jpeg, image/jpg"
                                                         class="form-control position-absolute"
                                                         name="profile-picture" id="profile-picture"
-                                                        autocomplete="off" ref={fileInputRef}  onChange={onImageChange} style={{ display: "none" }}/>
+                                                        autocomplete="off" ref={fileInputRef} onChange={onImageChange} style={{ display: "none" }} />
 
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <div className="form-group" name="profile-pic">
                                     <p id="text-r" className="text-center mb-0">Haz click para introducir una foto de perfil y portada</p>
                                 </div>
                                 <div className="form-group">
                                     <div className="icon d-flex align-items-center justify-content-center"><span className="fa fa-lock"></span></div>
-                                    <input type="text" className="form-custom-control" placeholder="Nombre" required value={name} onChange={(e) => {
+                                    <input type="text" className="form-custom-control" placeholder="Nombre" value={name} onChange={(e) => {
                                         setName(e.target.value);
                                     }} />
                                 </div>
@@ -101,14 +101,14 @@ export function Signup() {
 
                                 <div className="form-group">
                                     <div className="icon d-flex align-items-center justify-content-center"><span className="fa fa-mail-forward"></span></div>
-                                    <input type="text" className="form-custom-control" placeholder="Username" required value={userName} onChange={(e) => {
+                                    <input type="text" className="form-custom-control" placeholder="Username" value={userName} onChange={(e) => {
                                         setUser(e.target.value);
                                     }} />
                                 </div>
 
                                 <div className="form-group">
                                     <div className="icon d-flex align-items-center justify-content-center"><span className="fa fa-lock"></span></div>
-                                    <input type="password" className="form-custom-control" placeholder="Contraseña" required value={password} onChange={(e) => {
+                                    <input type="password" className="form-custom-control" placeholder="Contraseña" value={password} onChange={(e) => {
                                         setPass(e.target.value);
                                     }} />
                                 </div>
@@ -178,28 +178,129 @@ export function Signup() {
 
     async function SignUpget() {
 
+        if (isEmpty()) {
+            if (validateEmail()) {
+                if (validatePassword()) {
+                    if (validateDate()) {
+                        //return;
+                        const options = {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                userName: userName,
+                                password: password,
+                                description: description,
+                                name: name,
+                                email: email,
+                                gender: gender,
+                                birthDate: birthDate,
+                                coverPhoto: coverPhoto,
+                                profilePhoto: profilePhoto
+                            })
+                        };
 
-        const options = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                userName: userName,
-                password: password,
-                description: description,
-                name: name,
-                email: email,
-                gender: gender,
-                birthDate: birthDate,
-                coverPhoto: coverPhoto,
-                profilePhoto: profilePhoto
-            })
-        };
 
-
-        console.log(options);
-        //const response = await fetch('http://localhost:8080/login', options);
-        //const data = await response.json();
-
+                        console.log(options);
+                        //const response = await fetch('http://localhost:8080/login', options);
+                        //const data = await response.json();
+                    }
+                    else {
+                        return;
+                    }
+                }
+                else {
+                    return;
+                }
+            }
+            else {
+                return;
+            }
+        }
+        else {
+            return;
+        }
     }
-    
+
+    function isEmpty() {
+        if (name.value == null || name.value.length == 0 || /^\s*$/.test(name.value)) {
+            alert("Campo de nombres vacío.");
+            return false;
+        }
+
+        if (email.value == null || email.value.length == 0 || /^\s*$/.test(email.value)) {
+            alert("Campo de correo vacío.");
+            return false;
+        }
+        if (userName.value == null || userName.value.length == 0 || /^\s*$/.test(userName.value)) {
+            alert("El usuario debe tener al menos 5 caracteres.");
+            return false;
+        }
+        if (password.length < 1) {
+            alert("Campo de contraseña vacío.");
+            return false;
+        }
+        if (description.value == null || description.value.length == 0 || /^\s*$/.test(description.value)) {
+            alert("Descripción vacía.");
+            return false;
+        }
+        if (gender.length < 1) {
+            alert("Selecciona un género.");
+            return false;
+        }
+        return true;
+    };
+
+    function validateEmail() {
+        //uso de la expresión regular REGEX
+        let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+        if (reg.test(email)) {
+            return true;
+        }
+        else {
+            alert("Correo no válido.");
+            return false;
+        }
+    };
+
+    function validatePassword() {
+        //uso de la expresión regular REGEX
+        let regpas = /^(?=.*\d)(?=.*[a-z]).*[A-Z].*[&%$#"!/()=]/;
+
+        if (regpas.test(password)) {
+            return true;
+        }
+        else {
+            alert("La contraseña debe tener mínimo 8 caracteres, una mayuscula, una minúscula, un número y un símbolo.");
+            return false;
+        }
+    };
+
+    function validateDate() {
+
+        var newDate = new Date();
+        var month = newDate.getMonth() + 1;
+        var day = newDate.getDate();
+        var todaysDate = newDate.getFullYear() + '/' + (month < 10 ? '0' : '') + month + '/' + (day < 10 ? '0' : '') + day;
+
+        if (Date.parse(birthDate) >= Date.parse(todaysDate)) {
+            alert("Fecha no válida.");
+            return false;
+        }
+        else {
+            return true;
+        }
+    };
+
+
+    function sonLetras(Nm, Ap) {
+        let regtxt = /^[a-zA-Z ]+$/;
+
+        if (regtxt.test(name)) {
+            return true;
+        }
+        else {
+            alert("El nombre solo acepta letras.");
+            return false;
+        }
+    };
 }
