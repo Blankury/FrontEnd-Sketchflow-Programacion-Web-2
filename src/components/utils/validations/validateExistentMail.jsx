@@ -1,3 +1,5 @@
+import { backend_url } from "../../../config";
+
 export async function validateExistentMail(value){
     const options = {
         method: 'POST',
@@ -6,8 +8,9 @@ export async function validateExistentMail(value){
             email: value
         })
     };
-    const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}existentMail`, options);
+    const response = await fetch(`${backend_url}existentMail`, options);
     const data = await response.json();
+    
     //console.log(data.result);
     
     if(response.status === 200){

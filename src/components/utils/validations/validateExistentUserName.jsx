@@ -1,3 +1,5 @@
+import { backend_url } from "../../../config";
+
 export async function validateExistentUserName(value){
     const options = {
         method: 'POST',
@@ -7,7 +9,7 @@ export async function validateExistentUserName(value){
         })
     };
 
-    const response = await fetch('http://localhost:8080/existentUserName', options);
+    const response = await fetch(`${backend_url}existentUserName`, options);
     const data = await response.json();
     
     //console.log(data.result);

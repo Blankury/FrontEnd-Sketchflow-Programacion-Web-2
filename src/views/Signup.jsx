@@ -11,7 +11,8 @@ import { GenderInput } from "../components/signUpComponents/GenderInput";
 import { BirthDateInput } from "../components/signUpComponents/BirthDateInput";
 import { SignUpSubmit } from "../components/signUpComponents/SignUpSubmit";
 import { LogInRedirect } from "../components/signUpComponents/LogInRedirect";
-import { signUpget } from "../apis/SignUpApi";
+import { signUpget, validateCredentials } from "../apis/SignUpApi";
+import { ModalMessage } from "../components/signUpComponents/modalMessage";
 
 export function Signup() {
 
@@ -28,6 +29,32 @@ export function Signup() {
     const [coverPhoto, setCoverPhoto] = useState(sketchflow);
     const [coverImage, setcoverImage] = useState([]);
 
+    const [alertMail, setAlertMail] = useState(false);
+    const [alertMailText, setAlertMailText] = useState("");
+
+    const [alertUserName, setAlerUserName] = useState(false);
+    const [alertUserNameText, setAlertUserNameText] = useState("");
+
+    const [modalText, setModalText] = useState("");
+
+    async function submit(){
+        const isValid = await validateCredentials(setAlertMail, setAlertMailText, setAlerUserName, setAlertUserNameText);
+        if(isValid){
+            const response = await signUpget(userName, password, email, name, birthDate, gender, profileImage, coverImage);
+            const data = await response.json();
+
+            if(response.status === 200){
+                setModalText(data.result);
+
+                document.getElementById('modalButton1').click();
+            }else{
+                setModalText(data.result);
+
+                document.getElementById('modalButton2').click();
+            }
+        }
+    }
+
     return (
         <section style={{ backgroundImage: 'url("https://images.chesscomfiles.com/uploads/v1/images_users/tiny_mce/Anindo_The_PRO/phpl6wYbs.gif")', backgroundSize: 'cover ' }}>
             <div className="container justify-content-md-center">
@@ -42,8 +69,7 @@ export function Signup() {
                         <div className="login-wrap py-5">
                             <h3 className="text-center mb-0">Crea tu cuenta</h3>
                             <p className="text-center">Introduce tus datos abajo</p>
-                            <form action="#" className="login-form" id="form" 
-                            onSubmit={signUpget}>
+                            <form action="#" className="login-form" id="form" onSubmit={submit}>
 
                                 <CoverImageInput
                                     value={coverPhoto}
@@ -68,15 +94,19 @@ export function Signup() {
                                     value={name}
                                     onChange={(e) => { setName(e.target.value); }}
                                 />
-
+                                
                                 <MailInput
                                     value={email}
                                     onChange={(e) => { setEmail(e.target.value); }}
+                                    alertMail={alertMail}
+                                    alertMailText={alertMailText}
                                 />
 
                                 <UserNameInput
                                     value={userName}
                                     onChange={(e) => { setUser(e.target.value); }}
+                                    alertUserName={alertUserName}
+                                    alertUserNameText={alertUserNameText}
                                 />
 
                                 <PasswordInput
@@ -96,6 +126,10 @@ export function Signup() {
                                 <SignUpSubmit />
 
                                 <LogInRedirect />
+
+                                <ModalMessage 
+                                    text={modalText}
+                                />
                             </form>
                         </div>
                     </div>

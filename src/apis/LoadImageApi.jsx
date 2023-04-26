@@ -1,3 +1,5 @@
+import { backend_url } from "../config";
+
 export async function loadImage(photo){
     const formData = new FormData();
     formData.append("foto", photo);
@@ -8,7 +10,7 @@ export async function loadImage(photo){
         body: formData
     };
     
-    const response = await fetch('http://localhost:8080/uploadFile', optionFetch);
+    const response = await fetch(`${backend_url}uploadFile`, optionFetch);
     const data = await response.json();
 
     if (response.status === 200) {

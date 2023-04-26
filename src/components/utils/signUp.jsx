@@ -5,8 +5,8 @@ import { validatePassword } from "./validations/validatePassword";
 import { validateCheckGender } from "./validations/validateCheckGender";
 import { validateBirthdate } from "./validations/validateBirthDate";
 import { validateImage } from "./validations/validateImage";
-import { validateExistentMail } from "./validations/validateExistentMail";
-import { validateExistentUserName } from "./validations/validateExistentUserName";
+//import { validateExistentMail } from "./validations/validateExistentMail";
+//import { validateExistentUserName } from "./validations/validateExistentUserName";
 
 export async function validateSignUp() {
     let varName = document.getElementById('formName');
@@ -32,19 +32,20 @@ export async function validateSignUp() {
     //varName.setCustomValidity(validateName(varName.value));
 
 
-    sharedValidation = validateMail(varMail.value);
-    if(sharedValidation === ""){
-        sharedValidation = await validateExistentMail(varMail.value);
-    }
-    varMail.setCustomValidity(sharedValidation);
+    //sharedValidation = validateMail(varMail.value);
+    //if(sharedValidation === ""){
+    //    sharedValidation = await validateExistentMail(varMail.value);
+    //}
+    //varMail.setCustomValidity(sharedValidation);
 
 
-    sharedValidation = validateUsername(varUserName.value)
-    if(sharedValidation === ""){
-        sharedValidation = await validateExistentUserName(varUserName.value)
-    }
-    varUserName.setCustomValidity(sharedValidation);
-
+    //sharedValidation = validateUsername(varUserName.value)
+    //if(sharedValidation === ""){
+    //    sharedValidation = await validateExistentUserName(varUserName.value)
+    //}
+    //varUserName.setCustomValidity(sharedValidation);
+    varMail.setCustomValidity(validateMail(varMail.value));
+    varUserName.setCustomValidity(validateUsername(varUserName.value));
     varPassword.setCustomValidity(validatePassword(varPassword.value));
     varGender.setCustomValidity(validateCheckGender(varSelectedGender[0]));
     varBirthDate.setCustomValidity(validateBirthdate(varBirthDate.value));
