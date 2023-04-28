@@ -15,7 +15,7 @@ export const CoverImageInput = ({value, onChange, valueChild, onChangeChild}) =>
                 <div className="card"> <img className="card-img-top" src={value} alt="Card image cap" onClick={onButtonClick} />
                     <input type="file" accept="image/png, image/gif, image/jpeg, image/jpg"
                         className="form-control position-absolute"
-                        name="cover-picture" id="cover-picture"
+                        id="cover-picture"
                         autoComplete="off" ref={fileInputRef} onChange={onChange} style={{ display: "none" }} />
                     
                     <ProfileImageInput

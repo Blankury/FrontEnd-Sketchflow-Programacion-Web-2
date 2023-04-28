@@ -37,22 +37,20 @@ export function Signup() {
 
     const [modalText, setModalText] = useState("");
 
-    async function submit(){
+    async function submit(event){
+        event.preventDefault();
         const isValid = await validateCredentials(setAlertMail, setAlertMailText, setAlerUserName, setAlertUserNameText);
         if(isValid){
             const response = await signUpget(userName, password, email, name, birthDate, gender, profileImage, coverImage);
             const data = await response.json();
-
+            setModalText(data.result);
             if(response.status === 200){
-                setModalText(data.result);
-
                 document.getElementById('modalButton1').click();
             }else{
-                setModalText(data.result);
-
                 document.getElementById('modalButton2').click();
             }
         }
+        
     }
 
     return (

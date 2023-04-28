@@ -8,6 +8,7 @@ export async function validateExistentMail(value){
             email: value
         })
     };
+    
     const response = await fetch(`${backend_url}existentMail`, options);
     const data = await response.json();
     
