@@ -22,7 +22,7 @@ export async function signUpget(userName, password, email, name, birthDate, gend
         })
     };
 
-    console.log(options);
+    //console.log(options);
 
     const response = await fetch(`${backend_url}signup`, options);
     //const data = await response.json();
