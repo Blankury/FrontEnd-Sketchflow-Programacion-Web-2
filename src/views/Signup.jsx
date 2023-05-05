@@ -13,6 +13,7 @@ import { SignUpSubmit } from "../components/signUpComponents/SignUpSubmit";
 import { LogInRedirect } from "../components/signUpComponents/LogInRedirect";
 import { signUpget, validateCredentials } from "../apis/SignUpApi";
 import { ModalMessage } from "../components/signUpComponents/modalMessage";
+import { setLogInStorage } from "../components/utils/LocalStorageUtils";
 
 export function Signup() {
 
@@ -45,6 +46,7 @@ export function Signup() {
             const data = await response.json();
             setModalText(data.result);
             if(response.status === 200){
+                setLogInStorage(data.userLog);
                 document.getElementById('modalButton1').click();
             }else{
                 document.getElementById('modalButton2').click();

@@ -1,31 +1,59 @@
 import isotipo from "../assets/images/isotipo.png";
 import logo from "../assets/images/sketchflow_logo.png";
 import sketchflow from "../assets/images/sketchflow.png";
-
 import { Link } from "react-router-dom";
-
+import { useState } from "react";
+import { getLoggedUser, logOut } from "../apis/LogInApi";
+import { useHistory } from "react-router-dom";
 
 export function Navbar() {
-    return (
-        <nav className="navbar navbar-expand-lg navbar-light colorPrimary position-fixed vw-100" >
+    const [userName, setUserName] = useState("");
+    const [profilePhoto, setProfilePhoto] = useState("");
+    const history = useHistory();
 
+    //use effect
+    async function loader(){
+        const data = await getLoggedUser(localStorage.getItem("userId"), localStorage.getItem("token"));
+        if(data.error === true){
+            loadLogOut();
+        }
+        if(data === null){
+            loadLogOut();
+        }
+
+        console.log(data);
+        setUserName(data.userLog.userName);
+        setProfilePhoto(data.userLog.profilePhoto);
+    }
+
+    async function loadLogOut(){
+        const data = await logOut(localStorage.getItem("token"));
+        const delay = ms => new Promise(
+            resolve => setTimeout(resolve, ms)
+        );
+        
+        await delay(1000);
+        history.push("/login");
+    }
+
+    return (
+        <nav onLoad={() => loader()} className="navbar navbar-expand-lg navbar-light colorPrimary position-fixed vw-100" >
             <div className="container-fluid">
                 <Link to="/Home" className="navbar-brand text-white" href="#">
                     <img src={isotipo} alt="" width="35" height="35" className="d-inline-block align-text-top" />
                     <img src={sketchflow} alt="" height="35" className="d-inline-block align-text-top" />
                 </Link>
+
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                 </button>
-                <div className="collapse navbar-collapse" id="navbarSupportedContent">
 
+                <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <form className="d-flex mx-auto px-5">
                         <input className="form-control me-2 searchbar" type="search" placeholder="Search" aria-label="Search" />
                         <button className="yellowbutton " type="submit">Buscar</button>
                     </form>
-
                     <Link to="/UploadImage"> <button className="redbutton px-5" type="button">Publicar</button> </Link>
-
                     <ul className="navbar-nav px-2 pe-2 mb-2 mb-lg-0">
                         <li className="nav-item">
                             <Link to="/Chat" className="dropdown-item Link">
@@ -40,18 +68,17 @@ export function Navbar() {
                             </svg>
                         </li>
                     </ul>
-
-                    <div className="nav-item dropdown ">
+                    
+                    <div className="nav-item dropdown">
                         <a className="nav-link dropdown-toggle text-white pe-2" href="#" id="navbarDropdown" role="button" data-bs-toggle='dropdown' aria-expanded="false">
-                            <label className="pe-3 ">Usuario 4545</label>
-
-                            <img src={isotipo} alt="" width="35" height="35" className="borderimg d-inline-block align-text-top " />
+                            <label className="pe-3 ">{ userName }</label>
+                            <img src={ profilePhoto } alt="" width="35" height="35" className="borderimg d-inline-block align-text-top " />
                         </a>
-                        <ul className="dropdown-menu " aria-labelledby="navbarDropdown">
+                        <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
                             <li><a className="dropdown-item" href="#"> Configuración </a></li>
                             <li><Link to="/Profile" className="dropdown-item"> Perfil</Link></li>
                             <li><hr className="dropdown-divider" /></li>
-                            <li><Link to="/login" className="dropdown-item">Cerrar sesión</Link> </li>
+                            <li><a className="dropdown-item" href="#" onClick={() => loadLogOut()}> Cerrar sesión </a></li>
                         </ul>
                     </div>
                 </div>

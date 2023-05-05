@@ -9,23 +9,37 @@ import { LogInSubmit } from "../components/logInComponents/LogInSubmit";
 import { LogInRedirect } from "../components/logInComponents/signUpRedirect";
 import { logInGet } from "../apis/LogInApi";
 import { AlertMessage } from "../components/signUpComponents/alertMessage";
+import { setLogInStorage } from "../components/utils/LocalStorageUtils";
+import { useHistory } from "react-router-dom";
+import { SessionCheckInput } from "../components/logInComponents/SessionCheckInput";
 
 export function Login() {
     const [userName, setUser] = useState("");
     const [password, setPass] = useState("");
+    const [sessionCheck, setSessionCheck] = useState(false);
 
     const [alertLogIn, setAlertLogIn] = useState(false);
     const [alertLogInText, setAlertLogInText] = useState("");
 
+    const history = useHistory();
+
     async function submit(event){
         event.preventDefault();
 
-        const response = await logInGet(userName, password);
+        const response = await logInGet(userName, password, !sessionCheck);
         const data = await response.json();
 
         if(response.status === 200){
-            alert("nice");
+            setLogInStorage(data.user);
             setAlertLogIn(false);
+            
+            const delay = ms => new Promise(
+                resolve => setTimeout(resolve, ms)
+            );
+            
+            await delay(1000);
+            
+            history.push("/Home");
         }else{
             setAlertLogIn(true);
             setAlertLogInText(data.result);
@@ -57,17 +71,22 @@ export function Login() {
                                     value={password}
                                     onChange={(e) => { setPass(e.target.value); }}
                                 />
+                                
+                                <SessionCheckInput
+                                    value={sessionCheck}
+                                    onChange={(e) => { setSessionCheck(e.target.checked); }}
+                                />
+                                <br />
 
                                 <AlertMessage 
                                     alert={alertLogIn}
                                     text={alertLogInText}
                                 />
 
-                                <PasswordForgot />
-
                                 <LogInSubmit />
                                 
                             </form>
+                            <PasswordForgot />
                             <LogInRedirect />
                         </div>
                     </div>
