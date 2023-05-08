@@ -2,55 +2,79 @@ import isotipo from "../assets/images/isotipo.png";
 import logo from "../assets/images/sketchflow_logo.png";
 import sketchflow from "../assets/images/sketchflow.png";
 import { Link } from "react-router-dom";
-import { useState,useRef } from "react";
+import { useState, useEffect } from "react";
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
-
-
-
+import { CoverImageInput } from "../components/editProfileComponents/CoverImageInput";
+import { ProfileImageInput } from "../components/editProfileComponents/ProfileImageInput";
+import { UserNameInput } from "../components/editProfileComponents/UserNameInput";
+import { MailInput } from "../components/editProfileComponents/MailInput";
+import { DescriptionInput } from "../components/editProfileComponents/DescriptionInput";
+import { CreationDateInfo } from "../components/editProfileComponents/CreationDate";
+import { NameInput } from "../components/editProfileComponents/NameInput";
+import { PasswordInput } from "../components/editProfileComponents/PasswordInput";
+import { GenderInput } from "../components/editProfileComponents/GenderInput";
+import { FacebookInput } from "../components/editProfileComponents/FacebookInput";
+import { TwitterInput } from "../components/editProfileComponents/TwitterInput";
+import { PaypalInput } from "../components/editProfileComponents/PaypalInput";
+import { getLoggedUser } from "../apis/LogInApi";
+import { EditProfileSubmit } from "../components/editProfileComponents/EditProfileSubmit";
 
 export function EditProfile() {
-    const Final = true;
-      
-      const [Username, setUsername] = useState("");
-      const [desc, setDesc] = useState("");
-      const [link1, setLink1] = useState("");
-      const [link2, setLink2] = useState("");
-      const [link3, setLink3] = useState("");
-      const [name, setName] = useState("");
-      const [password, setPassword] = useState("");
-      const [email, setEmail] = useState("");
-      const [image, setImage] = useState(logo);
-      const [cover, setCover] = useState("");
+    const [profilePhoto, setProfilePhoto] = useState(logo);
+    const [coverPhoto, setCoverPhoto] = useState(sketchflow);
 
+    const [username, setUserName] = useState("");
+    const [mail, setMail] = useState("");
+    const [description, setDescription] = useState("");
+    const [creationDate, setCreationDate] = useState("");
+    
+    const [name, setName] = useState("");
+    const [password, setPassword] = useState("");
+    const [gender, setGender] = useState("");
 
-      const fileInputRef = useRef();
-      const fileInputRef2 = useRef();
+    const [facebookLink, setFacebookLink] = useState("");
+    const [twitterLink, setTwitterLink] = useState("");
+    const [paypalLink, setPaypalLink] = useState("");
 
-      const onCoverChange = (event) => {
+    const onCoverChange = (event) => {
         if (event.target.files && event.target.files[0]) {
             let img = event.target.files[0];
-            setCover(URL.createObjectURL(img));
-            }
-       }
+            setCoverPhoto(URL.createObjectURL(img));
+        }
+    }
 
-      const onImageChange = (event) => {
-        if (event.target.files && event.target.files[0]) {
-            let img = new Image();
-            img.src = URL.createObjectURL(event.target.files[0]);
-            img.onload = () => {
-                setImage(img.src);
-            };
-            }
-       }
+    const onImageChange = (event) => {
+        if(event.target.files && event.target.files[0]) {
+            let img = event.target.files[0];
+            setProfilePhoto(URL.createObjectURL(img));
+        }
+    }
 
-    const onButtonClick = () => {
-        fileInputRef.current.click();
-    };
+    useEffect(() => {
+        loader();
+    }, []);
+    
+    async function loader(){
+        const data = await getLoggedUser(localStorage.getItem("userId"), localStorage.getItem("token"));
+        
+        setProfilePhoto(data.userLog.profilePhoto);
+        setCoverPhoto(data.userLog.coverPhoto);
+        setUserName(data.userLog.userName);
+        setMail(data.userLog.email);
+        setDescription(data.userLog.description);
+        const date = new Date(data.userLog.creationDate);
+        setCreationDate(date.getDay() + "/" + date.getDate() + "/" + date.getFullYear());
+        setName(data.userLog.name);
+        setGender(data.userLog.gender);
+        setFacebookLink(data.userLog.facebookLink);
+        setTwitterLink(data.userLog.twitterLink);
+        setPaypalLink(data.userLog.paypalLink);
+    }
 
-    const onCoverClick = () => {
-        fileInputRef2.current.click();
-    };
+    async function submit(event){
+        event.preventDefault();
+    }
 
     return (
         <section className="colorbox h-100">
@@ -59,212 +83,92 @@ export function EditProfile() {
                     <div className="row h-100">
                         <div className="">
                             <div className="py-5">
-                                <h2 className="h3 mb-4 page-title text-center">Configuración de perfil</h2>
-                                <div className="d-flex flex-row bg-dark banner" onClick={onCoverClick}  src={cover} style={{ height: '200px' }}>
+                                <form action="#" className="login-form" onSubmit={submit}>
+                                    <h2 className="h3 mb-4 page-title text-center">Configuración de perfil</h2>
 
+                                    <CoverImageInput
+                                        value={coverPhoto}
+                                        onChange={onCoverChange}
+                                    />
+                                    
+                                    <ProfileImageInput
+                                        value={profilePhoto}
+                                        onChange={onImageChange}
+                                    />
 
-                                    <div className="ms-4 mt-5 d-flex flex-column" style={{ width: '220px' }} >
-                                        <img src={image}
-                                             className="borderprofile img-fluid img-thumbnail mt-4 mb-2"
-                                             style={{ cursor: "pointer",  width: "200px", height: "200px"}}
-                                            onClick={onButtonClick} 
-                                            />
-                                        <input type="file" accept="image/png, image/gif, image/jpeg, image/jpg" 
-                                        ref={fileInputRef}  onChange={onImageChange} className="filetype" style={{ display: "none" }} />
-
-                                        <p className="lead fw-normal mb-1">Usuario</p>
-
-                                        <input type="text" className="h-5 " placeholder="Username" required 
-                                                               value={Username} onChange={(e) => {
-
-                                                                const re = /^[a-zA-Z0-9\_\-]{1,16}$/;
-
-                                                                if (e.target.value === "" || re.test(e.target.value)) {
-                                                                    setUsername(e.target.value);  
-                                                                }
-
-                                                                }}/>
+                                    <div className="row">
+                                        <UserNameInput
+                                            value={username}
+                                            onChange={(e) => { setUserName(e.target.value); }}
+                                        />
+                                        <MailInput
+                                            value={mail}
+                                            onChange={(e) => { setMail(e.target.value); }}
+                                        />
                                     </div>
-                                </div>
-                                <div className="p-4 text-black">
-                                    <div className="d-flex justify-content-end text-center py-1">
-                                        
 
-                                        <Link to="/EditProfile" className="px-3 ">
-                                            <button type="submit" className="redbutton form-custom-control px-3">GUARDAR</button>
-                                        </Link>
+                                    <DescriptionInput
+                                        value={description}
+                                        onChange={(e) => { setDescription(e.target.value); }}
+                                    />
+                                    
+                                    <hr />
+
+                                    <div className="container colorPrimary py-3 row">
+                                        <h2 className="h3 mb-4 page-title text-center text-white">Configuración de la cuenta</h2>
+                                        <CreationDateInfo
+                                            value={creationDate}
+                                        />
+                                            
+                                        <NameInput
+                                            value={name}
+                                            onChange={(e) => { setName(e.target.value); }}
+                                        />
+
+                                        <PasswordInput
+                                            value={password}
+                                            onChange={(e) => { setPassword(e.target.value); }}
+                                        />
+                                            
+                                        <GenderInput
+                                            value={gender}
+                                            onClick={(e) => { setGender(e.target.value); }}
+                                        />
+
+                                        <hr style={{color: "white"}} />
+
+                                        <label className="formulario__label">Links</label>
+                                            
+                                        <FacebookInput
+                                            value={facebookLink}
+                                            onChange={(e) => { setFacebookLink(e.target.value); }}
+                                        />
+
+                                        <TwitterInput
+                                            value={twitterLink}
+                                            onChange={(e) => { setTwitterLink(e.target.value); }}
+                                        />
+
+                                        <PaypalInput
+                                            value={paypalLink}
+                                            onChange={(e) => { setPaypalLink(e.target.value); }}
+                                        />
+
+                                        <EditProfileSubmit />
+
+                                        
+                                        <div className="form-group">
+                                            <button type="submit" className="blackbutton form-custom-control submit px-3">ELIMINAR PERFIL</button>
+                                        </div>
                                     </div>
-                                </div>
-                                <div className="card-body p-4 text-black  py-5">
-                                    <p className="lead fw-normal mb-1">Sobre</p>
-                                    <input type="text" className=" w-100 " placeholder="Biografia"                       
-                                        required value={desc} onChange={(e) => {
-                                        setDesc(e.target.value);  }} />
-                                </div>
-                                <hr />
-                                <div className="container colorPrimary py-3">
-                                    <h2 className="h3 mb-4 page-title text-center text-white">Configuración de la cuenta</h2>
-                                    <p className="text-white text-center">
-                                        Se unió el 2023/02/27
-                                    </p>
-                                    <form><label for="nombre" className="formulario__label">Links</label>
-                                        <input type="text" className="h-5 form-custom-control" placeholder="Link1" required 
-                                                               value={link1} onChange={(e) => {
-
-                                                                const re = new RegExp('(http(s):\/\/.)[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)$');  
-
-                                                                if (e.target.value === "" || re.test(e.target.value)) {
-                                                                    setLink1(e.target.value);  
-                                                                }
-
-                                                                }}/>
-
-                                        <input type="text" className="h-5 form-custom-control" placeholder="Link2" required 
-                                                               value={link2} onChange={(e) => {
-
-                                                                const re = new RegExp('(http(s):\/\/.)[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)$');  
-
-                                                                if (e.target.value === "" || re.test(e.target.value)) {
-                                                                    setLink2(e.target.value);  
-                                                                }
-
-                                                                }}/>
-                                        <input type="text " className="h-5 form-custom-control" placeholder="Link3" required 
-                                                                value={link3} onChange={(e) => {
-
-                                                                const re = new RegExp('(http(s):\/\/.)[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)$');  
-                                        
-                                                                if (e.target.value === "" || re.test(e.target.value)) {
-                                                                    setLink3(e.target.value);  
-                                                                }
-                                        
-                                        }}/>
-
-                                        <br />
-                                        <label for="nombre" className="formulario__label">Nombre</label>
-                                        <div className="form-group-input">
-                                            <input type="text" className="form-custom-control" name="nombre" id="nombre" placeholder="John Doe" 
-                                            value={name} onChange={(e) => {
-                                                setName(e.target.value);
-                                              }}        />
-                                        </div>
-
-                                        <div className="form-group" id="grupo__password">
-                                            <label for="password" className="formulario__label">Contraseña</label>
-                                            <div className="form-group-input">
-                                                <input type="password" className="form-custom-control" name="password" id="password" 
-                                                    value={password} onChange={(e) => {
-
-                                                    const re = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.* )(?=.*[^a-zA-Z0-9]).{8,}$/;
-                                                
-                                                     if (e.target.value === "" || re.test(e.target.value)) {
-                                                        setPassword(e.target.value);  
-                                                    }
-                                                
-                                                }}/>
-                                            </div>
-                                        </div>
-                                        <div className="form-group" id="grupo__correo">
-                                            <label for="correo" className="formulario__label">Correo Electrónico</label>
-                                            <div className="form-group-input">
-                                                <input type="email" className="form-custom-control" name="correo" id="correo" placeholder="correo@correo.com"
-                                                    value={email} onChange={(e) => {
-
-                                                        const re = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-                                                    
-                                                         if (e.target.value === "" || re.test(e.target.value)) {
-                                                            setEmail(e.target.value);  
-                                                        }
-                                                    
-                                                    }}/>
-                                            </div>
-                                        </div>
-                                        <div className="form-group" id="grupo__genero">
-                                            <label for="genero" className="formulario__label">Genero</label>
-                                            <div className="input-block">
-                                                <label className="rad-label">
-                                                    <input type="radio" className="rad-input gender" onClick={validarGenero()} name="rad" id="Hombre" value="Hombre" />
-                                                    <div className="rad-design rad-man"></div>
-                                                    <div className="rad-text">Hombre</div>
-                                                </label>
-                                                <label className="rad-label">
-                                                    <input type="radio" className="rad-input rad-woman gender" onClick={validarGenero()} name="rad" id="Mujer" value="Mujer" />
-                                                    <div className="rad-design rad-woman"></div>
-                                                    <div className="rad-text">Mujer</div>
-                                                </label>
-                                                <label className="rad-label">
-                                                    <input type="radio" className="rad-input rad-woman gender" onClick={validarGenero()} name="rad" id="Otro" value="Otro" />
-                                                    <div className="rad-design rad-other"></div>
-                                                    <div className="rad-text">Otro</div>
-                                                </label>
-
-                                            </div>
-                                            <Link to="/EditProfile" className="px-3 ">
-                                                <div className="form-group">
-                                                    <button type="submit" onClick={validarTodo()} className="redbutton form-custom-control submit px-3">GUARDAR</button>
-                                                </div> </Link>
-                                            <Link to="/EditProfile" className="px-3 ">
-                                                <div className="form-group">
-                                                    <button type="submit" onClick={deleteUser} className="blackbutton form-custom-control submit px-3">ELIMINAR PERFIL</button>
-                                                </div>
-                                            </Link>
-                                        </div>
-                                    </form>
-                                </div>
+                                </form>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
-
         </section>
 
 
     );
-
-    async function validarGenero(){
-        if(document.getElementById("Hombre").checked == false && document.getElementById("Mujer").checked == false && document.getElementById("Otro").checked == false){
-            Final = false;
-        }else{
-            Final = true;
-        }
-    }
-
-    async function validarTodo(){
-        if(Final)
-        {
-            console.log('Up');
-        }else{
-            Swal.fire({
-            icon: 'error',
-            title: 'Verifica que hayas insertado datos correctos',
-            html: ''
-        })   
-        }
-    }
-
-     function deleteUser(){
-        const MySwal = withReactContent(Swal)
-
-        MySwal.fire({
-            title: 'Estas Seguro?',
-            text: "No podras recuperar tu cuenta",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            cancelButtonText: 'Cancelar',
-            confirmButtonText: 'Confirmar',
-            dangerMode: true,
-        }).then((result) => {
-            if (result.isConfirmed) {
-                Swal.fire(
-                    'Borrado',
-                    'El usuario se ha borrado',
-                    'success'
-                )
-            }
-        })
-    }
 };

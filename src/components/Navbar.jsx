@@ -2,7 +2,7 @@ import isotipo from "../assets/images/isotipo.png";
 import logo from "../assets/images/sketchflow_logo.png";
 import sketchflow from "../assets/images/sketchflow.png";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { getLoggedUser, logOut } from "../apis/LogInApi";
 import { useHistory } from "react-router-dom";
 
@@ -11,7 +11,10 @@ export function Navbar() {
     const [profilePhoto, setProfilePhoto] = useState("");
     const history = useHistory();
 
-    //use effect
+    useEffect(() => {
+        loader();
+    }, []);
+    
     async function loader(){
         const data = await getLoggedUser(localStorage.getItem("userId"), localStorage.getItem("token"));
         if(data.error === true){
@@ -37,7 +40,7 @@ export function Navbar() {
     }
 
     return (
-        <nav onLoad={() => loader()} className="navbar navbar-expand-lg navbar-light colorPrimary position-fixed vw-100" >
+        <nav className="navbar navbar-expand-lg navbar-light colorPrimary position-fixed vw-100" >
             <div className="container-fluid">
                 <Link to="/Home" className="navbar-brand text-white" href="#">
                     <img src={isotipo} alt="" width="35" height="35" className="d-inline-block align-text-top" />
@@ -75,8 +78,8 @@ export function Navbar() {
                             <img src={ profilePhoto } alt="" width="35" height="35" className="borderimg d-inline-block align-text-top " />
                         </a>
                         <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a className="dropdown-item" href="#"> Configuración </a></li>
-                            <li><Link to="/Profile" className="dropdown-item"> Perfil</Link></li>
+                            <li><Link to="/EditProfile" className="dropdown-item"> Configuración </Link></li>
+                            <li><Link to="/Profile" className="dropdown-item"> Perfil </Link></li>
                             <li><hr className="dropdown-divider" /></li>
                             <li><a className="dropdown-item" href="#" onClick={() => loadLogOut()}> Cerrar sesión </a></li>
                         </ul>
