@@ -24,7 +24,6 @@ export function Navbar() {
             loadLogOut();
         }
 
-        console.log(data);
         setUserName(data.userLog.userName);
         setProfilePhoto(data.userLog.profilePhoto);
     }

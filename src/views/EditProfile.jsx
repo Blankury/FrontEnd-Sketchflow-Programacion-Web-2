@@ -17,12 +17,21 @@ import { GenderInput } from "../components/editProfileComponents/GenderInput";
 import { FacebookInput } from "../components/editProfileComponents/FacebookInput";
 import { TwitterInput } from "../components/editProfileComponents/TwitterInput";
 import { PaypalInput } from "../components/editProfileComponents/PaypalInput";
-import { getLoggedUser } from "../apis/LogInApi";
+import { getLoggedUser, logOut } from "../apis/LogInApi";
 import { EditProfileSubmit } from "../components/editProfileComponents/EditProfileSubmit";
+import { ModalMessage } from "../components/editProfileComponents/modalMessage";
+import { editProfileApi } from "../apis/EditProfileApi";
+import { DeleteUserSubmit } from "../components/editProfileComponents/deleteUserSubmit";
+import { deleteUserApi } from "../apis/DeleteUserApi";
+import { useHistory } from "react-router-dom";
 
 export function EditProfile() {
-    const [profilePhoto, setProfilePhoto] = useState(logo);
-    const [coverPhoto, setCoverPhoto] = useState(sketchflow);
+    const [originalProfileImage, setOriginalProfileImage] = useState(isotipo);
+    const [profilePhoto, setProfilePhoto] = useState([]);
+    const [profileImage, setProfileImage] = useState([]);
+    const [originalCoverImage, setOriginalCoverPhoto] = useState(sketchflow);
+    const [coverPhoto, setCoverPhoto] = useState([]);
+    const [coverImage, setCoverImage] = useState([]);
 
     const [username, setUserName] = useState("");
     const [mail, setMail] = useState("");
@@ -33,14 +42,18 @@ export function EditProfile() {
     const [password, setPassword] = useState("");
     const [gender, setGender] = useState("");
 
-    const [facebookLink, setFacebookLink] = useState("");
-    const [twitterLink, setTwitterLink] = useState("");
     const [paypalLink, setPaypalLink] = useState("");
+    const [twitterLink, setTwitterLink] = useState("");
+    const [facebookLink, setFacebookLink] = useState("");
+
+    const [modalText, setModalText] = useState("");
+    const history = useHistory();
 
     const onCoverChange = (event) => {
         if (event.target.files && event.target.files[0]) {
             let img = event.target.files[0];
             setCoverPhoto(URL.createObjectURL(img));
+            setCoverImage(event.target.files[0]);
         }
     }
 
@@ -48,6 +61,7 @@ export function EditProfile() {
         if(event.target.files && event.target.files[0]) {
             let img = event.target.files[0];
             setProfilePhoto(URL.createObjectURL(img));
+            setProfileImage(event.target.files[0]);
         }
     }
 
@@ -60,6 +74,8 @@ export function EditProfile() {
         
         setProfilePhoto(data.userLog.profilePhoto);
         setCoverPhoto(data.userLog.coverPhoto);
+        setOriginalProfileImage(data.userLog.profilePhoto);
+        setOriginalCoverPhoto(data.userLog.coverPhoto);
         setUserName(data.userLog.userName);
         setMail(data.userLog.email);
         setDescription(data.userLog.description);
@@ -67,13 +83,41 @@ export function EditProfile() {
         setCreationDate(date.getDay() + "/" + date.getDate() + "/" + date.getFullYear());
         setName(data.userLog.name);
         setGender(data.userLog.gender);
-        setFacebookLink(data.userLog.facebookLink);
-        setTwitterLink(data.userLog.twitterLink);
-        setPaypalLink(data.userLog.paypalLink);
+        setFacebookLink(data.userLog.facebookLink || "");
+        setTwitterLink(data.userLog.twitterLink || "");
+        setPaypalLink(data.userLog.paypalLink || "");
     }
 
     async function submit(event){
         event.preventDefault();
+
+        const response = await editProfileApi( localStorage.getItem("userId"), profileImage, coverImage, description, name, password, gender, paypalLink, twitterLink, facebookLink, localStorage.getItem("token") );
+        const data = await response.json();
+        setModalText(data.result);
+        document.getElementById('modalButton1').click();
+    }
+
+    async function deleteUser(event){
+        event.preventDefault();
+        const response = await deleteUserApi(localStorage.getItem("userId"), false, localStorage.getItem("token"));
+        const data = await response.json();
+
+        setModalText(data.result);
+        document.getElementById('modalButton1').click();
+        if(response.status === 200){
+            await loadLogOut();
+        }
+    }
+
+    async function loadLogOut(){
+        const data = await logOut(localStorage.getItem("token"));
+        const delay = ms => new Promise(
+            resolve => setTimeout(resolve, ms)
+        );
+        
+        await delay(2000);
+        document.getElementById('modalSkip').click();
+        history.push("/login");
     }
 
     return (
@@ -139,9 +183,9 @@ export function EditProfile() {
 
                                         <label className="formulario__label">Links</label>
                                             
-                                        <FacebookInput
-                                            value={facebookLink}
-                                            onChange={(e) => { setFacebookLink(e.target.value); }}
+                                        <PaypalInput
+                                            value={paypalLink}
+                                            onChange={(e) => { setPaypalLink(e.target.value); }}
                                         />
 
                                         <TwitterInput
@@ -149,26 +193,27 @@ export function EditProfile() {
                                             onChange={(e) => { setTwitterLink(e.target.value); }}
                                         />
 
-                                        <PaypalInput
-                                            value={paypalLink}
-                                            onChange={(e) => { setPaypalLink(e.target.value); }}
+                                        <FacebookInput
+                                            value={facebookLink}
+                                            onChange={(e) => { setFacebookLink(e.target.value); }}
                                         />
 
                                         <EditProfileSubmit />
-
-                                        
-                                        <div className="form-group">
-                                            <button type="submit" className="blackbutton form-custom-control submit px-3">ELIMINAR PERFIL</button>
-                                        </div>
+                              
+                                        <DeleteUserSubmit
+                                            deleteUser={deleteUser}
+                                        />
                                     </div>
                                 </form>
+
+                                <ModalMessage
+                                    text={modalText}
+                                />
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
-
-
     );
 };

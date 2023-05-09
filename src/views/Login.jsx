@@ -86,7 +86,7 @@ export function Login() {
                                 <LogInSubmit />
                                 
                             </form>
-                            <PasswordForgot />
+
                             <LogInRedirect />
                         </div>
                     </div>

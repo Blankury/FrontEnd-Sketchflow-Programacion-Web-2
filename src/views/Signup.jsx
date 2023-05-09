@@ -46,7 +46,7 @@ export function Signup() {
             const data = await response.json();
             setModalText(data.result);
             if(response.status === 200){
-                setLogInStorage(data.userLog);
+                setLogInStorage(data.user);
                 document.getElementById('modalButton1').click();
             }else{
                 document.getElementById('modalButton2').click();
