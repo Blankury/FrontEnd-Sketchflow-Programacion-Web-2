@@ -24,6 +24,7 @@ import { editProfileApi } from "../apis/EditProfileApi";
 import { DeleteUserSubmit } from "../components/editProfileComponents/deleteUserSubmit";
 import { deleteUserApi } from "../apis/DeleteUserApi";
 import { useHistory } from "react-router-dom";
+import { ModalDeleteMessage } from "../components/editProfileComponents/modalDeleteMessage";
 
 export function EditProfile() {
     const [originalProfileImage, setOriginalProfileImage] = useState(isotipo);
@@ -68,6 +69,8 @@ export function EditProfile() {
     useEffect(() => {
         loader();
     }, []);
+
+    //useContext
     
     async function loader(){
         const data = await getLoggedUser(localStorage.getItem("userId"), localStorage.getItem("token"));
@@ -115,8 +118,10 @@ export function EditProfile() {
             resolve => setTimeout(resolve, ms)
         );
         
-        await delay(2000);
+        await delay(1000);
         document.getElementById('modalSkip').click();
+        await delay(2000);
+        document.getElementById('modalClose').click();
         history.push("/login");
     }
 
@@ -199,15 +204,19 @@ export function EditProfile() {
                                         />
 
                                         <EditProfileSubmit />
-                              
-                                        <DeleteUserSubmit
-                                            deleteUser={deleteUser}
-                                        />
                                     </div>
                                 </form>
 
+                                <div className="container colorPrimary py-3 row">
+                                    <DeleteUserSubmit />   
+                                </div>
+
                                 <ModalMessage
                                     text={modalText}
+                                />
+
+                                <ModalDeleteMessage
+                                    deleteUser={deleteUser}
                                 />
                             </div>
                         </div>

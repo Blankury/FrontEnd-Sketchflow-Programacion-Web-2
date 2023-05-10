@@ -2,6 +2,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 export const ModalMessage = ({text}) => {
+    function reLoad(){
+        window.location.reload(false);
+    }
     return (
         <>
             <button type="button" id="modalButton1" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop1" hidden>
@@ -18,7 +21,8 @@ export const ModalMessage = ({text}) => {
                         {text}
                     </div>
                     <div className="modal-footer">
-                        <button type="button" className="btn btn-primary" id="modalSkip" data-bs-dismiss="modal">Aceptar</button>
+                        <button type="button" class="btn btn-secondary" id="modalClose" data-bs-dismiss="modal" hidden>Close</button>
+                        <button type="button" className="btn btn-primary" id="modalSkip" onClick={() => reLoad()} data-bs-dismiss="modal">Aceptar</button>
                     </div>
                     </div>
                 </div>

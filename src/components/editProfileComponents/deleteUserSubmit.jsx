@@ -1,10 +1,10 @@
 import React from "react";
 
-export const DeleteUserSubmit = ({deleteUser}) => {
+export const DeleteUserSubmit = () => {
    
     return (
         <div className="form-group">
-            <button className="blackbutton form-custom-control submit px-3" onClick={deleteUser}>ELIMINAR PERFIL</button>
+            <button className="blackbutton form-custom-control submit px-3" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">ELIMINAR PERFIL</button>
         </div>
     )
 }
