@@ -21,7 +21,7 @@ export const ModalMessage = ({text}) => {
                         {text}
                     </div>
                     <div className="modal-footer">
-                        <button type="button" class="btn btn-secondary" id="modalClose" data-bs-dismiss="modal" hidden>Close</button>
+                        <button type="button" className="btn btn-secondary" id="modalClose" data-bs-dismiss="modal" hidden>Close</button>
                         <button type="button" className="btn btn-primary" id="modalSkip" onClick={() => reLoad()} data-bs-dismiss="modal">Aceptar</button>
                     </div>
                     </div>

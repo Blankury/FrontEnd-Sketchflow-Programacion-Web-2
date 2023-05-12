@@ -15,7 +15,7 @@ export const ModalDeleteMessage = ({deleteUser}) => {
                         ¿Estas seguro que quieres eliminar tú usuario?
                     </div>
                     <div className="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                         <button type="button" className="btn btn-primary" id="modalSkip" data-bs-dismiss="modal" onClick={deleteUser}>Aceptar</button>
                     </div>
                     </div>

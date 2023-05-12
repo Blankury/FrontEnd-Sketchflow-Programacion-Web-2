@@ -26,5 +26,5 @@ export const GenderInput = ({onClick}) => {
                 
             </div>
         </div>
-    )
+    );
 }
