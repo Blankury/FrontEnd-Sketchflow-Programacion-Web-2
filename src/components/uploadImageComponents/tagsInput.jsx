@@ -7,7 +7,7 @@ export const TagsInput = ({ value, onChange }) => {
                 id="precio"
                 className="formulario__label"
             >
-                Etiquetas
+                Etiquetas #
             </label>
             <input
                 type="text"

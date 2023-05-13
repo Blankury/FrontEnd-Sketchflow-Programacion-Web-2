@@ -19,42 +19,48 @@ export function UploadImage() {
     const [isPublic, setIsPublic] = useState("");
     const [tags, setTags] = useState([]);
 
+    async function submit(event) {
+        event.preventDefault();
+    }
+
     return (
         <section className="colorbox  py-5">
-            <ArtworkInput
-                value={draw}
-                onChange={(event) => setDraw(event.target.files)}
-            />
-
-            <br />
-            <br />
-
-            <div className="gradient-custom-2 container colorPrimaryvariant  ">
-                <TitleInput
-                    value={title}
-                    onChange={(e) => { setTitle(e.target.value); }}
-                />
-                <DescriptionInput
-                    value={description}
-                    onChange={(e) => { setDescription(e.target.value); }}
+            <form action="#" className="uploadImage-form" id="form" onSubmit={submit}>
+                <ArtworkInput
+                    value={draw}
+                    onChange={(event) => setDraw(event.target.files)}
                 />
 
-                <div className="form-group" id="restricciones">
-                    <AgeRestrictionInput
-                        onClick={(e) => { setAgeRestrict18(e.target.value); }}
+                <br />
+                <br />
+
+                <div className="gradient-custom-2 container colorPrimaryvariant  ">
+                    <TitleInput
+                        value={title}
+                        onChange={(e) => { setTitle(e.target.value); }}
+                    />
+                    <DescriptionInput
+                        value={description}
+                        onChange={(e) => { setDescription(e.target.value); }}
                     />
 
-                    <VisibilityInput
-                        onClick={(e) => { setIsPublic(e.target.value); }}
-                    />
+                    <div className="form-group" id="restricciones">
+                        <AgeRestrictionInput
+                            onClick={(e) => { setAgeRestrict18(e.target.value); }}
+                        />
 
-                    <TagsInput
-                    />
+                        <VisibilityInput
+                            onClick={(e) => { setIsPublic(e.target.value); }}
+                        />
 
-                    <UploadDrawSubmit
-                    />
+                        <TagsInput
+                        />
+
+                        <UploadDrawSubmit
+                        />
+                    </div>
                 </div>
-            </div>
+            </form>
         </section>
     );
 }

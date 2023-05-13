@@ -1,4 +1,5 @@
 import React from "react";
+import { validateUploadDraw } from "../utils/uploadDraw";
 
 export const UploadDrawSubmit = () => {
     return (
@@ -6,6 +7,7 @@ export const UploadDrawSubmit = () => {
             <button
                 type="submit"
                 className="redbutton form-custom-control submit px-3"
+                onClick={validateUploadDraw}
             >
                 Publicar
             </button>
