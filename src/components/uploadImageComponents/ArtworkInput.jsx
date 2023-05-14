@@ -7,7 +7,7 @@ export const ArtworkInput = ({value, onChange}) => {
                 <input
                     className=" redbutton"
                     type="file"
-                    id="formFile"
+                    id="formDraw"
                     onChange={onChange}
                 />
                 <hr />
