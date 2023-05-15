@@ -1,5 +1,6 @@
 import { backend_url } from "../config";
 import { loadImage } from "./LoadImageApi";
+import { tagsApi } from "./TagApi";
 
 export async function uploadDrawApi( userId, draw, title, description, restrict18, isPublic, tags, token ) {
     const drawImageURL = await loadImage(draw);
@@ -27,18 +28,37 @@ export async function uploadDrawApi( userId, draw, title, description, restrict1
     const response = await fetch(`${backend_url}uploadDraw`, options);
     const data = await response.json();
 
-    tags.forEach(async tag => {
-        const tagOptions = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json', 'token': token },
-            body: JSON.stringify({
-                drawId: data.newDraw.drawId,
-                tagName: tag,
-            }),
-        };
+    await tagsApi(tags, data.newDraw.drawId, token);
 
-        const responseTags = await fetch(`${backend_url}uploadDrawTags`, tagOptions);
-    });
+    //tags.forEach(async tag => {
+    //    const tagOptions = {
+    //        method: 'POST',
+    //        headers: { 'Content-Type': 'application/json', 'token': token },
+    //        body: JSON.stringify({
+    //            drawId: data.newDraw.drawId,
+    //            tagName: tag,
+    //        }),
+    //    };
+//
+    //    const responseTags = await fetch(`${backend_url}uploadDrawTags`, tagOptions);
+    //});
 
     return data;
+}
+
+export async function mostRecentDrawsApi( userId, token ) {
+    const options = {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json', 'token': token },
+    };
+
+    let queryString = [
+        `userId=${userId}`,
+        `limit=${20}`,
+        `orderBy=${'desc'}`,
+    ].join('&');
+
+    const response = await fetch(`${backend_url}draws?` + queryString, options);
+
+    return response;
 }

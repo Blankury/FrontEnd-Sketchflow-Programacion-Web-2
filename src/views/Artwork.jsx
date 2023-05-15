@@ -3,10 +3,14 @@ import logo from "../assets/images/sketchflow_logo.png";
 import sketchflow from "../assets/images/sketchflow.png";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 
 
 export function Artwork() {
     const [commentText, setComment] = useState("");
+    const params = useParams();
+    console.log(params);
+
     return (
         <section className="colorbox  py-5" >
             <br />

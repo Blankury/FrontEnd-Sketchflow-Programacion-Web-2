@@ -54,7 +54,7 @@ root.render(
                     <UploadImage></UploadImage>
                     <Footer></Footer>
                 </Route>
-                <Route path="/Artwork">
+                <Route path="/Artwork/:drawId">
                     <Navbar></Navbar>
                     <br />
                     <Artwork></Artwork>
