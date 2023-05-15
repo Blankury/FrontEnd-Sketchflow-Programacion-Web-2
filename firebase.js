@@ -15,4 +15,4 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 // Exporta la instancia de Firestore
-export const firestore = firebase.firestore();
+export const firestore = firebase.firestore(); 
