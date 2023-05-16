@@ -140,7 +140,9 @@ export function Chat() {
           </div>
           <input type="text" className="msger-input" placeholder="Escribe tu mensaje"
             required value={newMessage} onChange={(e) => setNewMessage(e.target.value)} />
-          <button type="submit" className="msger-send-btn">Enviar</button>
+          <button type="submit" className="msger-send-btn"
+          onClick={sendMessage}
+          >Enviar</button>
         </form>
       </div>
     </section>
