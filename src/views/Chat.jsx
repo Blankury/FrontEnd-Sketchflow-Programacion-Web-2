@@ -46,17 +46,7 @@ export function Chat() {
 
     
     <section className="chatcont">
-              <form className="msger-inputarea">
-          <div class="image-upload">
-            <label for="file-input"></label>
-            <input id="file-input" type="file"
-                    multiple
-                    onChange={(event) => setFiles(event.target.files)}/>
-          </div>
-          <input type="text" className="msger-input" placeholder="Escribe tu mensaje"
-            required value={newMessage} onChange={(e) => setNewMessage(e.target.value)} />
-          <button type="submit" className="msger-send-btn">Enviar</button>
-        </form>
+
         
       <div class="inbox_chat h-100 py-5 mt-2">
         <div class="recent_heading">
@@ -141,7 +131,17 @@ export function Chat() {
           </div>
         </main>
 
-
+        <form className="msger-inputarea">
+          <div class="image-upload">
+            <label for="file-input"></label>
+            <input id="file-input" type="file"
+                    multiple
+                    onChange={(event) => setFiles(event.target.files)}/>
+          </div>
+          <input type="text" className="msger-input" placeholder="Escribe tu mensaje"
+            required value={newMessage} onChange={(e) => setNewMessage(e.target.value)} />
+          <button type="submit" className="msger-send-btn">Enviar</button>
+        </form>
       </div>
     </section>
   );
