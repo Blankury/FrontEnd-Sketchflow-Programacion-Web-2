@@ -36,7 +36,7 @@ root.render(
                 <Route path="/Signup">
                     <Signup></Signup>
                 </Route>
-                <Route path="/Profile">
+                <Route path="/Profile/:userId">
                     <Navbar></Navbar>
                     <br />
                     <Profile></Profile>

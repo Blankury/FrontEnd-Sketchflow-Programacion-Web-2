@@ -40,6 +40,7 @@ export function Navbar() {
 
     return (
         <nav className="navbar navbar-expand-lg navbar-light colorPrimary position-fixed vw-100" >
+            <div className="px-3" />
             <div className="container-fluid">
                 <Link to="/Home" className="navbar-brand text-white" href="#">
                     <img src={isotipo} alt="" width="35" height="35" className="d-inline-block align-text-top" />
@@ -64,17 +65,12 @@ export function Navbar() {
                                 </svg>
                             </Link>
                         </li>
-                        <li className="nav-item ">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="white" className="nav-link  bi bi-bell-fill nav-icon" viewBox="0 0 16 16">
-                                <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zm.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901z" />
-                            </svg>
-                        </li>
                     </ul>
                     
                     <div className="nav-item dropdown">
                         <a className="nav-link dropdown-toggle text-white pe-2" href="#" id="navbarDropdown" role="button" data-bs-toggle='dropdown' aria-expanded="false">
-                            <label className="pe-3 ">{ userName }</label>
-                            <img src={ profilePhoto } alt="" width="35" height="35" className="borderimg d-inline-block align-text-top " />
+                            <label className="px-3" style={{fontSize: 20}}>{ userName }</label>
+                            <img src={ profilePhoto } alt="" width="35" height="35" className="borderimg d-inline-block" />
                         </a>
                         <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
                             <li><Link to="/EditProfile" className="dropdown-item"> Configuración </Link></li>
@@ -85,6 +81,7 @@ export function Navbar() {
                     </div>
                 </div>
             </div>
+            <div className="px-3" />
         </nav>
     );
 }
