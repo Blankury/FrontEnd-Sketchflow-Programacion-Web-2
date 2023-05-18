@@ -1,9 +1,98 @@
-import isotipo from "../assets/images/isotipo.png";
-import logo from "../assets/images/sketchflow_logo.png";
-import sketchflow from "../assets/images/sketchflow.png";
-import { Link } from "react-router-dom";
+import { ProfileImage } from "../components/profileComponents/profileImage";
+import { useEffect, useState } from "react";
+import { UserName } from "../components/profileComponents/UserName";
+import { FollowButton } from "../components/profileComponents/FollowButton";
+import { UserStatistics } from "../components/profileComponents/UserStatistics";
+import { Description } from "../components/profileComponents/Description";
+import { CreationDate } from "../components/profileComponents/CreationDate";
+import { NavTab } from "../components/profileComponents/NavTab";
+import { NavArtwork } from "../components/profileComponents/NavArtwork";
+import { NavBookmark } from "../components/profileComponents/NavBookmark";
+import { NavContact } from "../components/profileComponents/NavContact";
+import { followApi, getStatistics, getUser } from "../apis/profileApi";
+import { useParams } from "react-router-dom/cjs/react-router-dom.min";
+import { bookmarksApi, otherDrawingsApi } from "../apis/DrawApi";
+import { Toast } from "../components/toast/Toast";
 
 export function Profile() {
+    const params = useParams();
+    const [drawings, setDrawings] = useState([]);
+    const [bookmarks, setBookmarks] = useState([]);
+    const [statistics, setStatistics] = useState([]);
+    const [isFollowing, setIsFollowing] = useState(false);
+    const [toastText, setToastText] = useState("");
+
+    const [userId, setUserId] = useState("");
+    const [profilePhoto, setProfilePhoto] = useState("");
+    const [coverPhoto, setCoverPhoto] = useState("");
+    const [userName, setUserName] = useState("");
+    const [description, setDescription] = useState("");
+    const [creationDate, setCreationDate] = useState("");
+    const [twitterLink, setTwitterLink] = useState("");
+    const [facebookLink, setFacebookLink] = useState("");
+    const [email, setEmail] = useState("");
+
+    useEffect(() => {
+        loader();
+    }, []);
+
+    async function loader(){
+        const response = await getUser(params.userId);
+        const data = await response.json();
+
+        const responseD = await otherDrawingsApi(localStorage.getItem("userId"), params.userId, null, localStorage.getItem("token"));
+        const dataD = await responseD.json();
+        setDrawings(dataD.draws);
+
+        const responseB = await bookmarksApi(localStorage.getItem("userId"), params.userId, null, localStorage.getItem("token"));
+        const dataB = await responseB.json();
+        setBookmarks(dataB.bookmarks);
+
+        await loaderStatistics();
+
+        const date = new Date(data.user.creationDate);
+        const dateFormat = date.getDay() + "/" + date.getDate() + "/" + date.getFullYear();
+
+        setUserId(data.user.userId);
+        setProfilePhoto(data.user.profilePhoto);
+        setCoverPhoto(data.user.coverPhoto);
+        setUserName(data.user.userName);
+        setDescription(data.user.description);
+        setCreationDate(dateFormat);
+        setTwitterLink(data.user.twitterLink);
+        setFacebookLink(data.user.facebookLink);
+        setEmail(data.user.email);
+
+        data.user.followedUser.forEach(follower => {
+            if(follower.followerId === Number(localStorage.getItem("userId"))){
+                setIsFollowing(true);
+            }
+        });
+    }
+
+    async function loaderStatistics(){
+        const responseS = await getStatistics(params.userId);
+        const dataS = await responseS.json();
+        setStatistics(dataS.userStatistics._count);
+    }
+
+    async function followUser(){
+        const response = await followApi(localStorage.getItem("userId"), params.userId, !isFollowing, localStorage.getItem("token"));
+        const data = await response.json();
+        setIsFollowing(data.follow);
+
+        setToastText(data.result);
+
+        await loaderStatistics();
+
+        var x = document.getElementById("snackbar");
+        // Add the "show" class to DIV
+        x.className = "show";
+
+        // After 3 seconds, remove the show class from DIV
+        setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
+    }
+
     return (
         <section className="colorbox">
             <div className="gradient-custom-2 vw-100 container bg-light">
@@ -11,128 +100,64 @@ export function Profile() {
                     <div className="row h-100">
                         <div className="">
                             <div className="">
-                                <div className="d-flex flex-row bg-dark banner" style={{ height: '200px' }} >
-                                    <div className="ms-4 mt-5 d-flex flex-column" style={{ width: '250px' }} >
-                                        <img src={logo}
-                                            alt="Generic placeholder image" className="borderbookmarks img-fluid img-thumbnail mt-4 mb-2"
-                                            style={{ width: '200px' }} />
-                                        <h2>Tu nombre</h2>
+                                <div className="d-flex flex-row bg-dark" style={{  width: '100%',height: '20em' , backgroundImage: "url(" + coverPhoto + ")", backgroundSize: "100%" }} >
+                                    <div className="ms-3 d-flex flex-column" style={{ width: '20em', marginTop: "10em" }} >
+                                        <ProfileImage
+                                            value={profilePhoto}
+                                        />
+                                        <UserName
+                                            value={userName}
+                                        />
                                     </div>
                                 </div>
                                 <div className="p-4 text-black">
-                                    <div className="d-flex justify-content-end  py-1">
-                                        <Link>
-                                            <button type="button" className="redbutton px-5" >Seguir</button> </Link>
-                                        <Link to="/Editprofile" className="px-3 ">
-                                            <button type="button" className="redbutton px-5" >Editar</button>
-                                        </Link>
-                                    </div>
+                                    <FollowButton
+                                        userId={userId}
+                                        isFollowing={isFollowing}
+                                        onClick={() => followUser()}
+                                    />
 
-                                    <div className="d-flex justify-content-end text-center py-1">
-
-
-                                        <div>
-                                            <p className="mb-1 h3">253</p>
-                                            <p className=" text-muted mb-0">Ilustraciones</p>
-                                        </div>
-                                        <div className="px-3">
-                                            <p className="mb-1 h3">1026</p>
-                                            <p className=" text-muted mb-0">Followers</p>
-                                        </div>
-                                        <div>
-                                            <p className="mb-1 h3">478</p>
-                                            <p className=" text-muted mb-0">Following</p>
-                                        </div>
-                                    </div>
+                                    <UserStatistics
+                                        statistics={statistics}
+                                    />
                                 </div>
+                                <hr />
                                 <div className="card-body p-4 text-black">
-                                    <div className="mb-5">
-                                        <p className="lead fw-normal mb-1">Sobre</p>
-                                        <div className="p-4 ">
-                                            <p className="font-italic mb-1">Descripción wonita </p>
-                                        </div>
-                                    </div>
-                                    <p class="text-center">
-                                        Se unió el 2023/02/27
-                                    </p>
-                                    <div className="d-flex justify-content-between align-items-center mb-4">
-                                        <p className="lead fw-normal mb-0">Trabajos recientes </p>
-                                        <p className="mb-0"><a href="#!" className="text-muted">Mostrar todo</a></p>
-                                    </div>
-                                    <ul className="nav nav-tabs" id="myTab" role="tablist">
-                                        <li className="nav-item" role="presentation">
-                                            <button className="nav-link active text-black" id="tab_artwork-tab" data-bs-toggle="tab" data-bs-target="#tab_artwork" type="button" role="tab" aria-controls="tab_artwork" aria-selected="true">Ilustraciones</button>
-                                        </li>
-                                        <li className="nav-item" role="presentation">
-                                            <button className="nav-link text-black" id="bookmarks-tab" data-bs-toggle="tab" data-bs-target="#bookmarks" type="button" role="tab" aria-controls="bookmarks" aria-selected="false">Bookmarks</button>
-                                        </li>
-                                        <li className="nav-item" role="presentation">
-                                            <button className="nav-link text-black" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Contacto</button>
-                                        </li>
-                                    </ul>
+                                    <Description
+                                        value={description}
+                                    />
+                                    
+                                    <CreationDate
+                                        value={creationDate}
+                                    />
+
+                                    <NavTab
+                                    />
+                                    
                                     <div className="tab-content" id="myTabContent">
-                                        <div className="tab-pane fade show active" id="tab_artwork" role="tabpanel" aria-labelledby="tab_artwork-tab">
-                                            <div className="row py-2">
-                                                <div className="col-md-2 py-2">
-                                                    <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(112).webp"
-                                                        alt="image 1" className="w-100 rounded-3" />
-                                                </div>
-                                                <div className="col-md-2 py-2">
-                                                    <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(107).webp"
-                                                        alt="image 1" className="w-100 rounded-3" />
-                                                </div>
-                                                <div className="col-md-2 py-2">
-                                                    <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(112).webp"
-                                                        alt="image 1" className="w-100 rounded-3" />
-                                                </div>
-                                                <div className="col-md-2 py-2">
-                                                    <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(107).webp"
-                                                        alt="image 1" className="w-100 rounded-3" />
-                                                </div>
-                                                <div className="col-md-2 py-2">
-                                                    <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(112).webp"
-                                                        alt="image 1" className="w-100 rounded-3" />
-                                                </div>
-                                                <div className="col-md-2 py-2">
-                                                    <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(107).webp"
-                                                        alt="image 1" className="w-100 rounded-3" />
-                                                </div>
-                                                <div className="col-md-2 py-2">
-                                                    <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(112).webp"
-                                                        alt="image 1" className="w-100 rounded-3" />
-                                                </div>
-                                                <div className="col-md-2 py-2">
-                                                    <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(107).webp"
-                                                        alt="image 1" className="w-100 rounded-3" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="tab-pane fade" id="bookmarks" role="tabpanel" aria-labelledby="bookmarks-tab">
-                                            <div className="row py-2">
-                                                <div className="col-md-2 py-2">
-                                                    <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(112).webp"
-                                                        alt="image 1" className="w-100 rounded-3" />
-                                                </div>
-                                                <div className="col-md-2 py-2">
-                                                    <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(107).webp"
-                                                        alt="image 1" className="w-100 rounded-3" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-                                        </div>
+                                        <NavArtwork
+                                            drawings={drawings}
+                                        />
+
+                                        <NavBookmark
+                                            bookmarks={bookmarks}
+                                        />
+
+                                        <NavContact
+                                            twitterLink={twitterLink}
+                                            facebookLink={facebookLink}
+                                            email={email}
+                                        />
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <Toast
+                            text={toastText}
+                        />
                     </div>
                 </div>
             </div>
         </section>
-
-
     );
 }
-
-
-

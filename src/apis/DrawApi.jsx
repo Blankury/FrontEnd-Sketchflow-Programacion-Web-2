@@ -96,3 +96,21 @@ export async function otherDrawingsApi( userId, filterUSerId, limit, token ) {
 
     return response;
 }
+
+export async function bookmarksApi( userId, filterUSerId, limit, token ) {
+    const options = {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json', 'token': token },
+    };
+
+    let queryString = [
+        `userId=${userId}`,
+        `filterUSerId=${filterUSerId}`,
+        `limit=${limit}`,
+        `orderBy=${"desc"}`,
+    ].join('&');
+
+    const response = await fetch(`${backend_url}bookmarks?` + queryString, options);
+
+    return response;
+}

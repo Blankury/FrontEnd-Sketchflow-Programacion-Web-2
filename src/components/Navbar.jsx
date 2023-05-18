@@ -74,7 +74,7 @@ export function Navbar() {
                         </a>
                         <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
                             <li><Link to="/EditProfile" className="dropdown-item"> Configuración </Link></li>
-                            <li><Link to="/Profile" className="dropdown-item"> Perfil </Link></li>
+                            <li><Link to={"/Profile/" + localStorage.getItem("userId")} className="dropdown-item"> Perfil </Link></li>
                             <li><hr className="dropdown-divider" /></li>
                             <li><a className="dropdown-item" href="#" onClick={() => loadLogOut()}> Cerrar sesión </a></li>
                         </ul>
