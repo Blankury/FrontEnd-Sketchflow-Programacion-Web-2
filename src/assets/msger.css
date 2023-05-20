@@ -24,11 +24,11 @@
   }
   .msg {
     display: flex;
-    align-items: flex-end;
+    align-items: flex-start;
     margin-bottom: 10px;
   }
   .msg:last-of-type {
-    margin: 0;
+    margin-bottom: 0;
   }
   .msg-img {
     width: 50px;
@@ -39,12 +39,15 @@
     background-position: center;
     background-size: cover;
     border-radius: 50%;
+    flex-direction: column;
+
   }
   .msg-bubble {
     max-width: 450px;
     padding: 15px;
     border-radius: 15px;
     background: var(--left-msg-bg);
+    flex-direction: column;
   }
   .msg-info {
     display: flex;
@@ -60,17 +63,25 @@
     font-size: 0.85em;
   }
   
+  .left-msg{
+    flex-direction: column;
+
+  }
   .left-msg .msg-bubble {
+    align-self: flex-start;
     border-bottom-left-radius: 0;
   }
   
-  .right-msg {
-    flex-direction: row-reverse;
-  }
+  
+.right-msg {
+    flex-direction: column;
+}
+
   .right-msg .msg-bubble {
     background: var(--right-msg-bg);
     color: #fff;
     border-bottom-right-radius: 0;
+    align-self: flex-end;
   }
   .right-msg .msg-img {
     margin: 0 0 0 10px;
@@ -82,6 +93,7 @@
     border-top: var(--border);
     background: #eee;
   }
+
   .msger-inputarea * {
     padding: 10px;
     border: none;

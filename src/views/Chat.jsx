@@ -3,7 +3,9 @@ import logo from "../assets/images/sketchflow_logo.png";
 
 import React, { useState, useEffect } from 'react';
 import { getFirestore, collection, getDocs, addDoc, serverTimestamp } from 'firebase/firestore';
+import { getDatabase, ref, onValue, push } from 'firebase/database';
 import { initializeApp } from 'firebase/app';
+import moment from 'moment';
 
 const firebaseConfig = {
   apiKey: "AIzaSyA39aQFBM3-HzsOR4FWVokoDQCaM9N6Yok",
@@ -15,8 +17,11 @@ const firebaseConfig = {
   measurementId: "G-5TR51MKYBL"
 };
 
+
 const app = initializeApp(firebaseConfig);
 const firestore = getFirestore(app);
+const database = getDatabase(app);
+const messagesRef = ref(database, 'messages');
 
 export function Chat() {
   const [searchText, setSearch] = useState("");
@@ -25,22 +30,28 @@ export function Chat() {
   const [newMessage, setNewMessage] = useState('');
 
   useEffect(() => {
-    const fetchMessages = async () => {
-      const messagesCol = collection(firestore, 'messages');
-      const messagesSnapshot = await getDocs(messagesCol);
-      const messagesData = messagesSnapshot.docs.map(doc => doc.data());
-      setMessages(messagesData);
+    const fetchMessages = () => {
+      onValue(messagesRef, (snapshot) => {
+        const messagesData = snapshot.val();
+        if (messagesData) {
+          const messagesArray = Object.values(messagesData);
+          setMessages(messagesArray);
+        } else {
+          setMessages([]);
+        }
+      });
     };
     fetchMessages();
   }, []);
 
-  const sendMessage = async () => {
-    const messagesCol = collection(firestore, 'messages');
-    await addDoc(messagesCol, {
-      text: newMessage,
-      timestamp: serverTimestamp(),
-    });
-    setNewMessage('');
+  const sendMessage = () => {
+    if (newMessage.trim() !== '') {
+      push(messagesRef, {
+        text: newMessage,
+        timestamp: serverTimestamp(),
+      });
+      setNewMessage('');
+    }
   };
   return (
 
@@ -106,29 +117,32 @@ export function Chat() {
                 <div className="msg-info-name">BOT</div>
                 <div className="msg-info-time">12:45</div>
               </div>
-              {messages.map((message, index) => (
-                <li className="msg-text" key={index}>{message.text}</li>
-              ))}
+               MENSAJE DE OTROS         
             </div>
+
           </div>
 
           <div className="msg right-msg">
-            <div
-              className="msg-img"
-              style={{ backgroundImage: `url(${isotipo})` }}
-            ></div>
 
-            <div className="msg-bubble">
-              <div className="msg-info">
-                <div className="msg-info-name">Sajad</div>
-                <div className="msg-info-time">12:46</div>
-              </div>
-                        
-              <div className="msg-text" id="Message">
-                Mensaje
-              </div>
-            </div>
-          </div>
+
+
+                        {/* /*aqui iria la wea*/ }
+              {messages.map((message, index) => (
+                            <div className="msg-bubble" >
+                                <div className="msg-info">
+                                  <div className="msg-info-name" ></div>
+                                  <div className="msg-info-time" key={index}>{moment(message.timestamp).format('HH:mm')} {/* Formatea la fecha y hora según tus necesidades */}</div>
+                                </div>
+                              <div className="msg-text" id="Message">
+                                <p className="msg-text" key={index}>{message.text}</p>
+                  
+                              </div>
+                            </div>
+                                         
+              ))};
+ </div>
+
+
         </main>
 
         <form className="msger-inputarea">
