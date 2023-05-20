@@ -32,7 +32,19 @@ export function Chat() {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState('');
   const [currentUser, setCurrentUser] = useState(null); // Estado para almacenar el usuario actualmente autenticado
+  const [conversations, setConversations] = useState([]);
 
+  const fetchConversations = async () => {
+    if (currentUser) {
+      const conversationsCol = collection(firestore, 'conversations');
+      const conversationsQuery = query(conversationsCol, where('participants', 'array-contains', currentUser.uid));
+      const conversationsSnapshot = await getDocs(conversationsQuery);
+      const conversationsData = conversationsSnapshot.docs.map(doc => doc.data());
+      setConversations(conversationsData);
+    }
+  };
+
+  
   useEffect(() => {
     // Obtener los mensajes del usuario actualmente autenticado
     const fetchMessages = async () => {
@@ -45,6 +57,7 @@ export function Chat() {
       }
     };
     fetchMessages();
+    fetchConversations();
   }, [currentUser]);
 
   // Función para enviar un mensaje
@@ -114,24 +127,18 @@ export function Chat() {
         </div>
         <div class="chat_list active_chat">
           <div class="chat_people">
+          {conversations.map((conversation, index) => (
+          <div class="chat_people" key={index}>
             <div class="chat_img"> <img src={logo} class="pfp" alt="User" /> </div>
             <div class="chat_ib">
-              <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
-              <p>Test, which is a new approach to have all solutions
-                    astrology under one roof.</p>
+              <h5>{conversation.participantName} <span class="chat_date">{conversation.lastMessageTimestamp}</span></h5>
+              <p>{conversation.lastMessage}</p>
             </div>
           </div>
-        </div>
-        <div class="chat_list">
-          <div class="chat_people">
-            <div class="chat_img"> <img src={logo} class="pfp" alt="User" /> </div>
-            <div class="chat_ib">
-              <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
-              <p>Test, which is a new approach to have all solutions
-                    astrology under one roof.</p>
-            </div>
+        ))}
           </div>
         </div>
+
       </div>
       <div className="msger py-3">
         <header className="msger-header ">
