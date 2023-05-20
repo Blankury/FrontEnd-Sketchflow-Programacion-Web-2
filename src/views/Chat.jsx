@@ -2,11 +2,10 @@ import isotipo from "../assets/images/isotipo.png";
 import logo from "../assets/images/sketchflow_logo.png";
 
 import React, { useState, useEffect } from 'react';
-import { getFirestore, collection, getDocs, addDoc, serverTimestamp } from 'firebase/firestore';
-import { getDatabase, ref, onValue, push } from 'firebase/database';
+import { getFirestore,getDatabase, collection, query, where, getDocs, addDoc, serverTimestamp } from 'firebase/firestore';
 import { initializeApp } from 'firebase/app';
 import moment from 'moment';
-
+import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from 'firebase/auth';
 const firebaseConfig = {
   apiKey: "AIzaSyA39aQFBM3-HzsOR4FWVokoDQCaM9N6Yok",
   authDomain: "sketchflow-chat.firebaseapp.com",
@@ -20,39 +19,79 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const firestore = getFirestore(app);
-const database = getDatabase(app);
-const messagesRef = ref(database, 'messages');
+// const database = getDatabase(app);
+// const messagesRef = ref(database, 'messages');
+
+const auth = getAuth();
+
+
 
 export function Chat() {
   const [searchText, setSearch] = useState("");
   const [files, setFiles] = useState([]);
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState('');
+  const [currentUser, setCurrentUser] = useState(null); // Estado para almacenar el usuario actualmente autenticado
 
   useEffect(() => {
-    const fetchMessages = () => {
-      onValue(messagesRef, (snapshot) => {
-        const messagesData = snapshot.val();
-        if (messagesData) {
-          const messagesArray = Object.values(messagesData);
-          setMessages(messagesArray);
-        } else {
-          setMessages([]);
-        }
-      });
+    // Obtener los mensajes del usuario actualmente autenticado
+    const fetchMessages = async () => {
+      if (currentUser) {
+        const messagesCol = collection(firestore, 'messages');
+        const messagesQuery = query(messagesCol, where('userId', '==', currentUser.uid));
+        const messagesSnapshot = await getDocs(messagesQuery);
+        const messagesData = messagesSnapshot.docs.map(doc => doc.data());
+        setMessages(messagesData);
+      }
     };
     fetchMessages();
-  }, []);
+  }, [currentUser]);
 
-  const sendMessage = () => {
-    if (newMessage.trim() !== '') {
-      push(messagesRef, {
+  // Función para enviar un mensaje
+  const sendMessage = async () => {
+    if (currentUser) {
+      const messagesCol = collection(firestore, 'messages');
+      await addDoc(messagesCol, {
         text: newMessage,
         timestamp: serverTimestamp(),
+        userId: currentUser.uid // Agregar el ID de usuario al mensaje
       });
       setNewMessage('');
     }
   };
+
+  const signIn = async (email, password) => {
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+      setCurrentUser(user); // Almacena el usuario actual en el estado
+    } catch (error) {
+      // Manejo de errores
+    }
+  };
+  
+  const signOut = async () => {
+    try {
+      await signOut(auth);
+      setCurrentUser(null); // Elimina el usuario actual del estado
+    } catch (error) {
+      // Manejo de errores
+    }
+  };
+  
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setCurrentUser(user); // Almacena el usuario actual en el estado
+      } else {
+        setCurrentUser(null); // Elimina el usuario actual del estado
+      }
+    });
+  
+    // Devuelve una función de limpieza para detener el observador cuando el componente se desmonte
+    return () => unsubscribe();
+  }, []);
+  
   return (
 
     
@@ -139,7 +178,7 @@ export function Chat() {
                               </div>
                             </div>
                                          
-              ))};
+              ))}
  </div>
 
 
