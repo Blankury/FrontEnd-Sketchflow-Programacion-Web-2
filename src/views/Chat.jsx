@@ -102,6 +102,7 @@ export function Chat() {
     });
   
     // Devuelve una función de limpieza para detener el observador cuando el componente se desmonte
+    //ya deberia haber un cambio
     return () => unsubscribe();
   }, []);
   
