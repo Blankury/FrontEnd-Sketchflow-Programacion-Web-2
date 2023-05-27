@@ -9,7 +9,7 @@ export const CoverImageInput = ({value, onChange}) => {
 
     return (
         <div className="d-flex">
-            <img src={value} onClick={onButtonClick} style={{ cursor: 'pointer', width: '100%',height: '20em' , overflow: 'hidden' }} />
+            <img src={value} onClick={onButtonClick} style={{ cursor: 'pointer', width: '100%',height: '20em' , overflow: 'hidden', objectFit: 'cover'}} />
             <input type="file" accept="image/png, image/gif, image/jpeg, image/jpg"
                 className="form-control position-absolute" autoComplete="off" id="cover-picture"
                 ref={fileInputRef} onChange={onChange} style={{ display: "none" }} />

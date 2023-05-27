@@ -1,5 +1,4 @@
 import isotipo from "../assets/images/isotipo.png";
-import logo from "../assets/images/sketchflow_logo.png";
 import sketchflow from "../assets/images/sketchflow.png";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -39,8 +38,8 @@ export function Navbar() {
     }
 
     return (
-        <nav className="navbar navbar-expand-lg navbar-light colorPrimary position-fixed vw-100" >
-            <div className="container-fluid">
+        <nav className="navbar navbar-expand-lg navbar-light colorPrimary position-fixed vw-100" style={{ zIndex: '5'}}>
+            <div className="container-fluid" >
                 <Link to="/Home" className="navbar-brand text-white" href="#">
                     <img src={isotipo} alt="" width="35" height="35" className="d-inline-block align-text-top" />
                     <img src={sketchflow} alt="" height="35" className="d-inline-block align-text-top" />
@@ -71,10 +70,10 @@ export function Navbar() {
                         </li>
                     </ul>
                     
-                    <div className="nav-item dropdown">
+                    <div className="nav-item dropstart">
                         <a className="nav-link dropdown-toggle text-white pe-2" href="#" id="navbarDropdown" role="button" data-bs-toggle='dropdown' aria-expanded="false">
                             <label className="pe-3 ">{ userName }</label>
-                            <img src={ profilePhoto } alt="" width="35" height="35" className="borderimg d-inline-block align-text-top " />
+                            <img src={ sketchflow } alt="" width="35" height="35" className="borderimg d-inline-block align-text-top " style={{objectFit: 'cover'}} />
                         </a>
                         <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
                             <li><Link to="/EditProfile" className="dropdown-item"> Configuración </Link></li>

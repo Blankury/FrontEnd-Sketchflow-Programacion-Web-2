@@ -10,6 +10,7 @@ import { Signup } from "./views/Signup";
 import { Profile } from "./views/profile";
 import { Chat } from "./views/Chat";
 import { Artwork } from "./views/Artwork";
+import { EditArtwork } from "./views/EditArtwork";
 import { UploadImage } from "./views/UploadImage";
 import { EditProfile } from "./views/EditProfile";
 import { ConfirmSuscription } from "./views/ConfirmSuscription";
@@ -71,6 +72,11 @@ root.render(
                     <Navbar></Navbar>
                     <br /> 
                     <ConfirmSuscription></ConfirmSuscription>
+                </Route>
+                <Route path="/EditArtwork/:drawId">
+                    <Navbar></Navbar>
+                    <br /> 
+                    <EditArtwork></EditArtwork>
                 </Route>
             </Switch>
         </Router>
