@@ -1,3 +1,7 @@
+import isotipo from "../assets/images/isotipo.png";
+import logo from "../assets/images/sketchflow_logo.png";
+import sketchflow from "../assets/images/sketchflow.png";
+
 import { useEffect, useState } from "react";
 import { ArtworkInput } from "../components/uploadImageComponents/ArtworkInput";
 import { TitleInput } from "../components/uploadImageComponents/TitleInput";
@@ -5,12 +9,12 @@ import { DescriptionInput } from "../components/uploadImageComponents/Descriptio
 import { AgeRestrictionInput } from "../components/uploadImageComponents/AgeRestrictionInput";
 import { VisibilityInput } from "../components/uploadImageComponents/VisibilityInput";
 import { DrawTagsInput } from "../components/uploadImageComponents/DrawTagsInput";
-import { UploadDrawSubmit } from "../components/uploadImageComponents/UploadDrawSubmit";
+import { UpdateDrawSubmit } from "../components/uploadImageComponents/UpdateDrawSubmit";
 import { AlertMessage } from "../components/uploadImageComponents/AlertMessage";
 import { uploadDrawApi } from "../apis/DrawApi";
 import { ModalMessage } from "../components/uploadImageComponents/ModalMessage";
 
-export function UploadImage() {
+export function EditArtwork() {
     const [draw, setDraw] = useState([]);
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
@@ -39,20 +43,13 @@ export function UploadImage() {
 
     return (
         <section className="colorbox  py-5">
+
             <form action="#" className="uploadImage-form" id="form" onSubmit={submit}>
-                <ArtworkInput
-                    value={draw}
-                    onChange={(event) => {
-                        if (event.target.files && event.target.files[0]) {
-                            setDraw(event.target.files[0]);
-                        }
-                    }}
-                />
-
-                <br />
-                <br />
-
                 <div className="gradient-custom-2 container colorPrimaryvariant  ">
+                    <div className="text-center">
+                    <img src={isotipo} className=" " style={{objectFit: 'cover'}} width="" alt="..." /></div>
+
+                    <br/>
                     <TitleInput
                         value={title}
                         onChange={(e) => { setTitle(e.target.value); }}
@@ -81,7 +78,7 @@ export function UploadImage() {
                             text={"Agrega al menos un tag."}
                         />
 
-                        <UploadDrawSubmit
+                        <UpdateDrawSubmit
                         />
                     </div>
                 </div>

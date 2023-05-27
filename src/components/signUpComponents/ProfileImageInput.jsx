@@ -10,7 +10,7 @@ export const ProfileImageInput = ({value, onChange}) => {
     return (
         <div className="card-body little-profile text-center">
             <div className="pro-img" id="pfp" >
-                <img className="img-thumbnail" width="40%" src={value} alt="user" onClick={onButtonClick} />
+                <img className="profile-pic" src={value} alt="user" onClick={onButtonClick} style={{objectFit: 'cover'}} />
                 <input type="file" accept="image/png, image/gif, image/jpeg, image/jpg"
                     className="form-control position-absolute"
                     id="profile-picture"
