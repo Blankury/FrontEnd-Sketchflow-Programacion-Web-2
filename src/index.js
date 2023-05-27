@@ -12,11 +12,13 @@ import { Chat } from "./views/Chat";
 import { Artwork } from "./views/Artwork";
 import { UploadImage } from "./views/UploadImage";
 import { EditProfile } from "./views/EditProfile";
+import { ConfirmSuscription } from "./views/ConfirmSuscription";
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./assets/custom.css";
 import "./assets/msger.css";
 import "./assets/radios.css";
+import "./assets/cutebutton.css";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
@@ -64,6 +66,11 @@ root.render(
                     <Navbar></Navbar>
                     <br /> 
                     <Chat></Chat>
+                </Route>
+                <Route path="/ConfirmSuscription">
+                    <Navbar></Navbar>
+                    <br /> 
+                    <ConfirmSuscription></ConfirmSuscription>
                 </Route>
             </Switch>
         </Router>
