@@ -66,10 +66,10 @@ export function Navbar() {
                         </li>
                     </ul>
                     
-                    <div className="nav-item dropstart">
+                    <div className="nav-item dropdown">
                         <a className="nav-link dropdown-toggle text-white pe-2" href="#" id="navbarDropdown" role="button" data-bs-toggle='dropdown' aria-expanded="false">
                             <label className="px-3" style={{fontSize: 20}}>{ userName }</label>
-                            <img src={ profilePhoto } alt="" width="35" height="35" className="borderimg d-inline-block align-text-top " style={{objectFit: 'cover'}}/>
+                            <img src={ profilePhoto } alt="" width="35" height="35" className="borderimg d-inline-block" />
                         </a>
                         <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
                             <li><Link to="/EditProfile" className="dropdown-item"> Configuración </Link></li>
