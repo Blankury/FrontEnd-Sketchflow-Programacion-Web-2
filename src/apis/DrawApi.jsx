@@ -62,3 +62,55 @@ export async function mostRecentDrawsApi( userId, token ) {
 
     return response;
 }
+
+export async function getDrawApi( userId, drawId, token ) {
+    const options = {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json', 'token': token },
+    };
+
+    let queryString = [
+        `userId=${userId}`,
+        `drawId=${drawId}`,
+    ].join('&');
+
+    const response = await fetch(`${backend_url}draw?` + queryString, options);
+
+    return response;
+}
+
+export async function otherDrawingsApi( userId, filterUSerId, limit, token ) {
+    const options = {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json', 'token': token },
+    };
+
+    let queryString = [
+        `userId=${userId}`,
+        `filterUSerId=${filterUSerId}`,
+        `limit=${limit}`,
+        `orderBy=${"desc"}`,
+    ].join('&');
+
+    const response = await fetch(`${backend_url}draws?` + queryString, options);
+
+    return response;
+}
+
+export async function bookmarksApi( userId, filterUSerId, limit, token ) {
+    const options = {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json', 'token': token },
+    };
+
+    let queryString = [
+        `userId=${userId}`,
+        `filterUSerId=${filterUSerId}`,
+        `limit=${limit}`,
+        `orderBy=${"desc"}`,
+    ].join('&');
+
+    const response = await fetch(`${backend_url}bookmarks?` + queryString, options);
+
+    return response;
+}
