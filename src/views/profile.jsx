@@ -33,10 +33,10 @@ export function Profile() {
     const [email, setEmail] = useState("");
 
     useEffect(() => {
-        loader();
-    }, []);
+        loadUserProfile();
+    }, [params.userId]);
 
-    async function loader(){
+    async function loadUserProfile(){
         const response = await getUser(params.userId);
         const data = await response.json();
 

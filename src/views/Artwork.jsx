@@ -29,7 +29,7 @@ export function Artwork() {
 
     useEffect(() => {
         fetchDraw();
-    }, []);
+    }, [params.drawId]);
 
     useEffect(() => {
         console.log("a");
