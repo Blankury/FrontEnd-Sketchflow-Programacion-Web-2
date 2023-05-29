@@ -1,6 +1,5 @@
 import isotipo from "../assets/images/isotipo.png";
 import logo from "../assets/images/sketchflow_logo.png";
-
 import React, { useState, useEffect } from "react";
 import {
   getFirestore,
@@ -11,10 +10,11 @@ import {
   addDoc,
   serverTimestamp,
 } from "firebase/firestore";
-import { getDatabase, ref, set } from "firebase/database";
+import { getDatabase, ref, push, onValue } from "firebase/database";
 import { initializeApp } from "firebase/app";
 import moment from "moment";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+
 const firebaseConfig = {
   apiKey: "AIzaSyA39aQFBM3-HzsOR4FWVokoDQCaM9N6Yok",
   authDomain: "sketchflow-chat.firebaseapp.com",
@@ -40,57 +40,53 @@ export function Chat() {
   const [searchText, setSearch] = useState("");
   const [files, setFiles] = useState([]);
   const [messages, setMessages] = useState([]);
+  let msgs = [];
   const [newMessage, setNewMessage] = useState("");
   const [currentUser, setCurrentUser] = useState(senderUserId);
 
   useEffect(() => {
-    // Obtener los mensajes del usuario actualmente autenticado
-    const fetchMessages = async () => {
-      if (currentUser) {
-        const messagesCol = collection(firestore, "messages");
-        const messagesQuery = query(
-          messagesCol,
-          where("userId", "==", senderUserId)
-        );
-        const messagesSnapshot = await getDocs(messagesQuery);
-        const messagesData = messagesSnapshot.docs.map((doc) => doc.data());
-        setMessages(messagesData);
-      }
-    };
-    fetchMessages();
-  }, [currentUser]);
+    onValue(messagesRef, (snapshot) => {
+      const data = snapshot.val();
+      setMessages(data);
+    });
+    
+  }, []);
+
+  if (messages) {
+    //console.log(messages);
+    for (const [key, value] of Object.entries(messages)){
+      //console.log(value);
+      let auxMsg =  
+      <div className="msg-bubble">
+        <div className="msg-info">
+          <div className="msg-info-name"></div>
+          <div className="msg-info-time" key={value.user_id}>
+            {moment(value.date).format("HH:mm")}{" "}
+            {/* Formatea la fecha y hora según tus necesidades */}
+          </div>
+        </div>
+        <div className="msg-text" id="Message">
+          <p className="msg-text" key={key}> {value.content_msg} </p>
+        </div>
+      </div>
+      msgs.push(auxMsg);
+    }
+  }
 
   // Función para enviar un mensaje
-  const sendMessage = async () => {
-    if (currentUser) {
-      const messagesCol = collection(firestore, "messages");
-      await addDoc(messagesCol, {
-        text: newMessage,
-        timestamp: serverTimestamp(),
-        userId: currentUser.uid, // Agregar el ID de usuario al mensaje
-      });
-      setNewMessage("");
-    }
-  };
-
   const sendMsg = () => {
     if (/*currentUser && */ newMessage) {
       console.log("Msg: " + newMessage);
-      //console.log(currentUser + " M: " + newMessage);
-      let msgToSend = {
-        user_id: "1990054",
+      console.log(localStorage.getItem("userId") + ":user id");
+
+      push(ref(database, "messages/"), {
+        user_id: senderUserId, // Usar la constante de: senderUserId
+        //datos dummy:"1990054"
         content_msg: newMessage,
         date: Date.now(),
-      }
+      });
 
-      //dbRef.child('messages/').push(msgToSend);
-      messagesRef.push(msgToSend);
-
-      // set(ref(database, "messages/" ), {
-      //   user_id: "1990054",
-      //   content_msg: newMessage,
-      //   date: Date.now(),
-      // });
+      setNewMessage("");
     }
   };
 
@@ -188,22 +184,7 @@ export function Chat() {
 
           <div className="msg right-msg">
             {/* /*aqui iria la wea*/}
-            {messages.map((message, index) => (
-              <div className="msg-bubble">
-                <div className="msg-info">
-                  <div className="msg-info-name"></div>
-                  <div className="msg-info-time" key={index}>
-                    {moment(message.timestamp).format("HH:mm")}{" "}
-                    {/* Formatea la fecha y hora según tus necesidades */}
-                  </div>
-                </div>
-                <div className="msg-text" id="Message">
-                  <p className="msg-text" key={index}>
-                    {message.text}
-                  </p>
-                </div>
-              </div>
-            ))}
+            {msgs}
           </div>
         </main>
 
@@ -216,6 +197,7 @@ export function Chat() {
             onChange={(event) => setFiles(event.target.files)}
           />
         </div>
+        <div className="msger-inputarea">
         <input
           type="text"
           className="msger-input"
@@ -224,9 +206,11 @@ export function Chat() {
           value={newMessage}
           onChange={(e) => setNewMessage(e.target.value)}
         />
-        <button className="msger-send-btn" onClick={() =>sendMsg()}>
+        <button className="msger-send-btn" onClick={() => sendMsg()}>
           Enviar
         </button>
+        </div>
+
       </div>
     </section>
   );
