@@ -14,6 +14,7 @@ import { EditArtwork } from "./views/EditArtwork";
 import { UploadImage } from "./views/UploadImage";
 import { EditProfile } from "./views/EditProfile";
 import { ConfirmSuscription } from "./views/ConfirmSuscription";
+import { MyArtwork } from "./views/MyArtwork";
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./assets/custom.css";
@@ -27,7 +28,7 @@ root.render(
     <div>
         <Router>
             <Switch>
-                <Route path="/home">
+                <Route path="/Home">
                     <Navbar ></Navbar>
                     <br />
                     <Home> </Home>
@@ -70,14 +71,19 @@ root.render(
                 </Route>
                 <Route path="/ConfirmSuscription">
                     <Navbar></Navbar>
-                    <br /> 
                     <ConfirmSuscription></ConfirmSuscription>
+                </Route>
+                <Route path="/MyArtwork/:userId">
+                    <Navbar></Navbar>
+                    <MyArtwork></MyArtwork>
+                    <Footer></Footer>
                 </Route>
                 <Route path="/EditArtwork/:drawId">
                     <Navbar></Navbar>
                     <br /> 
                     <EditArtwork></EditArtwork>
-                </Route>
+                    <Footer></Footer>
+                </Route>                
             </Switch>
         </Router>
     </div>

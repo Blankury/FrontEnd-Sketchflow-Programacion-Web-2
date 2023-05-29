@@ -40,10 +40,10 @@ export function Home() {
                             <h6> Lo más reciente</h6>
 
                             <div className="row py-2 px-4" id="premium-container">
-                                <div className="col-sm-3 ">
+                                <div className="col-sm-3">
                                     <Link to="/Artwork/0" className="dropdown-item Link">
-                                        <div className="mb-1 mt-1 border" >
-                                            <img src={logo} width="200" height="200" className="rounded-3 float-left border bg-dark" alt="..." />
+                                        <div className="mb-1 mt-1" >
+                                            <img src={logo} width="200" height="200" className="rounded-3 float-left  bg-dark" alt="..." />
                                         </div>
                                         <h6 className="text-black"> Tituloo </h6>
                                         <label className="text-black"> Premium </label>

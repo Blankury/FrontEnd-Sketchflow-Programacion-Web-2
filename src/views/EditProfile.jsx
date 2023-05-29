@@ -1,10 +1,6 @@
 import isotipo from "../assets/images/isotipo.png";
-import logo from "../assets/images/sketchflow_logo.png";
 import sketchflow from "../assets/images/sketchflow.png";
-import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
-import Swal from 'sweetalert2'
-import withReactContent from 'sweetalert2-react-content'
 import { CoverImageInput } from "../components/editProfileComponents/CoverImageInput";
 import { ProfileImageInput } from "../components/editProfileComponents/ProfileImageInput";
 import { UserNameInput } from "../components/editProfileComponents/UserNameInput";

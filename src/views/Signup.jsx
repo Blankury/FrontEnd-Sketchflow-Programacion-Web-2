@@ -1,6 +1,6 @@
 import isotipo from "../assets/images/isotipo.png";
 import sketchflow from "../assets/images/sketchflow.png";
-import { useState, useRef } from "react";
+import { useState} from "react";
 
 import { CoverImageInput } from "../components/signUpComponents/CoverImageInput";
 import { NameInput } from "../components/signUpComponents/NameInput";

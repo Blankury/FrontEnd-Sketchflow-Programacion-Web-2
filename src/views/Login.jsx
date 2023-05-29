@@ -1,10 +1,7 @@
-import isotipo from "../assets/images/isotipo.png";
-import logo from "../assets/images/sketchflow_logo.png";
 import sketchflow from "../assets/images/sketchflow.png";
 import { useState } from "react";
 import { UserNameInput } from "../components/logInComponents/UserNameInput";
 import { PasswordInput } from "../components/logInComponents/PasswordInput";
-import { PasswordForgot } from "../components/logInComponents/PasswordForgot";
 import { LogInSubmit } from "../components/logInComponents/LogInSubmit";
 import { LogInRedirect } from "../components/logInComponents/signUpRedirect";
 import { logInGet } from "../apis/LogInApi";

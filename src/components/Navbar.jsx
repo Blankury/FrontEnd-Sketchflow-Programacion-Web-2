@@ -38,7 +38,10 @@ export function Navbar() {
     }
 
     return (
+        <div>
+        
         <nav className="navbar navbar-expand-lg navbar-light colorPrimary position-fixed vw-100" style={{ zIndex: '5'}}>
+        
             <div className="px-3" />
             <div className="container-fluid">
                 <Link to="/Home" className="navbar-brand text-white" href="#">
@@ -65,22 +68,29 @@ export function Navbar() {
                             </Link>
                         </li>
                     </ul>
-                    
+                            
+          
                     <div className="nav-item dropdown">
-                        <a className="nav-link dropdown-toggle text-white pe-2" href="#" id="navbarDropdown" role="button" data-bs-toggle='dropdown' aria-expanded="false">
+                        <a className="nav-link text-white pe-2" id="navbarDropdown" role="button" data-bs-toggle='dropdown' aria-expanded="false">
                             <label className="px-3" style={{fontSize: 20}}>{ userName }</label>
                             <img src={ profilePhoto } alt="" width="35" height="35" className="borderimg d-inline-block" />
                         </a>
                         <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><Link to="/EditProfile" className="dropdown-item"> Configuración </Link></li>
-                            <li><Link to={"/Profile/" + localStorage.getItem("userId")} className="dropdown-item"> Perfil </Link></li>
+                            <li><Link to={"/Profile/" + localStorage.getItem("userId")} className="dropdown-item  text-center"> Perfil  </Link></li>
+
+                            <li><Link to={"/MyArtwork/" + localStorage.getItem("userId")} className="dropdown-item  text-center"> Mis ilustraciones </Link></li>
+
+                            <li><Link to="/EditProfile/" className="dropdown-item text-center"> Configuración </Link></li>
+                            
+                            <li><Link to={"/ConfirmSuscription/" + localStorage.getItem("userId")} className="dropdown-item text-center">  Subir a Premium <i className="bi bi-emoji-heart-eyes-fill m-1" style={{color: "#ff9e0d"}}> </i> </Link> </li>
+
                             <li><hr className="dropdown-divider" /></li>
-                            <li><a className="dropdown-item" href="#" onClick={() => loadLogOut()}> Cerrar sesión </a></li>
+                            <li><a className="dropdown-item  text-center" href="#" onClick={() => loadLogOut()}> Cerrar sesión </a></li>
                         </ul>
                     </div>
                 </div>
             </div>
             <div className="px-3" />
-        </nav>
+        </nav></div>
     );
 }
