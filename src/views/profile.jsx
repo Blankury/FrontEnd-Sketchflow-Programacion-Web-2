@@ -13,6 +13,7 @@ import { followApi, getStatistics, getUser } from "../apis/profileApi";
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 import { bookmarksApi, otherDrawingsApi } from "../apis/DrawApi";
 import { Toast } from "../components/toast/Toast";
+import { SendMessage } from "../components/profileComponents/SendMessage";
 
 export function Profile() {
     const params = useParams();
@@ -114,7 +115,9 @@ export function Profile() {
                                 isFollowing={isFollowing}
                                 onClick={() => followUser()}
                             />
-
+                            <SendMessage
+                                userId={userId}
+                            />
                             <UserStatistics
                                 statistics={statistics}
                             />

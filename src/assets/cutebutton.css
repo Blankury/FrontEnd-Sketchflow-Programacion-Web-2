@@ -43,6 +43,10 @@
     background : var(--main_color) ;
     font-family: 'Montserrat', cursive;
 }
+
+#paypalBtn{
+    padding-bottom: 20px;
+}
 .continue::before{
     content : '' ;
     position : absolute ;

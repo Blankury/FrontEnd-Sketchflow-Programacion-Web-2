@@ -4,7 +4,9 @@ import sketchflow from "../assets/images/sketchflow.png";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
-import "../apis/paypal/config";
+
+
+
 
 export function ConfirmSuscription() {
 
@@ -13,6 +15,8 @@ export function ConfirmSuscription() {
     let productPrice = 10;
     let productId = 587965;
     let orderNumber = 567;
+
+
 
 return(
     <div className="colorbox h-100">
@@ -26,7 +30,7 @@ return(
 
         <div clas="subtotal cf">
         <ul>
-          <li>
+          <li className="totalRow">
           <a href="#" className="continue continue--piyo">
             <div className="continue__wrapper">
                 <span className="continue__text">Pagar con tarjeta</span>
@@ -45,8 +49,10 @@ return(
           </a>
           </li>
 
-          <li className="totalRow"><a href="#" className="btn continue m-2">Pagar con Paypal</a></li>
-
+          <li className="totalRow"><a href="#" className="continue p-2" id="paypalBtn">Pagar con Paypal</a></li>
+          <li className="totalRow">
+            
+          </li>
         </ul>
       </div>
 
