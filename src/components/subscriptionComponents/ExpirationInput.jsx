@@ -5,7 +5,7 @@ export const ExpirationInput = ({value, onChange}) => {
         <div className="col">   
             <div className="p-4 text-black">
                 <p className="lead fw-normal mb-1">Vencimiento</p>
-                <input type="text" id="Vencimiento" className="w-100" placeholder="MM/AA" readOnly
+                <input type="text" id="Vencimiento" className="w-100" placeholder="MM/AA"
                   value={value} onChange={onChange}   />
             </div>
         </div>
