@@ -1,6 +1,6 @@
 import { backend_url } from "../config";
 import { loadImage } from "./LoadImageApi";
-import { tagsApi } from "./TagApi";
+import { deleteTagsApi, tagsApi } from "./TagApi";
 
 export async function uploadDrawApi( userId, draw, title, description, restrict18, isPublic, tags, token ) {
     const drawImageURL = await loadImage(draw);
@@ -155,7 +155,10 @@ export async function updateDrawApi( userId, drawId, title, description, restric
     const response = await fetch(`${backend_url}updateArtwork`, options);
     const data = await response.json();
 
-    //await tagsApi(tags, data.newDraw.drawId, token);
+
+    await deleteTagsApi(userId, drawId, token);
+
+    await tagsApi(tags, drawId, token);
 
     return data;
 }
