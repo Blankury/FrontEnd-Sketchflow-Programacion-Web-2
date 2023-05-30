@@ -1,6 +1,6 @@
 import React from "react";
 
-export const CvCInput = ({value, onChange}) => {
+export const CVVInput = ({value, onChange}) => {
     return (
         <div className="col">
             <div className="p-4 text-black">

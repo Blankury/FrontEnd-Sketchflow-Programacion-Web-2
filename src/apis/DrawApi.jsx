@@ -29,20 +29,6 @@ export async function uploadDrawApi( userId, draw, title, description, restrict1
     const data = await response.json();
 
     await tagsApi(tags, data.newDraw.drawId, token);
-
-    //tags.forEach(async tag => {
-    //    const tagOptions = {
-    //        method: 'POST',
-    //        headers: { 'Content-Type': 'application/json', 'token': token },
-    //        body: JSON.stringify({
-    //            drawId: data.newDraw.drawId,
-    //            tagName: tag,
-    //        }),
-    //    };
-//
-    //    const responseTags = await fetch(`${backend_url}uploadDrawTags`, tagOptions);
-    //});
-
     return data;
 }
 
