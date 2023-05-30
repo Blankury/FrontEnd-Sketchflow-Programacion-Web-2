@@ -73,7 +73,7 @@ export function Navbar() {
                     <div className="nav-item dropdown">
                         <a className="nav-link text-white pe-2" id="navbarDropdown" role="button" data-bs-toggle='dropdown' aria-expanded="false">
                             <label className="px-3" style={{fontSize: 20}}>{ userName }</label>
-                            <img src={ profilePhoto } alt="" width="35" height="35" className="borderimg d-inline-block" />
+                            <img src={ profilePhoto } alt="" width="35" height="35" className="borderimg little-profile" style={{borderRadius: '100%'}} />
                         </a>
                         <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
                             <li><Link to={"/Profile/" + localStorage.getItem("userId")} className="dropdown-item  text-center"> Perfil  </Link></li>
