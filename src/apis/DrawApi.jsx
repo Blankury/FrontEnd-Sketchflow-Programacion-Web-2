@@ -114,3 +114,17 @@ export async function bookmarksApi( userId, filterUSerId, limit, token ) {
 
     return response;
 }
+
+export async function deleteDrawingApi( userId, drawId, token ) {
+    const options = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'token': token },
+        body: JSON.stringify({
+            userId: userId,
+            drawId: drawId,
+        }),
+    };
+    const response = await fetch(`${backend_url}deleteArtwork`, options);
+
+    return response;
+}
