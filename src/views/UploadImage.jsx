@@ -9,8 +9,10 @@ import { UploadDrawSubmit } from "../components/uploadImageComponents/UploadDraw
 import { AlertMessage } from "../components/uploadImageComponents/AlertMessage";
 import { uploadDrawApi } from "../apis/DrawApi";
 import { ModalMessage } from "../components/uploadImageComponents/ModalMessage";
+import { useHistory } from "react-router-dom";
 
 export function UploadImage() {
+
     const [draw, setDraw] = useState([]);
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
@@ -34,6 +36,7 @@ export function UploadImage() {
             const data = await uploadDrawApi(localStorage.getItem("userId"), draw, title, description, restrict18, isPublic, tags, localStorage.getItem("token") );
             setModalText(data.result);
             document.getElementById('modalButton1').click();
+
         }
     }
 

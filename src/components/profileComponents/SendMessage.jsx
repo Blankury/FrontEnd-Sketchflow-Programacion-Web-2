@@ -12,9 +12,9 @@ export const SendMessage = ({ userId}) => {
     
     if ((userId != localStorage.userId) ) {
         return (
-            <div className="d-flex justify-content-end  py-1">
+            <div className="d-flex justify-content-end py-1">
                 <button type="button" className="blackbutton px-5"  >
-                <Link to={`/Chat/`+userId}>Enviar mensaje</Link>
+                <Link to={`/Chat/`+userId} style={{textDecoration: 'none'}}>Enviar mensaje</Link>
                 </button>
             </div>
         );

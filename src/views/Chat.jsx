@@ -165,15 +165,15 @@ export function Chat() {
 
   return (
     <section className="chatcont">
-      <div class="inbox_chat h-100 py-5 mt-2">
-        <div class="recent_heading">
+      <div className="inbox_chat h-100 py-5 mt-2">
+        <div className="recent_heading">
           <h4>Recientes</h4>
         </div>
-        <div class="srch_bar">
-          <div class="stylish-input-group">
+        <div className="srch_bar">
+          <div className="stylish-input-group">
             <input
               type="text"
-              class="search-bar"
+              className="search-bar"
               placeholder="Search"
               required
               value={searchText}
@@ -181,10 +181,10 @@ export function Chat() {
                 setSearch(e.target.value);
               }}
             />
-            <span class="input-group-addon">
+            <span className="input-group-addon">
               <button type="button">
                 {" "}
-                <i class="fa fa-search" aria-hidden="true"></i>{" "}
+                <i className="fa fa-search" aria-hidden="true"></i>{" "}
               </button>
             </span>
           </div>

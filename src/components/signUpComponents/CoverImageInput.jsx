@@ -12,7 +12,7 @@ export const CoverImageInput = ({value, onChange, valueChild, onChangeChild}) =>
         <>
         <div className="padding" >
             <div className="justify-content-center">
-                <div className="card"> <img className="card-img-top" src={value} alt="Card image cap" onClick={onButtonClick} />
+                <div className="card"> <img className="card-img-top" src={value} alt="Card image cap" onClick={onButtonClick} style={{objectFit: 'cover'}} />
                     <input type="file" accept="image/png, image/gif, image/jpeg, image/jpg"
                         className="form-control position-absolute"
                         id="cover-picture"
