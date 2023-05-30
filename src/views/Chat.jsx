@@ -56,7 +56,7 @@ export function Chat() {
   async function fetchDraw() {
     const response = await getUser(tempUser);
     const data = await response.json();  
-
+    setCurrentUser(senderuserId);
     setUserId(data.user.userId);
     setUserName(data.user.userName);
   }
@@ -69,9 +69,10 @@ export function Chat() {
   let msgs = [];
   let msgsSender = [];
   const [newMessage, setNewMessage] = useState("");
-  const [currentUser, setCurrentUser] = useState(senderuserId);
+  const [currentUser, setCurrentUser] = useState("");
   const userIdA = senderuserId;
   const userIdB = tempUser;
+  console.log(userIdA + "_" + userIdB + "_" + senderuserId);
 
   useEffect(() => {
     onValue(messagesRef, (snapshot) => {
@@ -104,6 +105,7 @@ export function Chat() {
   if (messages) {
     //console.log(messages);
     for (const [key, value] of Object.entries(messages)){
+      if (value.chatId === chatId && value.user_id == senderuserId) {
       //console.log(value);
       let auxMsg =  
       <div className="msg-bubble">
@@ -118,6 +120,8 @@ export function Chat() {
         </div>
       </div>
       msgs.push(auxMsg);
+      }
+
     }
   }
 
@@ -125,28 +129,36 @@ export function Chat() {
 //mensajes izquierda
   if (messages) {
     for (const [key, value] of Object.entries(messages)) {
-      let auxMsg = (
-        <div className="msg-bubble">
-          <div className="msg-info">
-            <div className="msg-info-name">{value.userName}</div>
-            <div className="msg-info-time" key={value.user_id}>
-              {moment(value.date).format("HH:mm")}
+      console.log(value.user_id + "=" + tempUser + "=" + chatId);
+      if (value.chatId === chatId && value.user_id == tempUser) {
+        let auxMsg = (
+          <div className="msg-bubble">
+            <div className="msg-info">
+              <div className="msg-info-name">{value.userName}</div>
+              <div className="msg-info-time" key={value.user_id}>
+                {moment(value.date).format("HH:mm")}
+              </div>
+            </div>
+            <div className="msg-text" id="Message">
+              <p className="msg-text" key={key}>
+                {value.content_msg}
+              </p>
             </div>
           </div>
-          <div className="msg-text" id="Message">
-            <p className="msg-text" key={key}>
-              {value.content_msg}
-            </p>
-          </div>
-        </div>
-      );
-      msgsSender.push(auxMsg);
+        );
+        msgsSender.push(auxMsg);
+
+      }
+
     }
   }
 
   // Función para enviar un mensaje
   const sendMsg = () => {
     console.log("currentUser:" + currentUser);
+
+    console.log("ahora si deberia de monstrar algo el current user:" + currentUser);
+
     if (currentUser  &&  newMessage) {
       console.log("Msg: " + newMessage);
       console.log(localStorage.getItem("userId") + ":user id");
