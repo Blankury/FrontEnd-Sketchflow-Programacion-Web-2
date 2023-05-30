@@ -272,9 +272,7 @@ a:focus {
   padding: 0.25rem;
 }
 
-.little-profile .pro-img img {
-  width: 40%;
-  height: 40%;
+.little-profile {
   -webkit-box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
   border-radius: 100%;

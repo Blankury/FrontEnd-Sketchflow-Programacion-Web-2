@@ -6,9 +6,12 @@ import { TitleSubs } from "../components/subscriptionComponents/TitleSubs";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
+import { useHistory } from "react-router-dom";
 
 
 export function ConfirmSuscription() {
+    const history = useHistory();
+
     const [cardName, setcardName] = useState("");
     const [cvc, setCVC] = useState("");
     const [cardNum, setCardnum] = useState("");
@@ -42,18 +45,22 @@ export function ConfirmSuscription() {
         return actions.order.capture().then(function(details){
             const {payer} = details
             setSuccess(true)
-        })
+
+        },)
     }
 
     const onError = (data, actions) =>{
         setErrorMessage("un error ocurrió con el pago.")
     }
 
-
-
+    async function submit(event){
+        event.preventDefault();        
+        history.push("/Home");        
+    }
+    
 return(
     <div className="colorbox h-100">
-        <div className="container bg-light p-5">
+        <div className="container bg-light p-5 h-100">
             <TitleSubs/>
             <div className="heading cf pe-5 ps-5">
                 <h1 className="pt-3">Suscripción Premium</h1>
@@ -76,7 +83,9 @@ return(
                         </div>
                     </div>
                 </a>
-                <div className="collapse" id="collapseCARD">                           
+                <div className="collapse" id="collapseCARD">                    
+                <form action="#" className="subscription-form" onSubmit={submit}>
+       
                     <NameInput
                     
                     />
@@ -94,22 +103,23 @@ return(
                     />
 
 
-                    <a className="continue continue--piyo mt-5">
-                    <div className="continue__wrapper">
-                        <span className="continue__text">Pagar</span>
-                    </div>
-                    <div className="characterBox">
-                        <div className="character wakeup">
-                            <div className="character__face"></div>
+                    <button type="submit" className="continue continue--piyo mt-5">
+                        <div className="continue__wrapper">
+                            <span className="continue__text">Pagar</span>
                         </div>
-                        <div className="character wakeup">
-                            <div className="character__face"></div>
+                        <div className="characterBox">
+                            <div className="character wakeup">
+                                <div className="character__face"></div>
+                            </div>
+                            <div className="character wakeup">
+                                <div className="character__face"></div>
+                            </div>
+                            <div className="character wakeup">
+                                <div className="character__face"></div>
+                            </div>
                         </div>
-                        <div className="character wakeup">
-                            <div className="character__face"></div>
-                        </div>
-                    </div>
-                </a>
+                    </button>
+                </form>
 
 
                 </div>        
@@ -123,9 +133,8 @@ return(
                 }}>
                 <PayPalButtons  fundingSource="paypal" style={{label: 'pay',shape: 'pill', layout: 'horizontal', height: 55}} createOrder={createOrder} onApprove={onApprove} onError={onError} />
                 
-                {success ? (
-                    <h4 className="ms-3 mt-2">Tu pago se completó con éxito.</h4>
-                ) : null }
+                {success ?  history.push("/Home") : null }
+                
                 </PayPalScriptProvider>
             </div>
         </div>

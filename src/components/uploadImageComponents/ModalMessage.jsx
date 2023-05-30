@@ -1,6 +1,15 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 
 export const ModalMessage = ({text}) => {
+    const history = useHistory();
+
+
+    async function acept(event){
+        event.preventDefault();        
+        history.push("/Home");        
+    }
+
     return (
         <>
             <button type="button" id="modalButton1" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop1" hidden>
@@ -17,7 +26,7 @@ export const ModalMessage = ({text}) => {
                         {text}
                     </div>
                     <div className="modal-footer">
-                        <button type="button" className="btn btn-primary" id="modalSkip" data-bs-dismiss="modal">Aceptar</button>
+                        <button type="button" className="btn btn-primary" id="modalSkip" data-bs-dismiss="modal" onClick={acept}>Aceptar</button>
                     </div>
                     </div>
                 </div>
