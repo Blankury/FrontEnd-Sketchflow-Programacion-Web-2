@@ -165,7 +165,6 @@ export function Chat() {
       console.log(senderuserId + "=" + "currentUser")
       push(ref(database, "messages/"), {
         user_id: senderuserId, // Usar la constante de: senderuserId
-        //datos dummy:"1990054"
         content_msg: newMessage,
         date: Date.now(),
         chatId: chatId,
