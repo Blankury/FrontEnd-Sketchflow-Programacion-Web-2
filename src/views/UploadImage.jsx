@@ -41,7 +41,7 @@ export function UploadImage() {
     }
 
     return (
-        <section className="colorbox  py-5">
+        <section className="colorbox  py-5 vw-100">
             <form action="#" className="uploadImage-form" id="form" onSubmit={submit}>
                 <ArtworkInput
                     value={draw}

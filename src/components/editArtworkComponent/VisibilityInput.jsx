@@ -1,6 +1,14 @@
 import React from "react";
 
-export const VisibilityInput = ({ onClick }) => {
+export const VisibilityInput = ({ value, onClick }) => {
+    let isPublic = false;
+    let isPremium = false;
+    if (value === "Publico") {
+        isPublic = true;
+    } else if (value === "Premium") {
+        isPremium = true;
+    }
+
     return (
         <div className="form-group" id="grupo__genero">
             <label>Visibilidad</label>
@@ -14,11 +22,13 @@ export const VisibilityInput = ({ onClick }) => {
                             id="formIsPublic"
                             value="Publico"
                             onClick={onClick}
+                            onChange={onClick}
+                            checked={isPublic}
                         />
                         <div className="rad-design "></div>
                         <div className="rad-text"> Público </div>
                     </label>
-                    
+
                     <label className="rad-label">
                         <input
                             type="radio"
@@ -27,6 +37,8 @@ export const VisibilityInput = ({ onClick }) => {
                             id="formIsPublic"
                             value="Premium"
                             onClick={onClick}
+                            onChange={onClick}
+                            checked={isPremium}
                         />
                         <div className="rad-design"></div>
                         <div className="rad-text"> Premium </div>

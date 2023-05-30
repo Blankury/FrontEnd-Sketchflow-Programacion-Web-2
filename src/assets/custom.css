@@ -326,3 +326,30 @@ label {
   width: 100%;
   margin-bottom: 20px;
 }
+
+
+
+:root {
+  scrollbar-color: #8400a5 #a1a0af !important;
+  scrollbar-width: thin !important;
+  overflow-x: hidden;
+}
+
+:root::-webkit-scrollbar {
+  width: 8px;
+  border-radius: 1em;
+  background-color: #a1a0af;
+  border-radius: 1em;
+}
+
+:root::-webkit-scrollbar-thumb {
+  border-radius: 1em;
+  background-color: #a1a0af;
+  background: #8400a5;
+  border-radius: 1em;
+}
+
+:root::-webkit-scrollbar-thumb:hover {
+  visibility: visible;
+  background: #8400a5;
+}
