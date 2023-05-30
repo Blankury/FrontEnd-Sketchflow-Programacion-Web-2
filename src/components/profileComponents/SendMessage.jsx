@@ -8,11 +8,9 @@ export const SendMessage = ({ userId}) => {
 
     localStorage.setItem("anotherUser", userId);
 
-    console.log("AAAA" + userId);
-    console.log("guardar" +     localStorage.getItem("anotherUser"));
+
     
     if ((userId != localStorage.userId) ) {
-        console.log("primer if postivio");
         return (
             <div className="d-flex justify-content-end  py-1">
                 <button type="button" className="blackbutton px-5"  >
