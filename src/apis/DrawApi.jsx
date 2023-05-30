@@ -148,3 +148,21 @@ export async function updateDrawApi( userId, drawId, title, description, restric
 
     return data;
 }
+
+export async function searchFilterArtworkApi( userId, limit, orderBy, search, token ) {
+    const options = {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json', 'token': token },
+    };
+
+    let queryString = [
+        `userId=${userId}`,
+        `limit=${limit}`,
+        `orderBy=${orderBy}`,
+        `search=${search}`,
+    ].join('&');
+    console.log(queryString);
+    const response = await fetch(`${backend_url}draws?` + queryString, options);
+
+    return response;
+}

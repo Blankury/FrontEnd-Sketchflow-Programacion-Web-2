@@ -37,6 +37,10 @@ export function Navbar() {
         history.push("/login");
     }
 
+    async function submit(){
+        let searchText = document.getElementById('searchInput');
+        history.push("/Search/" + searchText.value);
+    }
     return (
         <div>
         
@@ -54,10 +58,11 @@ export function Navbar() {
                 </button>
 
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                    <form className="d-flex mx-auto px-5">
-                        <input className="form-control me-2 searchbar" type="search" placeholder="Search" aria-label="Search" />
-                        <button className="yellowbutton " type="submit">Buscar</button>
-                    </form>
+                    <div className="d-flex mx-auto px-5">
+                        <input className="form-control me-2 searchbar" type="search" placeholder="Search" id="searchInput" aria-label="Search" />
+                        <button className="yellowbutton " onClick={submit}>Buscar</button>
+                    </div>
+
                     <Link to="/UploadImage"> <button className="redbutton px-5" type="button">Publicar</button> </Link>
                     <ul className="navbar-nav px-2 pe-2 mb-2 mb-lg-0">
                         <li className="nav-item">
@@ -73,7 +78,7 @@ export function Navbar() {
                     <div className="nav-item dropdown">
                         <a className="nav-link text-white pe-2" id="navbarDropdown" role="button" data-bs-toggle='dropdown' aria-expanded="false">
                             <label className="px-3" style={{fontSize: 20}}>{ userName }</label>
-                            <img src={ profilePhoto } alt="" width="35" height="35" className="borderimg d-inline-block" />
+                            <img src={ profilePhoto } alt="" width="35" height="35" className="borderimg little-profile" style={{borderRadius: '100%'}} />
                         </a>
                         <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
                             <li><Link to={"/Profile/" + localStorage.getItem("userId")} className="dropdown-item  text-center"> Perfil  </Link></li>

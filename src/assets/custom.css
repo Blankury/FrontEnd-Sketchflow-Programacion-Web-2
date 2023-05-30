@@ -275,9 +275,25 @@ a:focus {
 .little-profile {
   -webkit-box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-  border-radius: 100%;
+  object-fit:cover;
 }
 
+  /*foto de perfil*/
+#picture-box{
+  height: 100px;
+  width: 100px;
+}
+
+.profile-pic{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;  
+}
+
+.photoPic{
+  align-content: center;
+  padding-left: 40px;
+}
 .banner{
   background-image: url("https://www.incimages.com/uploaded_files/image/1920x1080/getty_509107562_2000133320009280346_351827.jpg");
 }
@@ -302,24 +318,6 @@ label {
 }
 .card-img-top {
   height: 90px;
-}
-
-.photoPic{
-  align-content: center;
-  padding-left: 40px;
-}
-
-  /*foto de perfil*/
-#picture-box{
-  height: 100px;
-  width: 100px;
-  
-}
-
-.profile-pic{
-  width: 100%;
-  height: 100%;
-  object-fit: cover;  
 }
     
 .full_input{
