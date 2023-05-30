@@ -9,11 +9,12 @@ import {
   getDocs,
   addDoc,
   serverTimestamp,
+  onSnapshot
 } from "firebase/firestore";
 import { getDatabase, ref, push, onValue } from "firebase/database";
 import { initializeApp } from "firebase/app";
 import moment from "moment";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 import { getUser } from "../apis/profileApi";
 import { UserName } from "../components/chatComponents/Username";
@@ -31,12 +32,12 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const firestore = getFirestore(app);
+const auth = getAuth(app);
 const database = getDatabase(app);
+const messagesRef = ref(database, "messages");
 const dbRef = ref(database);
 //const databaseRef = getDatabase(app).ref();
-const messagesRef = ref(database, "messages");
 
-const auth = getAuth();
 const senderuserId = localStorage.getItem("userId");
 console.log(localStorage.getItem("anotherUser"));
 let tempUser = localStorage.getItem("anotherUser");
@@ -46,6 +47,7 @@ export function Chat() {
   const params = useParams();
   const [userName, setUserName] = useState("");
   const [userId, setUserId] = useState("");
+  const [chatId, setChatId] = useState(""); // Nuevo estado para almacenar el ID del chat
 
   useEffect(() => {
     fetchDraw();
@@ -68,6 +70,8 @@ export function Chat() {
   let msgsSender = [];
   const [newMessage, setNewMessage] = useState("");
   const [currentUser, setCurrentUser] = useState(senderuserId);
+  const userIdA = senderuserId;
+  const userIdB = tempUser;
 
   useEffect(() => {
     onValue(messagesRef, (snapshot) => {
@@ -76,6 +80,25 @@ export function Chat() {
     });
     
   }, []);
+
+  useEffect(() => {
+    // Obtener el chatId correspondiente a la conversación entre los usuarios A y B
+    setChatId(getChatId(userIdA, userIdB));
+  }, []);
+
+  useEffect(() => {
+    // Cargar los mensajes del chat específico
+    if (chatId) {
+      const messagesCol = collection(firestore, "messages");
+      const messagesQuery = query(messagesCol, where("chatId", "==", chatId));
+      const unsubscribe = onSnapshot(messagesQuery, (snapshot) => {
+        const messagesData = snapshot.docs.map((doc) => doc.data());
+        setMessages(messagesData);
+      });
+
+      return () => unsubscribe(); // Limpiar el listener cuando el componente se desmonte
+    }
+  }, [chatId]);
 
 
   if (messages) {
@@ -99,7 +122,7 @@ export function Chat() {
   }
 
 
-
+//mensajes izquierda
   if (messages) {
     for (const [key, value] of Object.entries(messages)) {
       let auxMsg = (
@@ -123,20 +146,23 @@ export function Chat() {
 
   // Función para enviar un mensaje
   const sendMsg = () => {
-    if (/*currentUser && */ newMessage) {
+    console.log("currentUser:" + currentUser);
+    if (currentUser  &&  newMessage) {
       console.log("Msg: " + newMessage);
       console.log(localStorage.getItem("userId") + ":user id");
-
+      console.log(senderuserId + "=" + "currentUser")
       push(ref(database, "messages/"), {
         user_id: senderuserId, // Usar la constante de: senderuserId
         //datos dummy:"1990054"
         content_msg: newMessage,
         date: Date.now(),
+        chatId: chatId,
       });
 
       setNewMessage("");
     }
   };
+
 
   const signOut = async () => {
     try {
@@ -255,4 +281,11 @@ export function Chat() {
       </div>
     </section>
   );
+}
+
+// Función para obtener el chatId a partir de los IDs de usuario de las dos personas involucradas
+function getChatId(userIdA, userIdB) {
+  // Ordenar los IDs de usuario alfabéticamente para tener un orden consistente en el chatId
+  const sortedUserIds = [userIdA, userIdB].sort();
+  return sortedUserIds.join("_"); // Concatenar los IDs de usuario con un guion bajo
 }
