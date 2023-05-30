@@ -25,7 +25,7 @@
   .msg {
     display: flex;
     align-items: flex-start;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
   }
   .msg:last-of-type {
     margin-bottom: 0;
@@ -42,8 +42,11 @@
     flex-direction: column;
 
   }
+  .msg-text{
+
+  }
   .msg-bubble {
-    max-width: 450px;
+    max-width: 500px;
     padding: 15px;
     border-radius: 15px;
     background: var(--left-msg-bg);
@@ -60,7 +63,7 @@
     font-weight: bold;
   }
   .msg-info-time {
-    font-size: 0.85em;
+    font-size: 0.65em;
   }
   
   .left-msg{

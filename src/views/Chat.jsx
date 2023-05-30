@@ -9,11 +9,16 @@ import {
   getDocs,
   addDoc,
   serverTimestamp,
+  onSnapshot
 } from "firebase/firestore";
 import { getDatabase, ref, push, onValue } from "firebase/database";
 import { initializeApp } from "firebase/app";
 import moment from "moment";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
+import { useParams } from "react-router-dom/cjs/react-router-dom.min";
+import { getUser } from "../apis/profileApi";
+import { UserName } from "../components/chatComponents/Username";
+import { useHistory } from 'react-router-dom';
 
 const firebaseConfig = {
   apiKey: "AIzaSyA39aQFBM3-HzsOR4FWVokoDQCaM9N6Yok",
@@ -27,22 +32,47 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const firestore = getFirestore(app);
+const auth = getAuth(app);
 const database = getDatabase(app);
+const messagesRef = ref(database, "messages");
 const dbRef = ref(database);
 //const databaseRef = getDatabase(app).ref();
-const messagesRef = ref(database, "messages");
 
-const auth = getAuth();
-const senderUserId = localStorage.getItem("userId");
-console.log(localStorage.getItem("userId"));
+const senderuserId = localStorage.getItem("userId");
+console.log(localStorage.getItem("anotherUser"));
+let tempUser = localStorage.getItem("anotherUser");
+console.log(tempUser + "lo que sea");
 
 export function Chat() {
+  const params = useParams();
+  const [userName, setUserName] = useState("");
+  const [userId, setUserId] = useState("");
+  const [chatId, setChatId] = useState(""); // Nuevo estado para almacenar el ID del chat
+
+  useEffect(() => {
+    fetchDraw();
+  }, [tempUser]);
+
+  async function fetchDraw() {
+    const response = await getUser(tempUser);
+    const data = await response.json();  
+    setCurrentUser(senderuserId);
+    setUserId(data.user.userId);
+    setUserName(data.user.userName);
+  }
+
+
+
   const [searchText, setSearch] = useState("");
   const [files, setFiles] = useState([]);
   const [messages, setMessages] = useState([]);
   let msgs = [];
+  let msgsSender = [];
   const [newMessage, setNewMessage] = useState("");
-  const [currentUser, setCurrentUser] = useState(senderUserId);
+  const [currentUser, setCurrentUser] = useState("");
+  const userIdA = senderuserId;
+  const userIdB = tempUser;
+  console.log(userIdA + "_" + userIdB + "_" + senderuserId);
 
   useEffect(() => {
     onValue(messagesRef, (snapshot) => {
@@ -52,14 +82,34 @@ export function Chat() {
     
   }, []);
 
+  useEffect(() => {
+    // Obtener el chatId correspondiente a la conversación entre los usuarios A y B
+    setChatId(getChatId(userIdA, userIdB));
+  }, []);
+
+  useEffect(() => {
+    // Cargar los mensajes del chat específico
+    if (chatId) {
+      const messagesCol = collection(firestore, "messages");
+      const messagesQuery = query(messagesCol, where("chatId", "==", chatId));
+      const unsubscribe = onSnapshot(messagesQuery, (snapshot) => {
+        const messagesData = snapshot.docs.map((doc) => doc.data());
+        setMessages(messagesData);
+      });
+
+      return () => unsubscribe(); // Limpiar el listener cuando el componente se desmonte
+    }
+  }, [chatId]);
+
+
   if (messages) {
     //console.log(messages);
     for (const [key, value] of Object.entries(messages)){
+      if (value.chatId === chatId && value.user_id == senderuserId) {
       //console.log(value);
       let auxMsg =  
       <div className="msg-bubble">
         <div className="msg-info">
-          <div className="msg-info-name"></div>
           <div className="msg-info-time" key={value.user_id}>
             {moment(value.date).format("HH:mm")}{" "}
             {/* Formatea la fecha y hora según tus necesidades */}
@@ -70,25 +120,60 @@ export function Chat() {
         </div>
       </div>
       msgs.push(auxMsg);
+      }
+
+    }
+  }
+
+
+//mensajes izquierda
+  if (messages) {
+    for (const [key, value] of Object.entries(messages)) {
+      console.log(value.user_id + "=" + tempUser + "=" + chatId);
+      if (value.chatId === chatId && value.user_id == tempUser) {
+        let auxMsg = (
+          <div className="msg-bubble">
+            <div className="msg-info">
+              <div className="msg-info-name">{value.userName}</div>
+              <div className="msg-info-time" key={value.user_id}>
+                {moment(value.date).format("HH:mm")}
+              </div>
+            </div>
+            <div className="msg-text" id="Message">
+              <p className="msg-text" key={key}>
+                {value.content_msg}
+              </p>
+            </div>
+          </div>
+        );
+        msgsSender.push(auxMsg);
+
+      }
+
     }
   }
 
   // Función para enviar un mensaje
   const sendMsg = () => {
-    if (/*currentUser && */ newMessage) {
+    console.log("currentUser:" + currentUser);
+
+    console.log("ahora si deberia de monstrar algo el current user:" + currentUser);
+
+    if (currentUser  &&  newMessage) {
       console.log("Msg: " + newMessage);
       console.log(localStorage.getItem("userId") + ":user id");
-
+      console.log(senderuserId + "=" + "currentUser")
       push(ref(database, "messages/"), {
-        user_id: senderUserId, // Usar la constante de: senderUserId
-        //datos dummy:"1990054"
+        user_id: senderuserId, // Usar la constante de: senderuserId
         content_msg: newMessage,
         date: Date.now(),
+        chatId: chatId,
       });
 
       setNewMessage("");
     }
   };
+
 
   const signOut = async () => {
     try {
@@ -112,6 +197,8 @@ export function Chat() {
     //ya deberia haber un cambio
     return () => unsubscribe();
   }, []);
+
+  console.log("nombre" + userId);
 
   return (
     <section className="chatcont">
@@ -157,8 +244,10 @@ export function Chat() {
         <header className="msger-header ">
           <div className="msger-header-title">
             <div className="userName">
-              <h6>Nombre del usuario</h6>
-            </div>
+                <UserName
+                                    value={userName}
+                                />
+          </div>
           </div>
           <div className="msger-header-options">
             <span>
@@ -169,21 +258,10 @@ export function Chat() {
 
         <main className="msger-chat">
           <div className="msg left-msg">
-            <div
-              className="msg-img"
-              style={{ backgroundImage: `url(${logo})` }}
-            ></div>
-            <div className="msg-bubble">
-              <div className="msg-info">
-                <div className="msg-info-name">BOT</div>
-                <div className="msg-info-time">12:45</div>
-              </div>
-              MENSAJE DE OTROS
-            </div>
+            {msgsSender}
           </div>
 
           <div className="msg right-msg">
-            {/* /*aqui iria la wea*/}
             {msgs}
           </div>
         </main>
@@ -214,4 +292,11 @@ export function Chat() {
       </div>
     </section>
   );
+}
+
+// Función para obtener el chatId a partir de los IDs de usuario de las dos personas involucradas
+function getChatId(userIdA, userIdB) {
+  // Ordenar los IDs de usuario alfabéticamente para tener un orden consistente en el chatId
+  const sortedUserIds = [userIdA, userIdB].sort();
+  return sortedUserIds.join("_"); // Concatenar los IDs de usuario con un guion bajo
 }

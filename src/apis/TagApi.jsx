@@ -1,6 +1,6 @@
 import { backend_url } from "../config";
 
-export async function tagsApi( tags, drawId, token ) {
+export async function tagsApi(tags, drawId, token) {
     tags.forEach(async tag => {
         const tagOptions = {
             method: 'POST',
@@ -15,7 +15,7 @@ export async function tagsApi( tags, drawId, token ) {
     });
 }
 
-export async function popularTagsApi( userId, token ) {
+export async function popularTagsApi(userId, token) {
     const options = {
         method: 'GET',
         headers: { 'Content-Type': 'application/json', 'token': token },
@@ -30,4 +30,17 @@ export async function popularTagsApi( userId, token ) {
     const response = await fetch(`${backend_url}tags?` + queryString, options);
 
     return response;
+}
+
+export async function deleteTagsApi(userId, drawId, token) {
+    const tagOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'token': token },
+        body: JSON.stringify({
+            userId: userId,
+            drawId: drawId,
+        }),
+    };
+
+    const responseTags = await fetch(`${backend_url}deleteDrawTags`, tagOptions);
 }

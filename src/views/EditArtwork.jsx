@@ -12,7 +12,7 @@ import { DrawTagsInput } from "../components/uploadImageComponents/DrawTagsInput
 import { UpdateDrawSubmit } from "../components/editArtworkComponent/UpdateDrawSubmit";
 import { AlertMessage } from "../components/uploadImageComponents/AlertMessage";
 import { getDrawApi, updateDrawApi, uploadDrawApi } from "../apis/DrawApi";
-import { ModalMessage } from "../components/uploadImageComponents/ModalMessage";
+import { ModalMessage } from "../components/editArtworkComponent/ModalMessage";
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 import { ImageContainer } from "../components/editArtworkComponent/ImageContainer";
 
@@ -64,10 +64,8 @@ export function EditArtwork() {
             setIsPublic("Premium");
         }
 
-        data.draw.drawTag.forEach(tag => {
-            //console.log(tag.tagName);
-            setTags([tag.tagName]);
-        });
+        const tagNames = data.draw.drawTag.map( ({tagName})  => tagName );
+        setTags(tagNames);
     }
 
     async function submit(event) {
