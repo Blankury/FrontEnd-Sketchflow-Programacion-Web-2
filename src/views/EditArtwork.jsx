@@ -6,12 +6,12 @@ import { useEffect, useState } from "react";
 import { ArtworkInput } from "../components/uploadImageComponents/ArtworkInput";
 import { TitleInput } from "../components/uploadImageComponents/TitleInput";
 import { DescriptionInput } from "../components/uploadImageComponents/DescriptionInput";
-import { AgeRestrictionInput } from "../components/uploadImageComponents/AgeRestrictionInput";
-import { VisibilityInput } from "../components/uploadImageComponents/VisibilityInput";
+import { AgeRestrictionInput } from "../components/editArtworkComponent/AgeRestrictionInput";
+import { VisibilityInput } from "../components/editArtworkComponent/VisibilityInput";
 import { DrawTagsInput } from "../components/uploadImageComponents/DrawTagsInput";
 import { UpdateDrawSubmit } from "../components/editArtworkComponent/UpdateDrawSubmit";
 import { AlertMessage } from "../components/uploadImageComponents/AlertMessage";
-import { getDrawApi, uploadDrawApi } from "../apis/DrawApi";
+import { getDrawApi, updateDrawApi, uploadDrawApi } from "../apis/DrawApi";
 import { ModalMessage } from "../components/uploadImageComponents/ModalMessage";
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 import { ImageContainer } from "../components/editArtworkComponent/ImageContainer";
@@ -51,8 +51,23 @@ export function EditArtwork() {
         setDraw(data.draw);
         setTitle(data.draw.title);
         setDescription(data.draw.description);
-        setAgeRestrict18(data.draw.restrict18);
-        setIsPublic(data.draw.isPublic);
+
+        if (data.draw.restrict18) {
+            setAgeRestrict18("R-18");
+        } else {
+            setAgeRestrict18("Todos");
+        }
+
+        if (data.draw.isPublic) {
+            setIsPublic("Publico");
+        } else {
+            setIsPublic("Premium");
+        }
+
+        data.draw.drawTag.forEach(tag => {
+            //console.log(tag.tagName);
+            setTags([tag.tagName]);
+        });
     }
 
     async function submit(event) {
@@ -60,7 +75,7 @@ export function EditArtwork() {
         if (tags.length <= 0) {
             setAlertTag(true);
         } else {
-            const data = await uploadDrawApi(localStorage.getItem("userId"), draw, title, description, restrict18, isPublic, tags, localStorage.getItem("token"));
+            const data = await updateDrawApi(localStorage.getItem("userId"), params.drawId, title, description, restrict18, isPublic, tags, localStorage.getItem("token"));
             setModalText(data.result);
             document.getElementById('modalButton1').click();
         }
@@ -69,7 +84,6 @@ export function EditArtwork() {
     if (isLoaded) {
         return (
             <section className="colorbox  py-5">
-
                 <form action="#" className="uploadImage-form" id="form" onSubmit={submit}>
                     <div className="gradient-custom-2 container colorPrimaryvariant  ">
                         <ImageContainer
@@ -90,10 +104,12 @@ export function EditArtwork() {
 
                         <div className="form-group" id="restricciones">
                             <AgeRestrictionInput
+                                value={restrict18}
                                 onClick={(e) => { setAgeRestrict18(e.target.value); }}
                             />
 
                             <VisibilityInput
+                                value={isPublic}
                                 onClick={(e) => { setIsPublic(e.target.value); }}
                             />
 

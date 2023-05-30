@@ -9,7 +9,7 @@ export async function uploadDrawApi( userId, draw, title, description, restrict1
     if(restrict18 === "Todos"){
         boolRestrict18 = false;
     }
-    if(isPublic === "Privado"){
+    if(isPublic === "Premium"){
         boolIsPublic = false;
     }
 
@@ -127,4 +127,35 @@ export async function deleteDrawingApi( userId, drawId, token ) {
     const response = await fetch(`${backend_url}deleteArtwork`, options);
 
     return response;
+}
+
+export async function updateDrawApi( userId, drawId, title, description, restrict18, isPublic, tags, token ) {
+    let boolRestrict18 = true;
+    let boolIsPublic = true;
+
+    if(restrict18 === "Todos"){
+        boolRestrict18 = false;
+    }
+    if(isPublic === "Premium"){
+        boolIsPublic = false;
+    }
+
+    const options = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'token': token },
+        body: JSON.stringify({
+            userId: userId,
+            drawId: drawId,
+            title: title,
+            description:  description || null,
+            restrict18: boolRestrict18,
+            isPublic: boolIsPublic,
+        }),
+    };
+    const response = await fetch(`${backend_url}updateArtwork`, options);
+    const data = await response.json();
+
+    //await tagsApi(tags, data.newDraw.drawId, token);
+
+    return data;
 }

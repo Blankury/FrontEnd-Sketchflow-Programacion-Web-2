@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 export const DrawItem = ({ draw }) => {
-    let isPublic = "Privado";
+    let isPublic = "Premium";
     if(draw.isPublic){
         isPublic = "Público";
     }
