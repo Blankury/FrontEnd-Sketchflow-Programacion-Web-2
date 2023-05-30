@@ -1,5 +1,5 @@
 import { CardInput } from "../components/subscriptionComponents/CardInput";
-import { CvCInput } from "../components/subscriptionComponents/CvCInput";
+import { CVVInput } from "../components/subscriptionComponents/CVVInput";
 import { ExpirationInput } from "../components/subscriptionComponents/ExpirationInput";
 import { NameInput } from "../components/subscriptionComponents/NameInput";
 import { TitleSubs } from "../components/subscriptionComponents/TitleSubs";
@@ -13,7 +13,7 @@ export function ConfirmSuscription() {
     const history = useHistory();
 
     const [cardName, setcardName] = useState("");
-    const [cvc, setCVC] = useState("");
+    const [CVV, setCVV] = useState("");
     const [cardNum, setCardnum] = useState("");
     const [expiration, setExpiration] = useState("");
     
@@ -97,9 +97,9 @@ return(
                     value={expiration}
                     onChange={(e) => { setExpiration(e.target.value); }}
                     />
-                    <CvCInput
-                    value={cvc}
-                    onChange={(e) => { setCVC(e.target.value); }}
+                    <CVVInput
+                    value={CVV}
+                    onChange={(e) => { setCVV(e.target.value); }}
                     />
 
 
