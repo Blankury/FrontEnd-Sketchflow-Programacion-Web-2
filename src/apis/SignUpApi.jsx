@@ -22,16 +22,8 @@ export async function signUpget(userName, password, email, name, birthDate, gend
         })
     };
 
-    //console.log(options);
-
     const response = await fetch(`${backend_url}signup`, options);
-    //const data = await response.json();
-    
-    //if(response.status == 200){
-    //    console.log(data);
-    //}else{
-    //    alert(data.result);
-    //}
+  
     return response;
 }
 

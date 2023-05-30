@@ -12,18 +12,7 @@ export async function logInGet(userName, password, sessionCheck) {
         })
     };
 
-    //console.log(options);
-
     const response = await fetch(`${backend_url}login`, options);
-    //const data = await response.json();
-
-    //if (response.status == 200) {
-    //    console.log(data.userLog);
-    //} else {
-    //    console.log(data.result);
-    //    console.log(response.status);
-    //    alert(data.result);
-    //}
 
     return response;
 }

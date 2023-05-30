@@ -1,3 +1,11 @@
+Integrantes:
+Blanca Elizabeth Delgadillo Trujillo 1986178
+Rodríguez Marrero Iván Alejandro 1849166
+Sofía Lorena Carrillo Jasso 1990048
+
+Repositorio con todo el Front-End de la página web Sketchlow, donde puedes subir ilustraciones y pagar una membresia para ver ilustraciones exclusivas.
+Back-end: https://github.com/Maxter-San/backend
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
