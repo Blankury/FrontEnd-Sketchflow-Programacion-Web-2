@@ -12,7 +12,7 @@ export const ProfileImageInput = ({value, onChange}) => {
         
         <div className="d-flex" style={{ left: "10%"}} >
             <img src={value} onClick={onButtonClick}
-                 className="borderbookmarks img-fluid img-thumbnail mt-4 mb-2"
+                 className="borderbookmarks img-fluid img-thumbnail mt-4"
                  style={{ cursor: "pointer",  width: "15em", height: "15em", position: 'relative', top: '-10em', marginBottom: '-10em', objectFit: 'cover'}}
                 />                
 

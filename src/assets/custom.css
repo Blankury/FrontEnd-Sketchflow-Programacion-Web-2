@@ -330,7 +330,7 @@ label {
 
 
 :root {
-  scrollbar-color: #ffb800 #1d1c1c !important;
+  scrollbar-color: #8400a5 #a1a0af !important;
   scrollbar-width: thin !important;
   overflow-x: hidden;
 }
@@ -338,18 +338,18 @@ label {
 :root::-webkit-scrollbar {
   width: 8px;
   border-radius: 1em;
-  background-color: #1d1c1c;
+  background-color: #a1a0af;
   border-radius: 1em;
 }
 
 :root::-webkit-scrollbar-thumb {
   border-radius: 1em;
-  background-color: #1d1c1c;
-  background: #ffb800;
+  background-color: #a1a0af;
+  background: #8400a5;
   border-radius: 1em;
 }
 
 :root::-webkit-scrollbar-thumb:hover {
   visibility: visible;
-  background: #ffb800;
+  background: #8400a5;
 }
