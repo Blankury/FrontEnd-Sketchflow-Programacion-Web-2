@@ -14,10 +14,13 @@ import { CommentInput } from "../components/artworkComponent/CommentInput";
 import { CommentSubmit } from "../components/artworkComponent/CommentSubmit";
 import { ModalMessage } from "../components/artworkComponent/ModalMessage";
 import { ModalDeleteComment } from "../components/artworkComponent/ModalDeletecomment";
+import { Toast } from "../components/toast/Toast";
+import { setBookmarkApi, getBookmarkApi } from "../apis/bookmarkApi";
 
 export function Artwork() {
     const params = useParams();
     const [load, setLoad] = useState(false);
+    const [toastText, setToastText] = useState("");
 
     const [draw, setDraw] = useState([]);
     const [otherDrawings, setOtherDrawings] = useState([]);
@@ -29,11 +32,8 @@ export function Artwork() {
 
     useEffect(() => {
         fetchDraw();
+        fetchBookmark();
     }, [params.drawId]);
-
-    useEffect(() => {
-        console.log("a");
-    }, [bookmark]);
 
     async function fetchDraw() {
         const response = await getDrawApi(localStorage.getItem("userId"), params.drawId, localStorage.getItem("token"));
@@ -55,6 +55,26 @@ export function Artwork() {
         setComments(dataC.comments);
     }
 
+    async function fetchBookmark() {
+        const response = await getBookmarkApi(localStorage.getItem("userId"), params.drawId, localStorage.getItem("token"));
+        const data = await response.json();
+        setBookmark(data.bookmark);
+    }
+
+    async function submitBookmark() {
+        const response = await setBookmarkApi(localStorage.getItem("userId"), params.drawId, bookmark, localStorage.getItem("token"));
+        const data = await response.json();
+        setToastText(data.result);
+        setBookmark(data.bookmark);
+
+        var x = document.getElementById("snackbar");
+        // Add the "show" class to DIV
+        x.className = "show";
+
+        // After 3 seconds, remove the show class from DIV
+        setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
+    }
+
     async function submitComment(event) {
         event.preventDefault();
         const response = await commentApi(localStorage.getItem("userId"), draw.drawId, comment, localStorage.getItem("token"));
@@ -72,7 +92,7 @@ export function Artwork() {
         await fetchComments(draw.drawId);
     }
 
-    async function deleteComment(){
+    async function deleteComment() {
         const response = await deleteCommentApi(localStorage.getItem("userId"), draw.drawId, deleteCommentId, localStorage.getItem("token"));
         const data = await response.json();
         setCommentStatus(data.result);
@@ -108,7 +128,7 @@ export function Artwork() {
                                     <div className="d-flex  justify-content-end">
                                         <Bookmark
                                             value={bookmark}
-                                            onClick={() => { setBookmark(!bookmark); }}
+                                            onClick={() => { submitBookmark(); }}
                                         />
                                     </div>
                                 </div>
@@ -158,7 +178,7 @@ export function Artwork() {
                         <span>
                             <Comments
                                 comments={comments}
-                                setDeleteCommentId={ setDeleteCommentId }
+                                setDeleteCommentId={setDeleteCommentId}
                             />
                         </span>
                     </div>
@@ -168,6 +188,10 @@ export function Artwork() {
                 />
                 <ModalDeleteComment
                     deleteComment={deleteComment}
+                />
+
+                <Toast
+                    text={toastText}
                 />
             </section>
         );
