@@ -44,7 +44,7 @@ export function Login() {
     }
 
     return (
-        <section className="bg-light vh-100" style={{ backgroundImage: 'url("https://images.chesscomfiles.com/uploads/v1/images_users/tiny_mce/Anindo_The_PRO/phpl6wYbs.gif")', backgroundSize: 'cover ' }}>
+        <section className="bg-light h-100" style={{ backgroundImage: 'url("https://images.chesscomfiles.com/uploads/v1/images_users/tiny_mce/Anindo_The_PRO/phpl6wYbs.gif")', backgroundSize: 'cover ' }}>
             <div className="container justify-content-md-center">
                 <div className="row justify-content-center">
                     <div className="col-md-6 text-center mb-3">
