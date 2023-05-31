@@ -161,7 +161,7 @@ export async function searchFilterArtworkApi( userId, limit, orderBy, search, to
         `orderBy=${orderBy}`,
         `search=${search}`,
     ].join('&');
-    console.log(queryString);
+    
     const response = await fetch(`${backend_url}draws?` + queryString, options);
 
     return response;
